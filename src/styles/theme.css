@@ -4,7 +4,11 @@
   /* --font-size: 62.5%; */
   /* 1rem = 10px */
   --background: #ffffff;
-  --border-01: 1px solid #00BD29;
+  --main-color-01: #00a13e;
+  --text-color-01: #4b5563;
+  --text-color-02: #ffffff;
+  --text-color-03: #00a13e;
+  --border-01: 1px solid #00a13e;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
@@ -41,7 +45,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: rgb(161, 161, 161);
-  --linear-gradient-1: linear-gradient(135deg, #16a34a, #22c55e);
+  --linear-gradient-1: linear-gradient(135deg, #00a13e, #22c55e);
 }
 
 @theme inline {
@@ -134,7 +138,7 @@
   }
 
   /* --------------------- link style 1 ---------------------- */
-  .cta-links .btn-01 {
+  .btn-01 {
     position: relative;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -153,27 +157,47 @@
     0 0.3rem 0.3rem rgba(67, 0, 202, 0.1);
     cursor: pointer;
     transition: all 0.3s;
+    text-decoration: none;
   }
 
-  .cta-links .btn-01:hover {
+  .btn-01:hover {
     scale: 1.06;
   }
 
-  .cta-links .btn-01:active {
+  .btn-01:active {
     scale: 0.9;
   }
 
-  .cta-links .btn-01 .inner-btn-01 {
+  .btn-01 .inner-btn-01 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
-    padding: 1rem 1.2rem;
+    padding: 0.8rem 1rem;
     background: var(--gradient-01);
     border-radius: 0.8rem;
-    color: var(--text-color-03);
+    color: var(--text-color-02);
+    display: flex;
+    -moz-column-gap: 0.6rem;
+          column-gap: 0.6rem;
+          align-items: center;
+  }
+
+  /* --------- small bprimary button -------------- */
+
+  .btn-01 .inner-btn-01-small {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 0.4rem 0.8rem;
+    background: var(--gradient-01);
+    border-radius: 0.8rem;
+    color: var(--text-color-02);
     display: flex;
     -moz-column-gap: 0.6rem;
           column-gap: 0.6rem;
@@ -185,7 +209,7 @@
   }
 
   /* --------------------- link style 2 ---------------------- */
-  .cta-links .btn-02 {
+  .btn-02 {
     position: relative;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -204,27 +228,32 @@
     0 0.3rem 0.3rem rgba(67, 0, 202, 0.1);
     cursor: pointer;
     transition: all 0.3s;
+    text-decoration: none;
   }
 
-  .cta-links .btn-02:hover {
+  .btn-02:hover {
       scale: 1.06;
   }
 
-  .cta-links .btn-02:active {
+  .btn-02:active {
       scale: 0.9;
   }
 
-  .cta-links .btn-02 .inner-btn-02 {
+  .btn-02 .inner-btn-02 {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
-    padding: 1rem 1.2rem;
+    padding: 0.8rem 1rem;
     background: linear-gradient(#ffffff, #EEEFF8);
     border-radius: 0.8rem;
-    color: #646FCB;
+    color: var(--text-color-03);
+    display: flex;
+    -moz-column-gap: 0.6rem;
+          column-gap: 0.6rem;
+          align-items: center;
   }
 
   .btn-02 .link-icon {

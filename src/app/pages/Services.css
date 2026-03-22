@@ -23,19 +23,6 @@
   }
 }
 
-.badge-base {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #15803d;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.375rem 1rem;
-}
 .badge-icon {
   width: 0.875rem;
   height: 0.875rem;
@@ -77,13 +64,7 @@
   letter-spacing: -0.03em;
   line-height: 1.15;
 }
-.hero-subtitle {
-  font-size: 1.125rem;
-  color: #4b5563;
-  line-height: 1.75;
-  max-width: 62rem;
-  margin: 0 auto 2.5rem;
-}
+
 .hero-actions {
   display: flex;
   flex-direction: column;
@@ -165,7 +146,7 @@
 .service-desc {
   margin-bottom: 1.75rem;
   font-size: 1rem;
-  color: #4b5563;
+  color: var(--text-color-01);
   line-height: 1.8;
 }
 .service-list {
@@ -250,7 +231,7 @@
 .industries-subtitle {
   margin: 1rem auto 0;
   font-size: 1.0625rem;
-  color: #4b5563;
+  color: var(--text-color-01);
   max-width: 540px;
   line-height: 1.7;
 }

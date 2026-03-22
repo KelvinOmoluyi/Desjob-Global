@@ -5,6 +5,8 @@ import {
   CheckCircle2, Briefcase, Building2, Zap, Star
 } from 'lucide-react';
 import './Services.css';
+import ButtonPrimary from '../components/form/ButtonPrimary';
+import ButtonSecondary from '../components/form/ButtonSecondary';
 
 const RECRUIT_IMG = 'https://images.unsplash.com/photo-1762330466678-45b42e02f5a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWNydWl0bWVudCUyMGhpcmluZyUyMHRhbGVudCUyMGFjcXVpc2l0aW9ufGVufDF8fHx8MTc3NDAyMzU2MHww&ixlib=rb-4.1.0&q=80&w=1080';
 const CONSULT_IMG = 'https://images.unsplash.com/photo-1565688527174-775059ac429c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxIUiUyMGNvbnN1bHRpbmclMjBzdHJhdGVneSUyMHdvcmtwbGFjZXxlbnwxfHx8fDE3NzQwMjM1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080';
@@ -141,19 +143,16 @@ export default function Services() {
           <p className="hero-subtitle">
             From recruitment to consulting to compliance, Desjob Global offers a comprehensive suite of HR services designed to help Nigerian businesses compete, grow, and thrive.
           </p>
-          <div className="hero-actions">
-            <Link
-              to="/contact"
-              className="hero-btn-primary"
-            >
-              Discuss Your Needs <ArrowRight className="hero-btn-icon" />
-            </Link>
-            <Link
-              to="/jobs"
-              className="hero-btn-secondary"
-            >
-              Browse Open Jobs
-            </Link>
+          <div className="cta-links" style={{ justifyContent: 'flex-start', marginTop: '2rem' }}>
+            <ButtonPrimary
+              link="/contact"
+              text="Discuss Your Needs"
+              icon={<ArrowRight className="hero-btn-icon" />}
+            />
+            <ButtonSecondary
+              link="/jobs"
+              text="Browse Open Jobs"
+            />
           </div>
         </div>
       </section>
@@ -183,12 +182,11 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  to="/contact"
-                  className="service-btn"
-                >
-                  Get Started <ArrowRight className="service-btn-icon" />
-                </Link>
+                <ButtonPrimary
+                  link="/contact"
+                  text="Get Started"
+                  icon={<ArrowRight className="service-btn-icon" />}
+                />
               </div>
 
               {/* Image — conditionally first or second */}
@@ -267,12 +265,11 @@ export default function Services() {
           <p className="cta-subtitle">
             Let Desjob Global take the complexity out of hiring and HR management. Contact our team today for a no-obligation consultation.
           </p>
-          <Link
-            to="/contact"
-            className="cta-btn"
-          >
-            Book a Free Consultation <ArrowRight className="cta-btn-icon" />
-          </Link>
+          <ButtonSecondary
+            link="/contact"
+            text="Book a Free Consultation"
+            icon={<ArrowRight className="cta-btn-icon" />}
+          />
         </div>
       </section>
     </div>

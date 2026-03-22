@@ -7,6 +7,8 @@ import {
   Send, CheckCircle, ArrowRight, Briefcase, ChevronDown
 } from 'lucide-react';
 import './Contact.css';
+import ButtonPrimary from '../components/form/ButtonPrimary';
+import ButtonSecondary from '../components/form/ButtonSecondary';
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
   return (
@@ -512,19 +514,17 @@ export default function Contact() {
           <p className="cta-subtitle">
             Browse our open jobs or explore our full range of HR services before reaching out.
           </p>
-          <div className="cta-actions">
-            <Link
-              to="/jobs"
-              className="cta-btn-primary"
-            >
-              <Briefcase className="cta-btn-icon" /> Browse Jobs
-            </Link>
-            <Link
-              to="/services"
-              className="cta-btn-secondary"
-            >
-              Our Services <ArrowRight className="cta-btn-icon" />
-            </Link>
+          <div className="cta-links">
+            <ButtonSecondary
+              link="/jobs"
+              text="Browse Jobs"
+              icon={<Briefcase className="cta-btn-icon" />}
+            />
+            <ButtonPrimary
+              link="/services"
+              text="Our Services"
+              icon={<ArrowRight className="cta-btn-icon" />}
+            />
           </div>
         </div>
       </section>

@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router';
 import { useState } from 'react';
 import { Menu, X, Briefcase, ChevronRight } from 'lucide-react';
+import ButtonPrimary from './form/ButtonPrimary';
+import ButtonPrimarySmall from './form/ButtonPrimarySmall';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -63,19 +65,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="flex items-center gap-2 rounded-full px-5 py-2.5 text-white transition-all"
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                background: 'linear-gradient(135deg, #16a34a, #22c55e)',
-                boxShadow: '0 2px 12px rgba(22,163,74,0.3)',
-              }}
-            >
-              Get Started
-              <ChevronRight className="w-4 h-4" />
-            </Link>
+            <ButtonPrimarySmall text="Get Started" link="/contact" icon={<ChevronRight color='white' size={16} />} />
           </div>
 
           {/* Mobile toggle */}

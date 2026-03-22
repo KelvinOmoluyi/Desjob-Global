@@ -6,6 +6,8 @@ import {
   Building2, TrendingUp, Shield, Star, CheckCircle2, ChevronRight
 } from 'lucide-react';
 import './Jobs.css';
+import ButtonPrimary from '../components/form/ButtonPrimary';
+import ButtonSecondary from '../components/form/ButtonSecondary';
 
 const JOBS_HERO_IMG = 'https://images.unsplash.com/photo-1758520144417-e1c432042dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqb2IlMjBzZWFyY2glMjByZXN1bWUlMjBjYXJlZXIlMjBvcHBvcnR1bml0eXxlbnwxfHx8fDE3NzQwMjM1NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080';
 const CAREER_IMG = 'https://images.unsplash.com/photo-1758876019673-704b039d405c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBncm93dGglMjBwcm9mZXNzaW9uYWwlMjBzdWNjZXNzJTIwb2ZmaWNlfGVufDF8fHx8MTc3NDAyMzU2MXww&ixlib=rb-4.1.0&q=80&w=1080';
@@ -155,9 +157,11 @@ function JobSearchBar({
           className="location-input"
         />
       </div>
-      <button className="search-btn">
-        <Search className="search-btn-icon" /> Search Jobs
-      </button>
+      <ButtonPrimary
+        type="button"
+        text="Search Jobs"
+        icon={<Search className="search-btn-icon" />}
+      />
     </div>
   );
 }
@@ -221,12 +225,11 @@ function JobCard({ job }: { job: Job }) {
 
       <div className="job-card-footer">
         <span className="job-posted">Posted {job.posted}</span>
-        <Link
-          to="/contact"
-          className="job-apply-btn"
-        >
-          Apply Now <ArrowRight className="job-apply-icon" />
-        </Link>
+        <ButtonPrimary
+          link="/contact"
+          text="Apply Now"
+          icon={<ArrowRight className="job-apply-icon" />}
+        />
       </div>
     </div>
   );
@@ -338,9 +341,11 @@ export default function Jobs() {
                 {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''} found
               </p>
             </div>
-            <button className="filter-btn">
-              <Filter className="filter-icon" /> Filter
-            </button>
+            <ButtonSecondary
+              type="button"
+              text="Filter"
+              icon={<Filter className="filter-icon" />}
+            />
           </div>
 
           {filteredJobs.length === 0 ? (
@@ -415,19 +420,17 @@ export default function Jobs() {
           <p className="cta-subtitle">
             Upload your CV today and let our recruiters match you with the perfect opportunity. We'll reach out the moment something aligns with your profile.
           </p>
-          <div className="cta-actions">
-            <Link
-              to="/contact"
-              className="cta-btn-primary"
-            >
-              <Upload className="cta-btn-icon" /> Submit My CV
-            </Link>
-            <Link
-              to="/contact"
-              className="cta-btn-secondary"
-            >
-              Talk to a Recruiter <ArrowRight className="cta-btn-icon" />
-            </Link>
+          <div className="cta-links">
+            <ButtonSecondary
+              link="/contact"
+              text="Submit My CV"
+              icon={<Upload className="cta-btn-icon" />}
+            />
+            <ButtonPrimary
+              link="/contact"
+              text="Talk to a Recruiter"
+              icon={<ArrowRight className="cta-btn-icon" />}
+            />
           </div>
         </div>
       </section>

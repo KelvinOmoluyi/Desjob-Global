@@ -6,6 +6,8 @@ import {
   Star, ChevronDown, ChevronUp, Search, Briefcase, Target, Heart, Zap
 } from 'lucide-react';
 import './Home.css';
+import ButtonPrimary from '../components/form/ButtonPrimary';
+import ButtonSecondary from '../components/form/ButtonSecondary';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1626954499077-b56bd315594d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBIUiUyMHRlYW0lMjBOaWdlcmlhJTIwb2ZmaWNlfGVufDF8fHx8MTc3NDAyMzU1Nnww&ixlib=rb-4.1.0&q=80&w=1080';
 const WHY_IMG = 'https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODk3MzY4fDA&ixlib=rb-4.1.0&q=80&w=1080';
@@ -151,21 +153,8 @@ export default function Home() {
             </p>
 
             <div className="cta-links">
-              <Link
-                to="/contact"
-                className="btn-01"
-              >
-                <div className="inner-btn-01">
-                  <p>Hire Top Talent</p>
-                  <ArrowRight className="hero-btn-icon" />
-                </div>
-              </Link>
-              <Link
-                to="/jobs"
-                className="hero-btn-secondary"
-              >
-                Find Your Dream Job
-              </Link>
+              <ButtonPrimary text="Hire Top Talent" link="/contact" icon={<ArrowRight className="hero-btn-icon" />} />
+              <ButtonSecondary text="Find Your Dream Job" link="/jobs" />
             </div>
           </div>
 
@@ -290,12 +279,11 @@ export default function Home() {
           </div>
 
           <div className="services-footer">
-            <Link
-              to="/services"
-              className="services-btn"
-            >
-              Explore All Services <ArrowRight className="services-btn-icon" />
-            </Link>
+            <ButtonSecondary
+              link="/services"
+              text="Explore All Services"
+              icon={<ArrowRight className="services-btn-icon" />}
+            />
           </div>
         </div>
       </section>
@@ -330,12 +318,11 @@ export default function Home() {
                 ))}
               </ul>
 
-              <Link
-                to="/about"
-                className="why-btn"
-              >
-                Learn About Us <ArrowRight className="why-btn-icon" />
-              </Link>
+              <ButtonPrimary
+                link="/about"
+                text="Learn About Us"
+                icon={<ArrowRight className="why-btn-icon" />}
+              />
             </div>
 
             {/* Image */}
@@ -406,12 +393,11 @@ export default function Home() {
               </div>
 
               <div className="process-footer">
-                <Link
-                  to="/contact"
-                  className="why-btn"
-                >
-                  Start the Conversation <ArrowRight className="why-btn-icon" />
-                </Link>
+                <ButtonPrimary
+                  link="/contact"
+                  text="Start the Conversation"
+                  icon={<ArrowRight className="why-btn-icon" />}
+                />
               </div>
             </div>
           </div>
@@ -466,19 +452,17 @@ export default function Home() {
           <p className="cta-subtitle" style={{ maxWidth: 560 }}>
             Whether you're an organisation seeking exceptional talent or a professional aiming higher, Desjob Global is ready to make it happen.
           </p>
-          <div className="cta-actions">
-            <Link
-              to="/contact"
-              className="cta-btn-primary"
-            >
-              <Building2 className="cta-btn-icon" /> For Employers
-            </Link>
-            <Link
-              to="/jobs"
-              className="cta-btn-secondary"
-            >
-              <Briefcase className="cta-btn-icon" /> Find Jobs <ArrowRight className="cta-btn-icon-right" />
-            </Link>
+          <div className="cta-links">
+            <ButtonSecondary
+              link="/contact"
+              text="For Employers"
+              icon={<Building2 className="cta-btn-icon" />}
+            />
+            <ButtonPrimary
+              link="/jobs"
+              text="Find Jobs"
+              icon={<ArrowRight className="cta-btn-icon-right" />}
+            />
           </div>
         </div>
       </section>

@@ -4,6 +4,8 @@ import {
   ArrowRight, CheckCircle2, Eye, Target, Heart, Shield, Zap, Users, Award, Star, Briefcase
 } from 'lucide-react';
 import './About.css';
+import ButtonPrimary from '../components/form/ButtonPrimary';
+import ButtonSecondary from '../components/form/ButtonSecondary';
 
 const STORY_IMG = 'https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODk3MzY4fDA&ixlib=rb-4.1.0&q=80&w=1080';
 const TEAM1_IMG = 'https://images.unsplash.com/photo-1760543998147-117ae5649c5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGV4ZWN1dGl2ZSUyMHBvcnRyYWl0JTIwc21pbGluZ3xlbnwxfHx8fDE3NzM5NDYyMDB8MA&ixlib=rb-4.1.0&q=80&w=1080';
@@ -234,19 +236,16 @@ export default function About() {
           <p className="cta-subtitle">
             Join hundreds of organisations and thousands of professionals who have transformed their futures with Desjob Global.
           </p>
-          <div className="cta-actions">
-            <Link
-              to="/contact"
-              className="cta-btn-primary"
-            >
-              Get in Touch <ArrowRight className="cta-btn-icon" />
-            </Link>
-            <Link
-              to="/services"
-              className="cta-btn-secondary"
-            >
-              Explore Services
-            </Link>
+          <div className="cta-links">
+            <ButtonPrimary
+              link="/contact"
+              text="Get in Touch"
+              icon={<ArrowRight className="cta-btn-icon" />}
+            />
+            <ButtonSecondary
+              link="/services"
+              text="Explore Services"
+            />
           </div>
         </div>
       </section>

@@ -117,21 +117,14 @@ h6 {
 }
 
 p {
-    font-size: 1.6rem;
-    line-height: 2.5rem;
-    font-family: Inter, Helvetica, sans-serif, Arial;
-    font-weight: 300;
+  font-size: 1rem;
+  font-weight: 500;
+line-height: 1.75rem;
+font-family: Inter, Helvetica, sans-serif, Arial;
 }
 
 a {
     text-decoration: none;
     cursor: pointer;
     font-size: 1em;
-}
-
-.hero-subtitle {
-  font-size: 1.125rem;
-  color: #4b5563;
-  line-height: 1.75;
-  max-width: 600px;
 }
