@@ -428,24 +428,24 @@ export default function Contact() {
                     {
                       icon: MapPin,
                       label: 'Office Address',
-                      value: '14 Broad Street, Lagos Island, Lagos, Nigeria',
+                      value: '113 Idiroko Road, OTA, Ogun State',
                     },
                     {
                       icon: Phone,
                       label: 'Phone',
-                      value: '+234 801 234 5678',
-                      href: 'tel:+2348012345678',
+                      value: '09134020665',
+                      href: 'tel:09134020665',
                     },
                     {
                       icon: Mail,
                       label: 'Email',
-                      value: 'info@desjobglobal.com',
+                      value: 'info@desjobglobal.com or desjobglobal@gmail.com',
                       href: 'mailto:info@desjobglobal.com',
                     },
                     {
                       icon: Clock,
                       label: 'Business Hours',
-                      value: 'Mon–Fri: 8:00am – 6:00pm WAT',
+                      value: '8:00am to 5:00pm Monday to Friday',
                     },
                   ].map(({ icon: Icon, label, value, href }) => (
                     <div key={label} className="info-item">
@@ -485,21 +485,7 @@ export default function Contact() {
                   ))}
                 </div>
               </div>
-
-              {/* Abuja Office */}
-              <div className="office-card">
-                <h3 className="office-title">Abuja Office</h3>
-                <div className="office-details">
-                  <div className="office-row">
-                    <MapPin className="office-icon" />
-                    <p className="office-text">Plot 1234, Wuse Zone 5, Abuja, FCT, Nigeria</p>
-                  </div>
-                  <div className="office-row">
-                    <Phone className="office-icon" style={{ marginTop: 0 }} />
-                    <a href="tel:+2349012345678" className="office-link">+234 901 234 5678</a>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

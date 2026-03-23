@@ -143,7 +143,7 @@ export default function Services() {
           <p className="hero-subtitle">
             From recruitment to consulting to compliance, Desjob Global offers a comprehensive suite of HR services designed to help Nigerian businesses compete, grow, and thrive.
           </p>
-          <div className="cta-links" style={{ justifyContent: 'flex-start', marginTop: '2rem' }}>
+          <div className="cta-links">
             <ButtonPrimary
               link="/contact"
               text="Discuss Your Needs"

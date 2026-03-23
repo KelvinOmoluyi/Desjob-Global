@@ -37,7 +37,7 @@ export default function Navbar() {
               <Briefcase className="w-4 h-4 text-white" />
             </div>
             <span className="text-gray-900" style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '-0.01em' }}>
-              Desjob<span style={{ color: '#16a34a' }}>Global</span>
+              Desjob <span style={{ color: '#16a34a' }}>Global</span>
             </span>
           </Link>
 
@@ -52,12 +52,12 @@ export default function Navbar() {
                   className="px-4 py-2 rounded-full transition-colors"
                   style={{
                     fontSize: '0.875rem',
-                    fontWeight: isActive ? 600 : 500,
+                    fontWeight: isActive ? 600 : 400,
                     color: isActive ? '#16a34a' : '#374151',
                     background: isActive ? '#f0fdf4' : 'transparent',
                   }}
                 >
-                  {link.label}
+                  <p>{link.label}</p>
                 </Link>
               );
             })}
@@ -65,7 +65,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <ButtonPrimarySmall text="Get Started" link="/contact" icon={<ChevronRight color='white' size={16} />} />
+            <ButtonPrimarySmall text="Login" link="/admin/login" icon={<ChevronRight color='white' size={16} />} />
           </div>
 
           {/* Mobile toggle */}
@@ -102,7 +102,7 @@ export default function Navbar() {
           })}
           <div className="pt-2">
             <Link
-              to="/contact"
+              to="/admin/login"
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-2 w-full rounded-full py-3 text-white"
               style={{
@@ -111,7 +111,7 @@ export default function Navbar() {
                 background: 'linear-gradient(135deg, #16a34a, #22c55e)',
               }}
             >
-              Get Started <ChevronRight className="w-4 h-4" />
+              Login <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
