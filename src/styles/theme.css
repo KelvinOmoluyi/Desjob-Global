@@ -5,9 +5,12 @@
   /* 1rem = 10px */
   --background: #ffffff;
   --main-color-01: #00a13e;
+  --main-color-03: #5882fd;
+  --main-color-04: #edf5ff;
   --text-color-01: #4b5563;
   --text-color-02: #ffffff;
-  --text-color-03: #00a13e;
+  --text-color-03: #0f172a;
+  --text-color-04: #00a13e;
   --border-01: 1px solid #00a13e;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;

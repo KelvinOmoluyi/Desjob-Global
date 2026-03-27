@@ -122,7 +122,7 @@ textarea.input-field {
 .form-success-title {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin-bottom: 0.75rem;
 }
 .form-success-text {
@@ -260,7 +260,7 @@ textarea.input-field {
 .hero-title {
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   letter-spacing: -0.03em;
   line-height: 1.15;
   margin: 1.5rem 0 1.25rem;
@@ -376,7 +376,7 @@ textarea.input-field {
 .info-card-title {
   font-size: 1.0625rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin-bottom: 1.25rem;
 }
 .info-list {
@@ -484,7 +484,7 @@ textarea.input-field {
 .office-title {
   font-size: 1.0625rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin-bottom: 1rem;
 }
 .office-details {
@@ -532,19 +532,6 @@ textarea.input-field {
   margin: 0 auto;
   padding: 0 1.5rem;
   text-align: center;
-}
-.cta-title {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-}
-.cta-subtitle {
-  margin: 1rem auto 2.5rem;
-  font-size: 1.0625rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
 }
 .cta-actions {
   display: flex;

@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { LucideIcon } from 'lucide-react';
 import {
   ArrowRight, Search, Target, Award, Users, TrendingUp, Shield,
-  CheckCircle2, Briefcase, Building2, Zap, Star
+  CheckCircle2, Briefcase, Building2, Zap, Star, Repeat, Lightbulb, Package
 } from 'lucide-react';
 import './Services.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
@@ -26,68 +26,20 @@ function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
 
 const services = [
   {
-    id: 'talent-acquisition',
-    badge: 'TALENT ACQUISITION',
-    icon: Search,
-    title: 'Recruitment That Finds the Right Fit — Every Time',
-    desc: 'Our talent acquisition service is built on precision. We go beyond matching CVs to job descriptions; we find professionals whose skills, values, and ambitions align with your organisation\'s culture and long-term goals.',
+    id: 'outsourcing',
+    badge: 'OUTSOURCING',
+    icon: Repeat,
+    title: 'Comprehensive Outsourcing Solutions to Streamline Operations',
+    desc: 'We provide end-to-end outsourcing solutions, allowing you to focus on your core business objectives while we handle the critical support functions that keep your organisation running smoothly.',
     points: [
-      'End-to-end recruitment management',
-      'Multi-channel candidate sourcing',
-      'Competency-based assessments',
-      'Background & reference checks',
-      'Offer management & onboarding support',
+      'Business process outsourcing',
+      'Contract staffing solutions',
+      'Project-based talent deployment',
+      'Operational support services',
+      'Administrative task delegation',
     ],
     img: RECRUIT_IMG,
     reverse: false,
-  },
-  {
-    id: 'hr-consulting',
-    badge: 'HR CONSULTING',
-    icon: Target,
-    title: 'Strategic HR Advisory That Transforms Organisations',
-    desc: 'Your people strategy is the foundation of your business performance. Our HR consulting practice partners with leadership teams to design, implement, and optimise the HR systems that attract, develop, and retain top talent.',
-    points: [
-      'HR strategy & policy development',
-      'Organisational design & restructuring',
-      'Performance management frameworks',
-      'Employee engagement programmes',
-      'HR compliance & labour law advisory',
-    ],
-    img: CONSULT_IMG,
-    reverse: true,
-  },
-  {
-    id: 'executive-search',
-    badge: 'EXECUTIVE SEARCH',
-    icon: Award,
-    title: 'Identifying Leaders Who Drive Transformational Growth',
-    desc: 'At the C-suite and senior leadership level, the cost of a wrong hire is immeasurable. Our executive search practice combines deep market intelligence, discreet outreach, and rigorous evaluation to identify only the most exceptional candidates for your most critical roles.',
-    points: [
-      'Confidential search & outreach',
-      'Leadership competency profiling',
-      'Market mapping & competitor intelligence',
-      'Board-level & C-suite placements',
-      'Post-placement integration support',
-    ],
-    img: EXEC_IMG,
-    reverse: false,
-  },
-  {
-    id: 'workforce-management',
-    badge: 'WORKFORCE MANAGEMENT',
-    icon: Users,
-    title: 'Seamless Workforce Management from Hire to Retire',
-    desc: 'Managing a workforce is complex — payroll, compliance, benefits, contracts, and more. We take these operational burdens off your plate so your leadership team can focus on strategy and growth.',
-    points: [
-      'Payroll processing & management',
-      'Employment contract administration',
-      'Benefits & compensation planning',
-      'HR compliance & regulatory filings',
-      'Employee records management',
-    ],
-    img: WORKFORCE_IMG,
-    reverse: true,
   },
   {
     id: 'training-development',
@@ -103,20 +55,68 @@ const services = [
       'E-learning & blended learning solutions',
     ],
     img: TRAINING_IMG,
+    reverse: true,
+  },
+  {
+    id: 'general-consulting',
+    badge: 'GENERAL CONSULTING',
+    icon: Lightbulb,
+    title: 'Strategic Consulting to Drive Organisational Efficiency',
+    desc: 'Our consulting services are targeted at optimising your overall business processes, boosting efficiency, and driving sustainable growth in a rapidly changing market environment.',
+    points: [
+      'Process improvement strategies',
+      'Business expansion planning',
+      'Operational efficiency analysis',
+      'Change management support',
+      'Organisational restructuring',
+    ],
+    img: CONSULT_IMG,
     reverse: false,
   },
   {
-    id: 'background-checks',
-    badge: 'BACKGROUND VERIFICATION',
-    icon: Shield,
-    title: 'Protect Your Organisation With Thorough Verification',
-    desc: 'In today\'s complex hiring environment, knowing exactly who you\'re bringing into your organisation is non-negotiable. Our comprehensive background screening services give you the confidence to hire with certainty.',
+    id: 'supplies',
+    badge: 'SUPPLIES',
+    icon: Package,
+    title: 'Reliable Procurement and Supply Chain Solutions',
+    desc: 'We offer dependable procurement and supply services to ensure your business always has the essential materials and equipment it needs to function without costly interruptions.',
     points: [
-      'Academic qualification verification',
-      'Employment history confirmation',
-      'Professional licence validation',
-      'Criminal record screening',
-      'Credit & financial background checks',
+      'General office supplies',
+      'Equipment procurement and leasing',
+      'Vendor management',
+      'Inventory control solutions',
+      'Logistics and delivery support',
+    ],
+    img: WORKFORCE_IMG,
+    reverse: true,
+  },
+  {
+    id: 'hr-consulting',
+    badge: 'HR CONSULTING',
+    icon: Target,
+    title: 'Strategic HR Advisory That Transforms Organisations',
+    desc: 'Your people strategy is the foundation of your business performance. Our HR consulting practice partners with leadership teams to design, implement, and optimise HR systems that attract, develop, and retain top talent.',
+    points: [
+      'HR strategy & policy development',
+      'Performance management frameworks',
+      'Employee engagement programmes',
+      'HR compliance & labour law advisory',
+      'Compensation & benefits consulting',
+    ],
+    img: EXEC_IMG,
+    reverse: false,
+  },
+  {
+    id: 'workforce-management',
+    badge: 'WORKFORCE MANAGEMENT',
+    icon: Users,
+    title: 'Seamless Workforce Management from Hire to Retire',
+    desc: 'Managing a workforce is complex payroll, compliance, benefits, contracts, and more. We take these operational burdens off your plate so your leadership team can focus on strategy and growth.',
+    points: [
+      'Payroll processing & management',
+      'Employment contract administration',
+      'Benefits & compensation planning',
+      'HR compliance & regulatory filings',
+      'Employee records management',
     ],
     img: SEARCH_IMG,
     reverse: true,
@@ -124,7 +124,7 @@ const services = [
 ];
 
 const industries = [
-  'Technology & Fintech', 'Banking & Finance', 'Oil & Gas', 'Healthcare & Pharma',
+  'Technology & Fintech', 'Banking & Finance', 'Healthcare & Pharma',
   'FMCG & Retail', 'Telecommunications', 'Manufacturing', 'Real Estate & Construction',
   'Media & Creative', 'Education', 'Logistics & Supply Chain', 'Hospitality',
 ];
@@ -165,10 +165,10 @@ export default function Services() {
         >
           <div className="container">
             <div className="service-grid">
-              {/* Text — conditionally first or second */}
+              {/* Text conditionally first or second */}
               <div className={service.reverse ? 'order-second-1024' : 'order-first-1024'}>
                 <Badge icon={service.icon} text={service.badge} />
-                <h2 className="service-title">
+                <h2 className="service-section-title">
                   {service.title}
                 </h2>
                 <p className="service-desc">
@@ -189,7 +189,7 @@ export default function Services() {
                 />
               </div>
 
-              {/* Image — conditionally first or second */}
+              {/* Image conditionally first or second */}
               <div className={`service-img-wrap ${service.reverse ? 'order-first-1024' : 'order-second-1024'}`}>
                 <div className="img-glow" />
                 <img
@@ -265,11 +265,13 @@ export default function Services() {
           <p className="cta-subtitle">
             Let Desjob Global take the complexity out of hiring and HR management. Contact our team today for a no-obligation consultation.
           </p>
-          <ButtonSecondary
-            link="/contact"
-            text="Book a Free Consultation"
-            icon={<ArrowRight className="cta-btn-icon" />}
-          />
+          <div className='cta-links'>
+            <ButtonSecondary
+              link="/contact"
+              text="Book a Free Consultation"
+              icon={<ArrowRight className="cta-btn-icon" />}
+            />
+          </div>
         </div>
       </section>
     </div>

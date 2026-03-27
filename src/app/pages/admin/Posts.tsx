@@ -11,7 +11,7 @@ export default function Posts() {
 
   // Form state
   const [formData, setFormData] = useState({
-    title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: '', featured: false
+    title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: ''
   });
 
   const fetchPosts = async () => {
@@ -47,7 +47,7 @@ export default function Posts() {
     
     // Reset form
     setFormData({
-      title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: '', featured: false
+      title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: ''
     });
   };
 
@@ -117,11 +117,6 @@ export default function Posts() {
             <input type="text" name="tags" className="admin-input" value={formData.tags} onChange={handleInputChange} placeholder="e.g. React, Node.js, TypeScript" />
           </div>
 
-          <div className="admin-form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
-            <input type="checkbox" name="featured" id="featured" checked={formData.featured} onChange={handleInputChange} style={{ width: '1.25rem', height: '1.25rem', accentColor: 'var(--main-color-01)' }} />
-            <label htmlFor="featured" className="admin-label" style={{ cursor: 'pointer' }}>Mark as Featured Post</label>
-          </div>
-
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
             <button type="submit" className="admin-btn-primary" disabled={isSubmitting}>
               {isSubmitting ? 'Creating...' : 'Publish Post'}
@@ -143,7 +138,6 @@ export default function Posts() {
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
                       <h3 className="admin-item-title" style={{ margin: 0 }}>{post.title}</h3>
-                      {post.featured && <span style={{ fontSize: '0.75rem', fontWeight: 600, background: '#fef3c7', color: '#92400e', padding: '0.125rem 0.5rem', borderRadius: '1rem' }}>Featured</span>}
                     </div>
                     <p className="admin-item-subtitle">{post.company}</p>
                   </div>

@@ -23,7 +23,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-green-100/70 mb-5" style={{ fontSize: '0.875rem', lineHeight: '1.6' }}>
-              Nigeria's premier HR solutions partner — connecting exceptional talent with forward-thinking organizations.
+              Nigeria's premier HR solutions partner connecting exceptional talent with forward-thinking organizations.
             </p>
             <div className="flex items-center gap-3">
               {[

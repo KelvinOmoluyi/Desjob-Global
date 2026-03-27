@@ -57,7 +57,7 @@
 .hero-title {
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   letter-spacing: -0.03em;
   line-height: 1.15;
   margin: 1.5rem 0;
@@ -66,7 +66,7 @@
 /* OUR STORY */
 .story-section {
   padding: 6rem 0;
-  background: #f9fafb;
+  background: var(--main-color-04);
 }
 .story-grid {
   display: grid;
@@ -76,14 +76,6 @@
 }
 @media (min-width: 1024px) {
   .story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-.section-title {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-  margin: 1.25rem 0;
 }
 .story-text {
   font-size: 1rem;
@@ -126,7 +118,7 @@
   margin-top: 1.25rem;
   font-size: clamp(1.8rem, 3.5vw, 2.75rem);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   letter-spacing: -0.025em;
   line-height: 1.2;
 }
@@ -195,7 +187,7 @@
 .vision-card {
   border-radius: 1.5rem;
   padding: 2.5rem;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, var(--text-color-03) 0%, #1e293b 100%);
   border: 1px solid #334155;
 }
 .vision-icon-wrap {
@@ -251,7 +243,7 @@
 /* CORE VALUES */
 .values-section {
   padding: 6rem 0;
-  background: #f9fafb;
+  background: var(--main-color-04);
 }
 .values-grid {
   display: grid;
@@ -301,7 +293,7 @@
 .value-card-title {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin-bottom: 0.35rem;
 }
 .value-card-desc {
@@ -360,7 +352,7 @@
 .team-name {
   font-size: 1.0625rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color-03);
 }
 .team-role {
   font-size: 0.875rem;
@@ -390,19 +382,6 @@
   margin: 0 auto;
   padding: 0 1.5rem;
   text-align: center;
-}
-.cta-title {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-}
-.cta-subtitle {
-  margin: 1rem auto 2.5rem;
-  font-size: 1.0625rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
 }
 
 .cta-actions {

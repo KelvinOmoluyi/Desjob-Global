@@ -23,12 +23,12 @@ function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
 }
 
 const coreValues = [
-  { icon: Shield, title: 'Integrity', desc: 'We build every relationship — with clients and candidates — on a foundation of honesty, transparency, and trust.' },
+  { icon: Shield, title: 'Integrity', desc: 'We build every relationship with clients and candidates on a foundation of honesty, transparency, and trust.' },
   { icon: Award, title: 'Excellence', desc: 'Good enough is never enough. We pursue the highest standards in every placement, every advisory session, every interaction.' },
   { icon: Zap, title: 'Innovation', desc: 'We leverage modern recruitment technology and fresh thinking to stay ahead of market trends and deliver smarter solutions.' },
   { icon: Heart, title: 'People-First', desc: 'People are at the heart of everything we do. We treat every candidate and client with empathy, respect, and genuine care.' },
   { icon: Target, title: 'Results-Driven', desc: 'We measure our success by yours. Our focus is on delivering measurable, meaningful results that move your organisation forward.' },
-  { icon: Users, title: 'Partnership', desc: 'We don\'t just fill roles — we build long-term partnerships. Your growth is our growth, and we\'re with you every step of the way.' },
+  { icon: Users, title: 'Partnership', desc: 'We don\'t just fill roles we build long-term partnerships. Your growth is our growth, and we\'re with you every step of the way.' },
 ];
 
 const teamMembers = [
@@ -83,10 +83,7 @@ export default function About() {
                   Desjob Global was founded with a singular vision: to bridge the widening gap between outstanding talent and the organisations that need them most in Nigeria and across Africa.
                 </p>
                 <p>
-                  Our founder identified a persistent challenge — talented professionals struggling to reach their potential, and growing businesses unable to find the calibre of people they needed to scale. The traditional recruitment model was broken, slow, and impersonal.
-                </p>
-                <p>
-                  We built Desjob Global differently — combining human insight with modern technology, deep industry expertise with genuine personal attention. Today, we are proud to be the preferred HR partner for hundreds of organisations, from promising startups to Fortune 500 subsidiaries operating in Nigeria.
+                  We built Desjob Global differently combining human insight with modern technology, deep industry expertise with genuine personal attention. Today, we are proud to be the preferred HR partner for hundreds of organisations, from promising startups to Fortune 500 subsidiaries operating in Nigeria.
                 </p>
                 <p>
                   Our work isn't just about filling vacancies. It's about fuelling ambitions, building legacies, and shaping the future of work in Nigeria.
@@ -123,10 +120,10 @@ export default function About() {
               </div>
               <h3 className="mission-card-title">Our Mission</h3>
               <p className="mission-desc">
-                To empower businesses with exceptional human capital solutions and connect talented professionals with life-changing career opportunities — all while raising the standard of HR excellence across Nigeria and Africa.
+                Our mission is to drive efficiency for clients by relieving them of possible distractions from their core businesses.
               </p>
               <div className="mission-list">
-                {['Connect talent with opportunity', 'Deliver measurable business impact', 'Raise HR standards across Nigeria'].map((item) => (
+                {['Relieve clients of operational distractions', 'Drive efficiency across business functions', 'Enable focus on core objectives'].map((item) => (
                   <div key={item} className="mission-list-item">
                     <CheckCircle2 className="mission-list-icon" />
                     <span className="mission-list-text">{item}</span>
@@ -142,10 +139,10 @@ export default function About() {
               </div>
               <h3 className="vision-card-title">Our Vision</h3>
               <p className="vision-desc">
-                To become Africa's most trusted HR solutions partner — an organisation recognised for transforming businesses through people, and changing lives through meaningful career connections.
+                Our vision is to become a key player in the business support service industry in the Nigeria Economy.
               </p>
               <div className="vision-list">
-                {["Africa's most trusted HR partner", 'Recognised for integrity & innovation', 'Transformative impact on careers'].map((item) => (
+                {['Key player in business support', 'Recognised across the Nigerian economy', 'Trusted partner for exponential growth'].map((item) => (
                   <div key={item} className="vision-list-item">
                     <CheckCircle2 className="vision-list-icon" />
                     <span className="vision-list-text">{item}</span>
@@ -167,7 +164,7 @@ export default function About() {
                 The Principles That Guide Every Decision We Make
               </h2>
               <p className="values-subtitle">
-                Our values aren't framed on office walls — they're lived in every conversation, every placement, and every piece of advice we give.
+                Our values aren't framed on office walls they're lived in every conversation, every placement, and every piece of advice we give.
               </p>
 
               <div className="values-cards-grid">

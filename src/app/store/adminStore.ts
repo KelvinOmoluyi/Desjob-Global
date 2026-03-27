@@ -36,7 +36,6 @@ export type JobPost = {
   category: string;
   tags: string[];
   posted: string;
-  featured: boolean;
 };
 
 // Initial mock data
@@ -81,7 +80,6 @@ const initialJobPosts: JobPost[] = [
     category: 'Technology',
     tags: ['React', 'Node.js', 'TypeScript'],
     posted: '2 days ago',
-    featured: true,
   },
   {
     id: '2',
@@ -93,7 +91,6 @@ const initialJobPosts: JobPost[] = [
     category: 'Marketing',
     tags: ['Brand Strategy', 'Digital Marketing', 'Team Leadership'],
     posted: '3 days ago',
-    featured: true,
   },
 ];
 

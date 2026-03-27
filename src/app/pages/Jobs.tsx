@@ -27,7 +27,6 @@ const featuredJobs = [
     category: 'Technology',
     tags: ['React', 'Node.js', 'TypeScript'],
     posted: '2 days ago',
-    featured: true,
   },
   {
     id: 2,
@@ -39,7 +38,6 @@ const featuredJobs = [
     category: 'Marketing',
     tags: ['Brand Strategy', 'Digital Marketing', 'Team Leadership'],
     posted: '3 days ago',
-    featured: true,
   },
   {
     id: 3,
@@ -51,7 +49,6 @@ const featuredJobs = [
     category: 'Finance',
     tags: ['Financial Reporting', 'IFRS', 'Treasury'],
     posted: '5 days ago',
-    featured: false,
   },
   {
     id: 4,
@@ -63,7 +60,6 @@ const featuredJobs = [
     category: 'HR',
     tags: ['HR Strategy', 'Labour Relations', 'HRIS'],
     posted: '1 week ago',
-    featured: false,
   },
   {
     id: 5,
@@ -75,11 +71,10 @@ const featuredJobs = [
     category: 'Technology',
     tags: ['Product Strategy', 'Agile', 'FinTech'],
     posted: '4 days ago',
-    featured: true,
   },
   {
     id: 6,
-    title: 'Sales Director — West Africa',
+    title: 'Sales Director West Africa',
     company: 'Novo Pharma Ltd',
     location: 'Lagos, Nigeria',
     type: 'Full-time',
@@ -87,7 +82,6 @@ const featuredJobs = [
     category: 'Sales',
     tags: ['B2B Sales', 'Team Leadership', 'Pharmaceuticals'],
     posted: '6 days ago',
-    featured: false,
   },
 ];
 
@@ -99,14 +93,13 @@ const categories = [
   { name: 'Sales', count: 38, icon: '📈' },
   { name: 'Operations', count: 25, icon: '⚙️' },
   { name: 'Healthcare', count: 18, icon: '🏥' },
-  { name: 'Oil & Gas', count: 15, icon: '⛽' },
 ];
 
 const whyApplyFeatures = [
-  { icon: Shield, title: 'Vetted, Legitimate Employers', desc: 'Every company we represent is thoroughly verified. No scams, no false promises — just real opportunities with credible organisations.' },
+  { icon: Shield, title: 'Vetted, Legitimate Employers', desc: 'Every company we represent is thoroughly verified. No scams, no false promises just real opportunities with credible organisations.' },
   { icon: Star, title: 'Personalised Career Guidance', desc: 'Our recruiters provide honest feedback, interview coaching, and salary negotiation support to help you present your best self.' },
   { icon: CheckCircle2, title: 'Exclusive Unadvertised Roles', desc: 'Many of our most exciting positions are filled exclusively through our network before they\'re ever posted publicly.' },
-  { icon: TrendingUp, title: 'Long-Term Career Development', desc: 'We\'re invested in your long-term success — not just today\'s placement. Many of our candidates return to us as they grow in their careers.' },
+  { icon: TrendingUp, title: 'Long-Term Career Development', desc: 'We\'re invested in your long-term success not just today\'s placement. Many of our candidates return to us as they grow in their careers.' },
 ];
 
 type Job = typeof featuredJobs[0];
@@ -196,11 +189,6 @@ function JobCard({ job }: { job: Job }) {
             <p className="job-company">{job.company}</p>
           </div>
         </div>
-        {job.featured && (
-          <span className="featured-badge">
-            ⭐ Featured
-          </span>
-        )}
       </div>
 
       <div className="job-meta">
@@ -291,10 +279,6 @@ export default function Jobs() {
             locationFilter={locationFilter}
             setLocationFilter={setLocationFilter}
           />
-
-          <p className="hero-active-roles">
-            Currently featuring <span className="hero-active-count">200+ active roles</span> across Nigeria
-          </p>
         </div>
       </section>
 
@@ -335,17 +319,17 @@ export default function Jobs() {
           <div className="section-header-flex">
             <div>
               <h2 className="section-title">
-                {activeCategory ? `${activeCategory} Roles` : 'Featured Opportunities'}
+                {activeCategory ? `${activeCategory} Roles` : 'Open Opportunities'}
               </h2>
               <p className="section-subtitle">
                 {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''} found
               </p>
             </div>
-            <ButtonSecondary
+            {/* <ButtonSecondary
               type="button"
               text="Filter"
               icon={<Filter className="filter-icon" />}
-            />
+            /> */}
           </div>
 
           {filteredJobs.length === 0 ? (
@@ -390,7 +374,7 @@ export default function Jobs() {
                 Your Career Deserves More Than Just a Job Board
               </h2>
               <p className="why-section-desc">
-                When you apply through Desjob Global, you gain more than access to job listings — you gain a dedicated career partner who understands your industry and advocates for your best interests.
+                When you apply through Desjob Global, you gain more than access to job listings you gain a dedicated career partner who understands your industry and advocates for your best interests.
               </p>
 
               <div className="why-features">

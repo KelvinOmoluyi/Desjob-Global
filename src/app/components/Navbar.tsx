@@ -20,7 +20,7 @@ export default function Navbar() {
     <nav
       className="sticky top-0 z-50 border-b"
       style={{
-        background: 'rgba(255,255,255,0.92)',
+        background: 'rgba(255,255,255,0.7)',
         backdropFilter: 'blur(12px)',
         borderColor: 'rgba(0,0,0,0.07)',
         fontFamily: "'Plus Jakarta Sans', sans-serif",

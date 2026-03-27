@@ -51,7 +51,7 @@ export default function Login() {
               className="admin-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@desjobglobal.com"
+              placeholder="example@gmail.com"
               required
             />
           </div>

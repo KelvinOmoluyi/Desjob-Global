@@ -114,7 +114,7 @@
 
 .admin-nav-item:hover {
   background-color: #f1f5f9;
-  color: #0f172a;
+  color: var(--text-color-03);
 }
 
 .admin-nav-item.active {
@@ -198,7 +198,7 @@
 .admin-page-title {
   font-size: 2rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin-bottom: 2rem;
   line-height: 1.2;
 }
@@ -234,7 +234,7 @@
 }
 
 .admin-tab:hover {
-  color: #0f172a;
+  color: var(--text-color-03);
   background-color: #f1f5f9;
 }
 
@@ -271,7 +271,7 @@
 .admin-item-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin: 0 0 0.25rem 0;
 }
 
@@ -411,7 +411,7 @@
   font-size: 1rem;
   transition: all 0.2s;
   background-color: #ffffff;
-  color: #0f172a;
+  color: var(--text-color-03);
   outline: none;
 }
 
@@ -468,7 +468,7 @@
   font-size: 1.75rem;
   line-height: 1.25;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color-03);
   font-family: Inter, Twk, sans-serif;
 }
 

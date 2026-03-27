@@ -116,12 +116,6 @@
   justify-content: space-between;
   margin-bottom: 2rem;
 }
-.section-title {
-  font-size: 1.375rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin: 0;
-}
 .section-subtitle {
   font-size: 0.9rem;
   color: #6b7280;
@@ -160,7 +154,7 @@
   margin: 1.5rem 0 1.25rem;
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   letter-spacing: -0.03em;
   line-height: 1.15;
 }
@@ -177,7 +171,7 @@
 /* CATEGORIES */
 .categories-section {
   padding: 4rem 0;
-  background: #f9fafb;
+  background: var(--main-color-04);
 }
 .view-all-btn {
   display: flex;
@@ -226,7 +220,7 @@
 .category-name {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin: 0;
 }
 .category-card.active .category-name {
@@ -336,7 +330,7 @@
 .job-title {
   font-size: 1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin: 0 0 0.125rem 0;
 }
 .job-company {
@@ -425,7 +419,7 @@
 /* WHY APPLY SECTION */
 .why-apply-section {
   padding: 6rem 0;
-  background: #f9fafb;
+  background: var(--main-color-04);
 }
 .why-grid {
   display: grid;
@@ -460,7 +454,7 @@
   margin: 1.25rem 0 1rem;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-color-03);
   letter-spacing: -0.025em;
   line-height: 1.2;
 }
@@ -499,7 +493,7 @@
 .why-feature-title {
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-color-03);
   margin: 0 0 0.25rem 0;
 }
 .why-feature-desc {
@@ -542,20 +536,6 @@
   width: 2rem;
   height: 2rem;
   color: white;
-}
-.cta-title {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-  margin: 0;
-}
-.cta-subtitle {
-  margin: 1rem auto 2.5rem;
-  font-size: 1.0625rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
 }
 .cta-actions {
   display: flex;

@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { LucideIcon } from 'lucide-react';
 import {
   ArrowRight, CheckCircle2, Users, TrendingUp, Award, Building2,
-  Star, ChevronDown, ChevronUp, Search, Briefcase, Target, Heart, Zap
+  Star, ChevronDown, ChevronUp, Search, Briefcase, Target, Heart, Zap,
+  Repeat, Lightbulb, Package
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Home.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
@@ -23,11 +25,11 @@ const faqs = [
   },
   {
     q: 'What industries do you specialise in?',
-    a: 'We cover 15+ industries including Technology, Finance & Banking, Healthcare, FMCG, Oil & Gas, Telecommunications, Manufacturing, Real Estate, and more — with dedicated specialist teams for each sector.',
+    a: 'We cover 15+ industries including Technology, Finance & Banking, Healthcare, FMCG, Oil & Gas, Telecommunications, Manufacturing, Real Estate, and more with dedicated specialist teams for each sector.',
   },
   {
     q: 'Do you handle entry-level roles as well as senior positions?',
-    a: 'Absolutely. We manage the full talent spectrum — from entry-level professionals and mid-career specialists to C-suite executives and board-level appointments.',
+    a: 'Absolutely. We manage the full talent spectrum from entry-level professionals and mid-career specialists to C-suite executives and board-level appointments.',
   },
   {
     q: 'How do you ensure the quality of candidates you present?',
@@ -139,7 +141,7 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-header">
             <div className="hero-badge-wrap">
-              <Badge icon={Briefcase} text="Nigeria's #1 HR Solutions Partner" />
+              <Badge icon={Briefcase} text="Your #1 HR Solutions Partner" />
             </div>
 
             <h1 className="hero-title">
@@ -195,12 +197,26 @@ export default function Home() {
           <p className="trust-bar-title">
             Trusted by leading organisations across Nigeria
           </p>
-          <div className="trust-logos">
-            {['Zenith Bank', 'MTN Nigeria', 'Dangote Group', 'Flutterwave', 'Access Bank', 'Konga', 'NNPC'].map((co) => (
-              <span key={co} className="trust-bar-company">
-                {co}
-              </span>
-            ))}
+          <div className="trust-logos-wrapper">
+            <motion.div
+              className="trust-logos-track"
+              animate={{ x: ['-50%', '0%'] }}
+              transition={{
+                repeat: Infinity,
+                ease: 'linear',
+                duration: 25,
+              }}
+            >
+              {[1, 2].map((groupIndex) => (
+                <div key={groupIndex} className="trust-logos-group">
+                  {['Zenith Bank', 'MTN Nigeria', 'Dangote Group', 'Flutterwave', 'Access Bank', 'Konga', 'NNPC'].map((co, idx) => (
+                    <span key={`${co}-${idx}-${groupIndex}`} className="trust-bar-company">
+                      {co}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -238,34 +254,34 @@ export default function Home() {
           <div className="services-grid">
             {[
               {
-                icon: Search,
-                title: 'Talent Acquisition & Recruitment',
-                desc: 'We source, rigorously screen, and precisely place the right candidates for every role — from graduate hires to senior leadership.',
+                icon: Repeat,
+                title: 'Outsourcing',
+                desc: 'Comprehensive outsourcing solutions to handle operational burdens so you can focus on core business objectives.',
+              },
+              {
+                icon: TrendingUp,
+                title: 'Training & Development',
+                desc: 'Customised learning programmes that upskill your workforce, boost performance, and build a culture of continuous growth.',
+              },
+              {
+                icon: Lightbulb,
+                title: 'General Consulting',
+                desc: 'Strategic consulting services to optimise overall business processes, boost efficiency, and drive sustainable growth.',
+              },
+              {
+                icon: Package,
+                title: 'Supplies',
+                desc: 'Reliable procurement and supply chain solutions to ensure your business has the essential materials it needs to function.',
               },
               {
                 icon: Target,
-                title: 'HR Consulting & Advisory',
-                desc: 'Strategic HR advisory services that help you design high-performing organisational structures, policies, and people strategies.',
-              },
-              {
-                icon: Award,
-                title: 'Executive Search',
-                desc: 'Confidential C-suite and board-level placements for organisations seeking transformational leaders who deliver results.',
+                title: 'HR Consulting',
+                desc: 'Strategic HR advisory services that help you design high-performing organisational structures and people strategies.',
               },
               {
                 icon: Users,
                 title: 'Workforce Management',
                 desc: 'End-to-end workforce planning, payroll processing, benefits administration, and HR compliance management.',
-              },
-              {
-                icon: TrendingUp,
-                title: 'Employee Training & Development',
-                desc: 'Customised learning programmes that upskill your workforce, boost performance, and build a culture of continuous growth.',
-              },
-              {
-                icon: Heart,
-                title: 'Background Verification',
-                desc: 'Thorough background checks, credential verification, and pre-employment screening to safeguard your organisation.',
               },
             ].map(({ icon: Icon, title, desc }, i) => (
               <div key={i} className="service-card">
@@ -306,7 +322,7 @@ export default function Home() {
                 {[
                   'Proven track record with 500+ companies across industries',
                   'Deep, localised understanding of the Nigerian job market',
-                  'End-to-end recruitment — from sourcing to onboarding',
+                  'End-to-end recruitment from sourcing to onboarding',
                   'Dedicated account managers for every client',
                   'Industry-specific specialist recruiting teams',
                   'Transparent process with regular progress updates',
@@ -339,35 +355,35 @@ export default function Home() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="process-section">
+      <section className="home-process-section">
         <div className="container">
-          <div className="process-grid flex-reverse">
+          <div className="home-process-grid flex-reverse">
             {/* Image */}
-            <div className="process-img-wrap">
+            <div className="home-process-img-wrap">
               <div className="why-img-bg" />
               <img
                 src={HOWIT_IMG}
                 alt="Desjob Global recruitment process in action"
-                className="process-img"
+                className="home-process-img"
               />
             </div>
 
             {/* Steps */}
-            <div className="process-content">
+            <div className="home-process-content">
               <Badge icon={Zap} text="HOW WE WORK" />
-              <h2 className="process-section-title">
+              <h2 className="home-process-section-title">
                 A Simple Process Built for Speed and Precision
               </h2>
-              <p className="process-section-desc">
-                We've refined our approach over hundreds of successful engagements to make hiring — and job-hunting — as seamless as possible.
+              <p className="home-process-section-desc">
+                We've refined our approach over hundreds of successful engagements to make hiring and job-hunting as seamless as possible.
               </p>
 
-              <div className="process-steps">
+              <div className="home-process-steps">
                 {[
                   {
                     step: '01',
                     title: 'Share Your Requirements',
-                    desc: 'Tell us what you\'re looking for — whether it\'s a specific job role or a complete workforce solution. We listen, ask the right questions, and get to work immediately.',
+                    desc: 'Tell us what you\'re looking for, whether it\'s a specific job role or a complete workforce solution. We listen, ask the right questions, and get to work immediately.',
                   },
                   {
                     step: '02',
@@ -377,22 +393,22 @@ export default function Home() {
                   {
                     step: '03',
                     title: 'Interview, Hire & Grow',
-                    desc: 'We manage interviews, negotiate offers, and support onboarding — ensuring a smooth transition for both employers and new hires. Our support doesn\'t stop at placement.',
+                    desc: 'We manage interviews, negotiate offers, and support onboarding ensuring a smooth transition for both employers and new hires. Our support doesn\'t stop at placement.',
                   },
                 ].map(({ step, title, desc }) => (
-                  <div key={step} className="process-step">
-                    <div className="process-step-num-wrap">
-                      <span className="process-step-num">{step}</span>
+                  <div key={step} className="home-process-step">
+                    <div className="home-process-step-num-wrap">
+                      <span className="home-process-step-num">{step}</span>
                     </div>
                     <div>
-                      <h3 className="process-step-title">{title}</h3>
-                      <p className="process-step-desc">{desc}</p>
+                      <h3 className="home-process-step-title">{title}</h3>
+                      <p className="home-process-step-desc">{desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="process-footer">
+              <div className="home-process-footer">
                 <ButtonPrimary
                   link="/contact"
                   text="Start the Conversation"
@@ -447,7 +463,7 @@ export default function Home() {
       <section className="cta-section">
         <div className="cta-container">
           <h2 className="cta-title">
-            Ready to Transform Your Workforce — or Your Career?
+            Ready to Transform Your Workforce or Your Career?
           </h2>
           <p className="cta-subtitle" style={{ maxWidth: 560 }}>
             Whether you're an organisation seeking exceptional talent or a professional aiming higher, Desjob Global is ready to make it happen.
@@ -468,11 +484,11 @@ export default function Home() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="process-section faq-section">
+      <section className="home-process-section faq-section">
         <div className="faq-container">
           <div className="section-header">
             <Badge text="FAQ" />
-            <h2 className="section-title mt-5">
+            <h2 className="section-title mt-5 mb-2">
               Frequently Asked Questions
             </h2>
             <p className="section-subtitle mt-4">

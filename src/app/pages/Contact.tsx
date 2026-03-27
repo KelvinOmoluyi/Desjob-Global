@@ -265,7 +265,7 @@ function EmployerForm() {
           Enquiry Received!
         </h3>
         <p className="form-success-text">
-          Thank you for your interest! A dedicated account manager will contact you within 24 hours to discuss your hiring needs.
+          Thank you for your interest! We will contact you within 24 hours to discuss your hiring needs.
         </p>
         <button
           onClick={() => setSubmitted(false)}
@@ -340,7 +340,7 @@ function EmployerForm() {
       </button>
 
       <p className="form-disclaimer">
-        A dedicated account manager will respond within 24 hours. All information shared is strictly confidential.
+        We will respond within 24 hours. All information shared is strictly confidential.
       </p>
     </form>
   );
@@ -406,7 +406,7 @@ export default function Contact() {
                     <div>
                       <p className="context-hint-title">You're contacting us as an Employer</p>
                       <p className="context-hint-text">
-                        Tell us about your hiring needs and a dedicated account manager will design a tailored recruitment solution for you.
+                        Tell us about your hiring needs and We will design a tailored recruitment solution for you.
                       </p>
                     </div>
                   </>
@@ -473,7 +473,7 @@ export default function Contact() {
                   We pride ourselves on our responsiveness. All enquiries receive a response within 24 hours during business days.
                 </p>
                 <div className="guarantee-list">
-                  {['Response within 24 hours', 'Free initial consultation', 'Confidential & professional', 'No obligation required'].map((item) => (
+                  {['Response within 24 hours', 'Confidential & professional', 'No obligation required'].map((item) => (
                     <div key={item} className="guarantee-item">
                       <div className="guarantee-check">
                         <svg className="guarantee-check-icon" fill="currentColor" viewBox="0 0 20 20">
