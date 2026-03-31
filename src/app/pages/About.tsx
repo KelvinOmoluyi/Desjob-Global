@@ -61,7 +61,7 @@ export default function About() {
         <div className="hero-content">
           <Badge icon={Briefcase} text="ABOUT DESJOB GLOBAL" />
           <h1 className="hero-title">
-            We Are Nigeria's Most Trusted HR Partner
+            Your Trusted HR Partner in Nigeria
           </h1>
           <p className="hero-subtitle">
             At Desjob Global, we believe that the right people in the right roles change everything. Since our founding, we've been on a mission to transform how Nigerian businesses attract, develop, and retain exceptional talent.
