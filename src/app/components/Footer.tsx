@@ -55,6 +55,7 @@ export default function Footer() {
                 { to: '/about', label: 'About Us' },
                 { to: '/services', label: 'Our Services' },
                 { to: '/jobs', label: 'Browse Jobs' },
+                { to: '/blog', label: 'Blog' },
                 { to: '/contact', label: 'Contact Us' },
               ].map((link) => (
                 <li key={link.to}>

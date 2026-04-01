@@ -5,7 +5,8 @@ import {
   Briefcase, 
   LogOut, 
   LayoutDashboard,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen
 } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 
@@ -51,6 +52,15 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           >
             <Briefcase className="admin-nav-icon" />
             Job Posts
+          </NavLink>
+          
+          <NavLink 
+            to="/admin/blog" 
+            className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
+            onClick={onClose}
+          >
+            <BookOpen className="admin-nav-icon" />
+            Manage Blog
           </NavLink>
         </nav>
         
