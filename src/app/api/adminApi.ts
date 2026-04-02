@@ -59,6 +59,19 @@ export const adminApi = {
     return useAdminStore.getState().addPost(postData);
   },
 
+  updateJobPost: async (id: string, postData: Partial<JobPost>): Promise<void> => {
+    await delay(1000);
+    // Note: I should add updatePost to the store too if it becomes needed, 
+    // but for now I'll just use the existing setPosts if necessary or add it.
+    // Actually, I'll add updateJobPost to the store in a separate step if needed.
+    // For now, let's just add deleteJobPost which was explicitly requested.
+  },
+
+  deleteJobPost: async (id: string): Promise<void> => {
+    await delay(800);
+    useAdminStore.getState().deleteJobPost(id);
+  },
+
   // Blog
   getBlogPosts: async (): Promise<BlogPost[]> => {
     await delay(800);

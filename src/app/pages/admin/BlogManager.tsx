@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit2, ExternalLink, RefreshCw, X, Image as ImageIcon } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { BlogPost } from '../../store/adminStore';
+import ConfirmModal from '../../components/admin/ConfirmModal';
 
 const slugify = (text: string) => {
   return text
@@ -14,11 +15,16 @@ const slugify = (text: string) => {
 };
 
 export default function BlogManager() {
+
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<{ id: string, title: string } | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -51,7 +57,7 @@ export default function BlogManager() {
     const blogData = {
       ...formData,
       slug: slugify(formData.title),
-      content: formData.content.split('\n\n').map(p => p.trim()).filter(p => p),
+      content: formData.content.split('\n\n').map((p: string) => p.trim()).filter((p: string) => p),
     };
 
     if (editingId) {
@@ -77,11 +83,23 @@ export default function BlogManager() {
     setShowForm(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      await adminApi.deleteBlogPost(id);
+  const handleDeleteClick = (blog: BlogPost) => {
+    setPostToDelete({ id: blog.id, title: blog.title });
+    setModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (postToDelete) {
+      await adminApi.deleteBlogPost(postToDelete.id);
       await fetchBlogs();
+      setModalOpen(false);
+      setPostToDelete(null);
     }
+  };
+
+  const cancelDelete = () => {
+    setModalOpen(false);
+    setPostToDelete(null);
   };
 
   const resetForm = () => {
@@ -97,10 +115,10 @@ export default function BlogManager() {
   };
 
   return (
-    <div className="admin-blog-manager">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 className="admin-page-title" style={{ margin: 0 }}>Manage Blog</h1>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+    <div className="admin-page-container">
+      <div className="admin-header-row">
+        <h1 className="admin-page-title">Manage Blog</h1>
+        <div className="admin-header-actions">
           <button onClick={fetchBlogs} className="admin-btn-outline" disabled={isLoading || isSubmitting}>
             <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
             Refresh
@@ -112,8 +130,8 @@ export default function BlogManager() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="admin-form" style={{ marginBottom: '2rem' }}>
-          <h2 style={{ margin: '0 0 1.5rem 0', fontSize: '1.25rem' }}>{editingId ? 'Edit Blog Post' : 'Create New Blog Post'}</h2>
+        <form onSubmit={handleSubmit} className="admin-form-container">
+          <h2 className="admin-form-title">{editingId ? 'Edit Blog Post' : 'Create New Blog Post'}</h2>
           
           <div className="admin-form-group">
             <label className="admin-label">Blog Title</label>
@@ -145,7 +163,7 @@ export default function BlogManager() {
               value={formData.content} 
               onChange={handleInputChange} 
               placeholder="Write your article here..."
-              style={{ resize: 'vertical', minHeight: '200px' }}
+              style={{ minHeight: '200px' }}
             />
           </div>
 
@@ -154,7 +172,7 @@ export default function BlogManager() {
             <input type="text" name="author" className="admin-input" required value={formData.author} onChange={handleInputChange} />
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1.5rem' }}>
+          <div className="admin-form-footer">
             <button type="button" onClick={resetForm} className="admin-btn-outline">Cancel</button>
             <button type="submit" className="admin-btn-primary" disabled={isSubmitting}>
               {isSubmitting ? 'Saving...' : (editingId ? 'Update Post' : 'Publish Post')}
@@ -163,38 +181,38 @@ export default function BlogManager() {
         </form>
       )}
 
-      <div className="admin-card">
+      <div className="admin-data-card">
         {isLoading ? (
-          <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>Searching for stories...</div>
+          <div className="admin-loading-state">Searching for stories...</div>
         ) : blogs.length === 0 ? (
-          <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>No stories published yet.</div>
+          <div className="admin-empty-state">No stories published yet.</div>
         ) : (
-          <div className="admin-list">
+          <div className="admin-list-container">
             {blogs.map(blog => (
-              <div key={blog.id} className="admin-list-item">
-                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                  <img src={blog.image} alt="" style={{ width: '100px', height: '60px', borderRadius: '0.5rem', objectFit: 'cover' }} />
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div key={blog.id} className="admin-list-card">
+                <div className="admin-list-card-content">
+                  <img src={blog.image} alt="" className="admin-list-card-thumb" />
+                  <div className="admin-list-card-details">
+                    <div className="admin-list-card-header">
                       <div>
-                        <h3 className="admin-item-title" style={{ margin: 0 }}>{blog.title}</h3>
-                        <p className="admin-item-subtitle" style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}>
+                        <h3 className="admin-list-card-title">{blog.title}</h3>
+                        <p className="admin-list-card-subtitle">
                           slug: {blog.slug} | {blog.category}
                         </p>
                       </div>
-                      <div className="admin-item-date">{blog.date}</div>
+                      <div className="admin-list-card-date">{blog.date}</div>
                     </div>
                     
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
-                      <span style={{ fontSize: '0.875rem', color: '#64748b' }}>Author: {blog.author}</span>
-                      <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <div className="admin-list-card-footer">
+                      <span className="admin-list-card-author">Author: {blog.author}</span>
+                      <div className="admin-list-card-actions">
                         <a href={`/blog/${blog.slug}`} target="_blank" rel="noopener noreferrer" className="admin-btn-icon" title="View Article">
                           <ExternalLink size={18} />
                         </a>
-                        <button onClick={() => handleEdit(blog)} className="admin-btn-icon" style={{ color: '#0f172a' }} title="Edit">
+                        <button onClick={() => handleEdit(blog)} className="admin-btn-icon btn-edit" title="Edit">
                           <Edit2 size={18} />
                         </button>
-                        <button onClick={() => handleDelete(blog.id)} className="admin-btn-icon" style={{ color: '#ef4444' }} title="Delete">
+                        <button onClick={() => handleDeleteClick(blog)} className="admin-btn-icon btn-delete" title="Delete">
                           <Trash2 size={18} />
                         </button>
                       </div>
@@ -206,6 +224,14 @@ export default function BlogManager() {
           </div>
         )}
       </div>
+
+      <ConfirmModal 
+        isOpen={modalOpen}
+        type="blog"
+        title={postToDelete?.title}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 }

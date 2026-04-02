@@ -5,6 +5,7 @@ import {
   Search, MapPin, Briefcase, Clock, ArrowRight, Upload, Filter,
   Building2, TrendingUp, Shield, Star, CheckCircle2, ChevronRight
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Jobs.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
@@ -265,20 +266,48 @@ export default function Jobs() {
       <section className="hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
-          <Badge icon={Briefcase} text="BROWSE JOBS" />
-          <h1 className="hero-title">
-            Find Your Next Career-Defining Opportunity in Nigeria
-          </h1>
-          <p className="hero-subtitle">
-            Desjob Global connects ambitious professionals with the most exciting roles across Nigeria's fastest-growing companies. Your dream job is closer than you think.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Badge icon={Briefcase} text="BROWSE JOBS" />
+          </motion.div>
 
-          <JobSearchBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            locationFilter={locationFilter}
-            setLocationFilter={setLocationFilter}
-          />
+          <motion.h1 
+            className="hero-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Find Your Next Career-Defining Opportunity in Nigeria
+          </motion.h1>
+
+          <motion.p 
+            className="hero-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Desjob Global connects ambitious professionals with the most exciting roles across Nigeria's fastest-growing companies. Your dream job is closer than you think.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <JobSearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              locationFilter={locationFilter}
+              setLocationFilter={setLocationFilter}
+            />
+          </motion.div>
         </div>
       </section>
 

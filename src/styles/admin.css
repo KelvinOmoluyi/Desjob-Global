@@ -488,3 +488,82 @@
   margin-bottom: 1.5rem;
   border: 1px solid #fecaca;
 }
+
+
+/* Confirm Modal Styles (Keep existing ones I created) */
+.admin-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-confirm-modal {
+  background-color: white;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modal-appear 0.2s ease-out;
+}
+
+.admin-confirm-modal-top {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  flex-direction: row;
+}
+
+.admin-confirm-overlay.closing {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+@keyframes modal-appear {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-title { color: #111827; line-height: 1.23rem; }
+.modal-message { font-size: 0.9375rem; color: #6b7280; margin-bottom: 1.5rem; line-height: 1.5; }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+.btn-cancel { padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 600; color: #374151; background-color: white; border: 1px solid #d1d5db; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.2s; }
+.btn-confirm { padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 600; color: white; background-color: #ef4444; border: none; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.2s; }
+
+/* My New Refactored Admin Classes (Keep these too) */
+.admin-page-container { padding: 1rem 0; }
+.admin-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.admin-header-actions { display: flex; gap: 1rem; }
+.admin-form-container { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 2rem; margin-bottom: 2.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+.admin-form-title { font-size: 1.25rem; font-weight: 700; color: #1e293b; margin: 0 0 1.5rem 0; }
+.admin-form-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+.admin-data-card { background-color: white; border-radius: 1rem; border: 1px solid #e2e8f0; overflow: hidden; }
+.admin-loading-state, .admin-empty-state { padding: 4rem 2rem; text-align: center; color: #64748b; font-size: 0.9375rem; }
+.admin-list-container { display: flex; flex-direction: column; }
+.admin-list-card { border-bottom: 1px solid #f1f5f9; padding: 1.5rem; transition: background-color 0.2s; }
+.admin-list-card:last-child { border-bottom: none; }
+.admin-list-card:hover { background-color: #fcfdfe; }
+.admin-list-card-content { display: flex; gap: 1.5rem; align-items: flex-start; }
+.admin-list-card-thumb { width: 120px; height: 80px; border-radius: 0.75rem; object-fit: cover; flex-shrink: 0; }
+.admin-list-card-details { flex: 1; }
+.admin-list-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+.admin-list-card-title { font-size: 1.125rem; font-weight: 700; color: #0f172a; margin: 0; }
+.admin-list-card-subtitle { font-size: 0.8125rem; color: #64748b; margin: 0.25rem 0 0 0; }
+.admin-list-card-date { font-size: 0.75rem; color: #94a3b8; font-weight: 500; }
+.admin-list-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
+.admin-list-card-author { font-size: 0.875rem; color: #64748b; }
+.admin-list-card-actions { display: flex; gap: 0.75rem; }
+.admin-list-card-meta-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.admin-list-card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.admin-tag-pill { font-size: 0.75rem; color: #64748b; background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 0.125rem 0.625rem; border-radius: 9999px; }
+.salary-tag { color: #10b981; background-color: #ecfdf5; font-weight: 600; }
+.btn-delete:hover { color: #ef4444; }
+.btn-edit:hover { color: #0f172a; }
+
+.admin-badge { display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.badge-featured { background-color: #fef3c7; color: #92400e; }

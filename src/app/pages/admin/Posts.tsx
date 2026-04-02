@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Briefcase, MapPin, Clock, RefreshCw } from 'lucide-react';
+import { Trash2, Edit2, Plus, Briefcase, MapPin, Clock, RefreshCw } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { JobPost } from '../../store/adminStore';
+import ConfirmModal from '../../components/admin/ConfirmModal';
 
 export default function Posts() {
   const [posts, setPosts] = useState<JobPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<{ id: string, title: string } | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -36,7 +41,7 @@ export default function Posts() {
     
     const newPostData = {
       ...formData,
-      tags: formData.tags.split(',').map(tag => tag.trim()).filter(t => t),
+      tags: formData.tags.split(',').map((tag: string) => tag.trim()).filter((t: string) => t),
     };
     
     await adminApi.createPost(newPostData);
@@ -51,11 +56,30 @@ export default function Posts() {
     });
   };
 
+  const handleDeleteClick = (post: JobPost) => {
+    setPostToDelete({ id: post.id, title: post.title });
+    setModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (postToDelete) {
+      await adminApi.deleteJobPost(postToDelete.id);
+      await fetchPosts();
+      setModalOpen(false);
+      setPostToDelete(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setModalOpen(false);
+    setPostToDelete(null);
+  };
+
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 className="admin-page-title" style={{ margin: 0 }}>Job Posts</h1>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+    <div className="admin-page-container">
+      <div className="admin-header-row">
+        <h1 className="admin-page-title">Job Posts</h1>
+        <div className="admin-header-actions">
           <button onClick={fetchPosts} className="admin-btn-outline" disabled={isLoading || isSubmitting}>
             <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
             Refresh
@@ -125,42 +149,59 @@ export default function Posts() {
         </form>
       )}
 
-      <div className="admin-card">
+      <div className="admin-data-card">
         {isLoading ? (
-          <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>Loading posts...</div>
+          <div className="admin-loading-state">Loading posts...</div>
         ) : posts.length === 0 ? (
-          <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>No posts available.</div>
+          <div className="admin-empty-state">No posts available.</div>
         ) : (
-          <div className="admin-list">
-            {posts.map(post => (
-              <div key={post.id} className="admin-list-item">
-                <div className="admin-list-header">
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
-                      <h3 className="admin-item-title" style={{ margin: 0 }}>{post.title}</h3>
+          <div className="admin-list-container">
+            {posts.map((post: JobPost) => (
+              <div key={post.id} className="admin-list-card">
+                <div className="admin-list-card-details">
+                  <div className="admin-list-card-header">
+                    <div>
+                      <div className="admin-list-card-title-row">
+                        <h3 className="admin-list-card-title">{post.title}</h3>
+                      </div>
+                      <p className="admin-list-card-subtitle">{post.company}</p>
                     </div>
-                    <p className="admin-item-subtitle">{post.company}</p>
+                    <span className="admin-list-card-date">{post.posted}</span>
                   </div>
-                  <span className="admin-item-date">{post.posted}</span>
-                </div>
                 
-                <div className="admin-item-meta">
-                  <span className="admin-meta-tag"><MapPin size={14} /> {post.location}</span>
-                  <span className="admin-meta-tag"><Clock size={14} /> {post.type}</span>
-                  <span className="admin-meta-tag"><Briefcase size={14} /> {post.category}</span>
-                  <span className="admin-meta-tag" style={{ color: 'var(--main-color-01)', background: '#ecfdf5', fontWeight: 500 }}>{post.salary}</span>
-                </div>
+                  <div className="admin-list-card-footer">
+                    <div className="admin-list-card-meta-tags">
+                      <span className="admin-meta-tag"><MapPin size={14} /> {post.location}</span>
+                      <span className="admin-meta-tag"><Clock size={14} /> {post.type}</span>
+                      <span className="admin-meta-tag"><Briefcase size={14} /> {post.category}</span>
+                      <span className="admin-meta-tag salary-tag">{post.salary}</span>
+                    </div>
+                    <div className="admin-list-card-actions">
+                      <button onClick={() => handleDeleteClick(post)} className="admin-btn-icon btn-delete" title="Delete">
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </div>
 
-                <div className="admin-item-meta" style={{ marginTop: '0.25rem' }}>
-                  {post.tags.map((tag: string) => (
-                    <span key={tag} style={{ fontSize: '0.75rem', color: '#64748b', border: '1px solid #e2e8f0', padding: '0.125rem 0.5rem', borderRadius: '0.25rem' }}>{tag}</span>
-                  ))}
+                  <div className="admin-list-card-tags">
+                    {post.tags.map((tag: string) => (
+                      <span key={tag} className="admin-tag-pill">{tag}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      <ConfirmModal 
+        isOpen={modalOpen}
+        type="job"
+        title={postToDelete?.title}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 }

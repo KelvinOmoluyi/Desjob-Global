@@ -3,6 +3,7 @@ import { LucideIcon } from 'lucide-react';
 import {
   ArrowRight, CheckCircle2, Eye, Target, Heart, Shield, Zap, Users, Award, Star, Briefcase
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './About.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
@@ -59,13 +60,34 @@ export default function About() {
       <section className="hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
-          <Badge icon={Briefcase} text="ABOUT DESJOB GLOBAL" />
-          <h1 className="hero-title">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Badge icon={Briefcase} text="ABOUT DESJOB GLOBAL" />
+          </motion.div>
+          
+          <motion.h1 
+            className="hero-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Your Trusted HR Partner in Nigeria
-          </h1>
-          <p className="hero-subtitle">
+          </motion.h1>
+
+          <motion.p 
+            className="hero-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             At Desjob Global, we believe that the right people in the right roles change everything. Since our founding, we've been on a mission to transform how Nigerian businesses attract, develop, and retain exceptional talent.
-          </p>
+          </motion.p>
         </div>
       </section>
 

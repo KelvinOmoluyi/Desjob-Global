@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router';
 import { LucideIcon } from 'lucide-react';
 import {
   Mail, Phone, MapPin, Clock, Upload, Building2, User,
   Send, CheckCircle, ArrowRight, Briefcase, ChevronDown
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Contact.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
@@ -355,13 +355,34 @@ export default function Contact() {
       <section className="hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
-          <Badge icon={Mail} text="GET IN TOUCH" />
-          <h1 className="hero-title">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Badge icon={Mail} text="GET IN TOUCH" />
+          </motion.div>
+
+          <motion.h1 
+            className="hero-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Let's Start a Conversation
-          </h1>
-          <p className="hero-subtitle">
-            Whether you're looking to build your dream team or land your next great role, our team is ready to help. Fill in the form below and we'll be in touch promptly.
-          </p>
+          </motion.h1>
+
+          <motion.p 
+            className="hero-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Have a question, need HR advisory, or looking for your next dream role? Our team is ready to help you navigate your journey with expert guidance and tailored solutions.
+          </motion.p>
         </div>
       </section>
 

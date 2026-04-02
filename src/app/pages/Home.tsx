@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import './Home.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
+import { PARTNERS } from '../../data/DATA';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1626954499077-b56bd315594d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBIUiUyMHRlYW0lMjBOaWdlcmlhJTIwb2ZmaWNlfGVufDF8fHx8MTc3NDAyMzU1Nnww&ixlib=rb-4.1.0&q=80&w=1080';
 const WHY_IMG = 'https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODk3MzY4fDA&ixlib=rb-4.1.0&q=80&w=1080';
@@ -140,24 +141,48 @@ export default function Home() {
 
         <div className="hero-content">
           <div className="hero-header">
-            <div className="hero-badge-wrap">
+            <motion.div 
+              className="hero-badge-wrap"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               <Badge icon={Briefcase} text="Your #1 HR Solutions Partner" />
-            </div>
+            </motion.div>
 
-            <h1 className="hero-title">
+            <motion.h1 
+              className="hero-title"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Find Top Talent or{' '}
               <span className="hero-title-highlight">Your Dream Job</span>{' '}
               in Nigeria
-            </h1>
+            </motion.h1>
 
-            <p className="hero-subtitle">
+            <motion.p 
+              className="hero-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               Desjob Global bridges the gap between exceptional professionals and forward-thinking organisations. Whether you're growing your team or advancing your career, we're your trusted HR partner.
-            </p>
+            </motion.p>
 
-            <div className="cta-links">
+            <motion.div 
+              className="cta-links"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               <ButtonPrimary text="Hire Top Talent" link="/contact" icon={<ArrowRight className="hero-btn-icon" />} />
               <ButtonSecondary text="Find Your Dream Job" link="/jobs" />
-            </div>
+            </motion.div>
           </div>
 
           {/* Hero image */}
@@ -209,7 +234,7 @@ export default function Home() {
             >
               {[1, 2].map((groupIndex) => (
                 <div key={groupIndex} className="trust-logos-group">
-                  {['Zenith Bank', 'MTN Nigeria', 'Dangote Group', 'Flutterwave', 'Access Bank', 'Konga', 'NNPC'].map((co, idx) => (
+                  {PARTNERS.map((co, idx) => (
                     <span key={`${co}-${idx}-${groupIndex}`} className="trust-bar-company">
                       {co}
                     </span>

@@ -149,6 +149,7 @@ type AdminState = {
   setEmployerMessages: (messages: EmployerMessage[]) => void;
   setPosts: (posts: JobPost[]) => void;
   addPost: (post: Omit<JobPost, 'id' | 'posted'>) => JobPost;
+  deleteJobPost: (id: string) => void;
   
   // Blog Actions
   setBlogPosts: (posts: BlogPost[]) => void;
@@ -179,6 +180,12 @@ export const useAdminStore = create<AdminState>((set) => ({
     
     set((state) => ({ posts: [newPost, ...state.posts] }));
     return newPost;
+  },
+
+  deleteJobPost: (id) => {
+    set((state) => ({
+      posts: state.posts.filter((post) => post.id !== id),
+    }));
   },
 
   setBlogPosts: (blogPosts) => set({ blogPosts }),
