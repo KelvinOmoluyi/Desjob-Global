@@ -230,7 +230,8 @@ function JobSeekerForm() {
         type="submit"
         className="form-submit-btn"
       >
-        <Send className="submit-icon" /> Submit My Application
+        <Send className="submit-icon" /> 
+        <p>Submit My Application</p>
       </button>
 
       <p className="form-disclaimer">
@@ -336,7 +337,8 @@ function EmployerForm() {
         type="submit"
         className="form-submit-btn"
       >
-        <Send className="submit-icon" /> Send Hiring Enquiry
+        <Send className="submit-icon" />
+        <p>Send Hiring Enquiry</p>
       </button>
 
       <p className="form-disclaimer">
@@ -379,7 +381,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             Have a question, need HR advisory, or looking for your next dream role? Our team is ready to help you navigate your journey with expert guidance and tailored solutions.
           </motion.p>

@@ -36,6 +36,7 @@
 }
 .input-label {
   font-size: 0.875rem;
+  font-family: Inter, TWK, sans-serif;
   font-weight: 600;
   color: #374151;
   display: block;
@@ -50,6 +51,7 @@
   background: #f9fafb;
   border: 1.5px solid #e5e7eb;
   font-size: 0.9375rem;
+  font-family: Inter, TWK, sans-serif;
   color: #111827;
   outline: none;
   transition: all 0.2s;

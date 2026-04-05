@@ -84,7 +84,7 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             At Desjob Global, we believe that the right people in the right roles change everything. Since our founding, we've been on a mission to transform how Nigerian businesses attract, develop, and retain exceptional talent.
           </motion.p>
@@ -95,7 +95,12 @@ export default function About() {
       <section className="story-section">
         <div className="container">
           <div className="story-grid">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <Badge icon={Star} text="OUR STORY" />
               <h2 className="section-title">
                 Born from a Passion for People and Purpose
@@ -111,15 +116,21 @@ export default function About() {
                   Our work isn't just about filling vacancies. It's about fuelling ambitions, building legacies, and shaping the future of work in Nigeria.
                 </p>
               </div>
-            </div>
-            <div className="story-img-wrap">
+            </motion.div>
+            <motion.div 
+              className="story-img-wrap"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="img-glow" />
               <img
                 src={STORY_IMG}
                 alt="Desjob Global team collaborating"
                 className="story-img"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -128,15 +139,34 @@ export default function About() {
       <section className="purpose-section">
         <div className="container">
           <div className="section-header">
-            <Badge text="PURPOSE & DIRECTION" />
-            <h2 className="purpose-title">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge text="PURPOSE & DIRECTION" />
+            </motion.div>
+            <motion.h2 
+              className="purpose-title"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               What Drives Everything We Do
-            </h2>
+            </motion.h2>
           </div>
 
           <div className="purpose-grid">
             {/* Mission */}
-            <div className="mission-card">
+            <motion.div 
+              className="mission-card"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
               <div className="mission-icon-wrap">
                 <Target className="mission-icon" />
               </div>
@@ -145,33 +175,51 @@ export default function About() {
                 Our mission is to drive efficiency for clients by relieving them of possible distractions from their core businesses.
               </p>
               <div className="mission-list">
-                {['Relieve clients of operational distractions', 'Drive efficiency across business functions', 'Enable focus on core objectives'].map((item) => (
-                  <div key={item} className="mission-list-item">
+                {['Relieve clients of operational distractions', 'Drive efficiency across business functions', 'Enable focus on core objectives'].map((item, i) => (
+                  <motion.div 
+                    key={item} className="mission-list-item"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.5 + (i * 0.1) }}
+                  >
                     <CheckCircle2 className="mission-list-icon" />
                     <span className="mission-list-text">{item}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Vision */}
-            <div className="vision-card">
+            <motion.div 
+              className="vision-card"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
               <div className="vision-icon-wrap">
                 <Eye className="vision-icon" />
               </div>
               <h3 className="vision-card-title">Our Vision</h3>
               <p className="vision-desc">
-                Our vision is to become a key player in the business support service industry in the Nigeria Economy.
+                To be the human capital partner of choice in Africa, delivering exceptional value through insight, innovation, and integrity.
               </p>
               <div className="vision-list">
-                {['Key player in business support', 'Recognised across the Nigerian economy', 'Trusted partner for exponential growth'].map((item) => (
-                  <div key={item} className="vision-list-item">
+                {['Preferred partner across Africa', 'Driving innovation in HR tech', 'Building sustainable workforce legacies'].map((item, i) => (
+                  <motion.div 
+                    key={item} className="vision-list-item"
+                    initial={{ opacity: 0, x: 10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.5 + (i * 0.1) }}
+                  >
                     <CheckCircle2 className="vision-list-icon" />
                     <span className="vision-list-text">{item}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -180,7 +228,12 @@ export default function About() {
       <section className="values-section">
         <div className="container">
           <div className="values-grid">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <Badge icon={Heart} text="OUR CORE VALUES" />
               <h2 className="section-title">
                 The Principles That Guide Every Decision We Make
@@ -190,26 +243,38 @@ export default function About() {
               </p>
 
               <div className="values-cards-grid">
-                {coreValues.map(({ icon: Icon, title, desc }) => (
-                  <div key={title} className="value-card">
+                {coreValues.map(({ icon: Icon, title, desc }, i) => (
+                  <motion.div 
+                    key={title} className="value-card"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 + (i * 0.1) }}
+                  >
                     <div className="value-icon-wrap">
                       <Icon className="value-icon" />
                     </div>
                     <h4 className="value-card-title">{title}</h4>
                     <p className="value-card-desc">{desc}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="values-img-wrap">
+            <motion.div 
+              className="values-img-wrap"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="img-glow" />
               <img
                 src={VALUES_IMG}
                 alt="Desjob Global values in action"
                 className="values-img"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -218,18 +283,43 @@ export default function About() {
       <section className="team-section">
         <div className="container">
           <div className="section-header">
-            <Badge icon={Users} text="MEET THE TEAM" />
-            <h2 className="team-title section-title">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge icon={Users} text="MEET THE TEAM" />
+            </motion.div>
+            <motion.h2 
+              className="team-title section-title"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               The People Behind Your Success
-            </h2>
-            <p className="team-subtitle">
+            </motion.h2>
+            <motion.p 
+              className="team-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Our team of seasoned HR professionals brings deep expertise, genuine passion, and an unwavering commitment to your outcomes.
-            </p>
+            </motion.p>
           </div>
 
           <div className="team-grid">
-            {teamMembers.map(({ name, title, bio, img }) => (
-              <div key={name} className="team-card">
+            {teamMembers.map(({ name, title, bio, img }, i) => (
+              <motion.div 
+                key={name} className="team-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.15 }}
+              >
                 <img
                   src={img}
                   alt={name}
@@ -240,7 +330,7 @@ export default function About() {
                   <p className="team-role">{title}</p>
                   <p className="team-bio">{bio}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -248,7 +338,13 @@ export default function About() {
 
       {/* ── CTA ── */}
       <section className="cta-section">
-        <div className="cta-container">
+        <motion.div 
+          className="cta-container"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="cta-title">
             Partner With Nigeria's Most Trusted HR Firm
           </h2>
@@ -266,7 +362,7 @@ export default function About() {
               text="Explore Services"
             />
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

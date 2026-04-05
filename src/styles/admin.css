@@ -489,6 +489,21 @@
   border: 1px solid #fecaca;
 }
 
+.admin-btn-secondary {
+  background-color: transparent;
+  color: var(--main-color-01);
+  width: 100%;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
 
 /* Confirm Modal Styles (Keep existing ones I created) */
 .admin-confirm-overlay {

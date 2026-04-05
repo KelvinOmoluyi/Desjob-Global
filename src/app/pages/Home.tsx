@@ -1,9 +1,9 @@
 import { Link } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LucideIcon } from 'lucide-react';
 import {
   ArrowRight, CheckCircle2, Users, TrendingUp, Award, Building2,
-  Star, ChevronDown, ChevronUp, Search, Briefcase, Target, Heart, Zap,
+  Star, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Search, Briefcase, Target, Heart, Zap,
   Repeat, Lightbulb, Package
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -11,10 +11,11 @@ import './Home.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
 import { PARTNERS } from '../../data/DATA';
+import IMAGES from '../../data/images';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1626954499077-b56bd315594d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBIUiUyMHRlYW0lMjBOaWdlcmlhJTIwb2ZmaWNlfGVufDF8fHx8MTc3NDAyMzU1Nnww&ixlib=rb-4.1.0&q=80&w=1080';
-const WHY_IMG = 'https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODk3MzY4fDA&ixlib=rb-4.1.0&q=80&w=1080';
-const HOWIT_IMG = 'https://images.unsplash.com/photo-1762330466678-45b42e02f5a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWNydWl0bWVudCUyMGhpcmluZyUyMHRhbGVudCUyMGFjcXVpc2l0aW9ufGVufDF8fHx8MTc3NDAyMzU2MHww&ixlib=rb-4.1.0&q=80&w=1080';
+const HERO_IMG = 'https://images.unsplash.com/photo-1758519289200-384c7ef2d163?q=80&w=1080&auto=format&fit=crop';
+const WHY_IMG = 'https://images.unsplash.com/photo-1528901166007-3784c7dd3653?q=80&w=1080&auto=format&fit=crop';
+const HOWIT_IMG = 'https://plus.unsplash.com/premium_photo-1661962849568-792fc7c8542b?q=80&w=1080&auto=format&fit=crop';
 const WOMAN_IMG = 'https://images.unsplash.com/photo-1760543998147-117ae5649c5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGV4ZWN1dGl2ZSUyMHBvcnRyYWl0JTIwc21pbGluZ3xlbnwxfHx8fDE3NzM5NDYyMDB8MA&ixlib=rb-4.1.0&q=80&w=1080';
 const MAN_IMG = 'https://images.unsplash.com/photo-1737574821698-862e77f044c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBleGVjdXRpdmUlMjBwb3J0cmFpdCUyMG9mZmljZXxlbnwxfHx8fDE3NzQwMjM1NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080';
 const CAREER_IMG = 'https://images.unsplash.com/photo-1758876019673-704b039d405c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBncm93dGglMjBwcm9mZXNzaW9uYWwlMjBzdWNjZXNzJTIwb2ZmaWNlfGVufDF8fHx8MTc3NDAyMzU2MXww&ixlib=rb-4.1.0&q=80&w=1080';
@@ -47,33 +48,54 @@ const faqs = [
 ];
 
 const stats = [
-  { value: '500+', label: 'Companies Served', icon: Building2 },
-  { value: '10,000+', label: 'Successful Placements', icon: Users },
+  { value: '50+', label: 'Companies Served', icon: Building2 },
+  { value: '1250+', label: 'Successful Placements', icon: Users },
   { value: '98%', label: 'Client Satisfaction', icon: Award },
-  { value: '15+', label: 'Industries Covered', icon: TrendingUp },
+  { value: '9+', label: 'Industries Covered', icon: TrendingUp },
 ];
 
 const testimonials = [
   {
-    name: 'Adebayo Okafor',
-    title: 'Head of People, TechBridge Nigeria',
-    avatar: MAN_IMG,
+    name: 'Mr Sivanandha Sathananthan',
+    title: 'HRM manager (Wellway Nigeria Plastic Industry)',
+    avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'Desjob Global helped us build our entire engineering team in under four weeks. Their deep understanding of the Nigerian tech talent market is unmatched. We\'ve made them our go-to recruitment partner.',
+    text: 'Desjob Global has been an exceptional recruitment partner. Their deep understanding of the talent market helped us build our technical team seamlessly in record time. Truly world-class service!',
   },
   {
-    name: 'Fatima Aliyu',
-    title: 'Senior Marketing Manager, Lagos',
-    avatar: WOMAN_IMG,
+    name: 'Mr Francis Chukwemezie',
+    title: 'Senior HRM Manager (CWAY NIGERIA DRINKING WATER LIMITED)',
+    avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'Within two weeks of uploading my CV, I had three interview calls and landed a role that perfectly matched my career goals. The team was professional, responsive, and genuinely invested in my success.',
+    text: 'Partnering with Desjob Global transformed our hiring strategy. Their professional approach to workforce management and swift execution makes them an invaluable HR asset to our company.',
   },
   {
-    name: 'Emeka Chukwu',
-    title: 'CEO, Greenfield Properties Ltd',
-    avatar: CAREER_IMG,
+    name: 'Mr Idowu Odogberin',
+    title: 'HR Manager (LUCKY FIBRE)',
+    avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'Their HR consulting service transformed how we manage our workforce. From policy redesign to payroll compliance, they handled everything with incredible expertise. I highly recommend Desjob Global.',
+    text: 'Their HR consulting and outsourcing services are top-tier. Desjob meticulously handled our recruitment needs with unparalleled expertise, significantly boosting our operational efficiency.',
+  },
+  {
+    name: 'Mrs Koko Taiwo',
+    title: 'Head, HRM Manager (EUROMEGA ATLANTIC NIGERIA LIMITED)',
+    avatar: IMAGES.personIcon,
+    stars: 5,
+    text: 'Desjob Global consistently delivers outstanding talent solutions. Their dedication to understanding our company culture ensures we get perfect hires every single time. An absolute game-changer for HR!',
+  },
+  {
+    name: 'Mr Belema Job-Kalio',
+    title: 'HRM Manager (SARO AGRO-SCIENCES LIMITED)',
+    avatar: IMAGES.personIcon,
+    stars: 5,
+    text: 'We rely on Desjob Global for all our major recruitment drives. They do not just fill roles; they provide strategic HR guidance that adds immense value to our entire organizational structure.',
+  },
+  {
+    name: 'Mrs Comfort Eyo',
+    title: 'Head HRM Manager (CWAY ABUJA)',
+    avatar: IMAGES.personIcon,
+    stars: 5,
+    text: 'The level of professionalism and speed Desjob brings to the table is unmatched. They have streamlined our hiring process, making talent acquisition entirely stress-free and highly effective.',
   },
 ];
 
@@ -94,21 +116,38 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         className="faq-btn"
         onClick={() => setOpen(!open)}
       >
-        <span className="faq-q">{q}</span>
+        <p className="faq-q">{q}</p>
         <span className="faq-icon-wrap">
           {open ? <ChevronUp className="faq-icon active" /> : <ChevronDown className="faq-icon" />}
         </span>
       </button>
       {open && (
-        <div className="faq-a">
+        <p className="faq-a">
           {a}
-        </div>
+        </p>
       )}
     </div>
   );
 }
 
 export default function Home() {
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setTestimonialIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, [testimonialIndex]);
+
   return (
     <div className="home-page">
       {/* ── HERO ── */}
@@ -250,14 +289,20 @@ export default function Home() {
       <section className="stats-section">
         <div className="container">
           <div className="stats-grid">
-            {stats.map(({ value, label, icon: Icon }) => (
-              <div key={label} className="stat-card">
+            {stats.map(({ value, label, icon: Icon }, index) => (
+              <motion.div 
+                key={label} className="stat-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+              >
                 <div className="stat-icon-wrap">
                   <Icon className="stat-icon" />
                 </div>
                 <p className="stat-value">{value}</p>
                 <p className="stat-label">{label}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -267,13 +312,34 @@ export default function Home() {
       <section className="services-section">
         <div className="container">
           <div className="section-header">
-            <Badge icon={Zap} text="OUR SERVICES" />
-            <h2 className="section-title services-title" style={{ maxWidth: 640 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge icon={Zap} text="OUR SERVICES" />
+            </motion.div>
+            <motion.h2 
+              className="section-title services-title" 
+              style={{ maxWidth: 640 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               Comprehensive HR Solutions for Every Need
-            </h2>
-            <p className="section-subtitle services-subtitle" style={{ maxWidth: 560 }}>
+            </motion.h2>
+            <motion.p 
+              className="section-subtitle services-subtitle" 
+              style={{ maxWidth: 560 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               From sourcing the best candidates to building world-class HR systems, we are your end-to-end human capital partner.
-            </p>
+            </motion.p>
           </div>
 
           <div className="services-grid">
@@ -309,13 +375,19 @@ export default function Home() {
                 desc: 'End-to-end workforce planning, payroll processing, benefits administration, and HR compliance management.',
               },
             ].map(({ icon: Icon, title, desc }, i) => (
-              <div key={i} className="service-card">
+              <motion.div 
+                key={i} className="service-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
+              >
                 <div className="service-icon-wrap">
                   <Icon className="service-icon" />
                 </div>
                 <h3 className="service-title">{title}</h3>
                 <p className="service-desc">{desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -334,7 +406,12 @@ export default function Home() {
         <div className="container">
           <div className="why-grid">
             {/* Text */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <Badge icon={CheckCircle2} text="WHY DESJOB GLOBAL" />
               <h2 className="why-title">
                 The HR Partner That Consistently Delivers Results
@@ -352,29 +429,43 @@ export default function Home() {
                   'Industry-specific specialist recruiting teams',
                   'Transparent process with regular progress updates',
                 ].map((item, i) => (
-                  <li key={i} className="why-list-item">
+                  <motion.li 
+                    key={i} className="why-list-item"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                  >
                     <CheckCircle2 className="why-list-icon" />
                     <span className="why-list-text">{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
 
-              <ButtonPrimary
-                link="/about"
-                text="Learn About Us"
-                icon={<ArrowRight className="why-btn-icon" />}
-              />
-            </div>
+              <div style={{ marginTop: '2rem' }}>
+                <ButtonPrimary
+                  link="/about"
+                  text="Learn About Us"
+                  icon={<ArrowRight className="why-btn-icon" />}
+                />
+              </div>
+            </motion.div>
 
             {/* Image */}
-            <div className="why-img-wrapper">
+            <motion.div 
+              className="why-img-wrapper"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="why-img-bg" />
               <img
                 src={WHY_IMG}
                 alt="Desjob Global team collaborating on talent strategies"
                 className="why-img"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -384,17 +475,29 @@ export default function Home() {
         <div className="container">
           <div className="home-process-grid flex-reverse">
             {/* Image */}
-            <div className="home-process-img-wrap">
+            <motion.div 
+              className="home-process-img-wrap"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="why-img-bg" />
               <img
                 src={HOWIT_IMG}
                 alt="Desjob Global recruitment process in action"
                 className="home-process-img"
               />
-            </div>
+            </motion.div>
 
             {/* Steps */}
-            <div className="home-process-content">
+            <motion.div 
+              className="home-process-content"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <Badge icon={Zap} text="HOW WE WORK" />
               <h2 className="home-process-section-title">
                 A Simple Process Built for Speed and Precision
@@ -420,8 +523,14 @@ export default function Home() {
                     title: 'Interview, Hire & Grow',
                     desc: 'We manage interviews, negotiate offers, and support onboarding ensuring a smooth transition for both employers and new hires. Our support doesn\'t stop at placement.',
                   },
-                ].map(({ step, title, desc }) => (
-                  <div key={step} className="home-process-step">
+                ].map(({ step, title, desc }, i) => (
+                  <motion.div 
+                    key={step} className="home-process-step"
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.15 }}
+                  >
                     <div className="home-process-step-num-wrap">
                       <span className="home-process-step-num">{step}</span>
                     </div>
@@ -429,7 +538,7 @@ export default function Home() {
                       <h3 className="home-process-step-title">{title}</h3>
                       <p className="home-process-step-desc">{desc}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -440,7 +549,7 @@ export default function Home() {
                   icon={<ArrowRight className="why-btn-icon" />}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -449,44 +558,98 @@ export default function Home() {
       <section className="testimonials-section">
         <div className="container">
           <div className="section-header">
-            <Badge icon={Star} text="TESTIMONIALS" />
-            <h2 className="section-title testimonials-title" style={{ maxWidth: 620 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge icon={Star} text="TESTIMONIALS" />
+            </motion.div>
+            <motion.h2 
+              className="section-title testimonials-title" 
+              style={{ maxWidth: 620 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               What Our Clients & Candidates Say
-            </h2>
-            <p className="section-subtitle testimonials-subtitle" style={{ maxWidth: 520 }}>
+            </motion.h2>
+            <motion.p 
+              className="section-subtitle testimonials-subtitle" 
+              style={{ maxWidth: 520 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Real stories from the companies and professionals we've partnered with to achieve extraordinary outcomes.
-            </p>
+            </motion.p>
           </div>
 
-          <div className="testimonials-grid">
-            {testimonials.map(({ name, title, avatar, stars, text }, i) => (
-              <div key={i} className="testimonial-card">
-                <div className="testimonial-stars">
-                  {Array.from({ length: stars }).map((_, si) => (
-                    <Star key={si} className="testimonial-star" />
-                  ))}
-                </div>
-                <p className="testimonial-text">"{text}"</p>
-                <div className="testimonial-author">
-                  <img
-                    src={avatar}
-                    alt={name}
-                    className="testimonial-avatar"
-                  />
-                  <div>
-                    <p className="testimonial-name">{name}</p>
-                    <p className="testimonial-role">{title}</p>
+          <div className="testimonials-carousel-wrapper">
+            <button className="carousel-btn prev" onClick={prevTestimonial}>
+              <ChevronLeft />
+            </button>
+            <button className="carousel-btn next" onClick={nextTestimonial}>
+              <ChevronRight />
+            </button>
+
+            <div className="testimonials-viewport">
+              <div 
+                className="testimonials-track"
+                style={{ transform: `translateX(calc(-${testimonialIndex} * var(--slide-width)))` }}
+              >
+                {[...testimonials, ...testimonials.slice(0, 3)].map(({ name, title, avatar, stars, text }, i) => (
+                  <div key={i} className="testimonial-slide">
+                    <div className="testimonial-card">
+                      <div className="testimonial-stars">
+                        {Array.from({ length: stars }).map((_, si) => (
+                          <Star key={si} className="testimonial-star" />
+                        ))}
+                      </div>
+                      <p className="testimonial-text">"{text}"</p>
+                      <div className="testimonial-author">
+                        <img
+                          src={avatar}
+                          alt={name}
+                          className="testimonial-avatar"
+                        />
+                        <div>
+                          <p className="testimonial-name">{name}</p>
+                          <p className="testimonial-role">{title}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="carousel-dots">
+              {testimonials.map((_, i) => (
+                <button 
+                  key={i} 
+                  className={`carousel-dot ${i === testimonialIndex ? 'active' : ''}`}
+                  onClick={() => setTestimonialIndex(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── CTA BANNER ── */}
       <section className="cta-section">
-        <div className="cta-container">
+        <motion.div 
+          className="cta-container"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="cta-title">
             Ready to Transform Your Workforce or Your Career?
           </h2>
@@ -505,13 +668,19 @@ export default function Home() {
               icon={<ArrowRight className="cta-btn-icon-right" />}
             />
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── FAQ ── */}
       <section className="home-process-section faq-section">
         <div className="faq-container">
-          <div className="section-header">
+          <motion.div 
+            className="section-header"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <Badge text="FAQ" />
             <h2 className="section-title mt-5 mb-2">
               Frequently Asked Questions
@@ -519,22 +688,34 @@ export default function Home() {
             <p className="section-subtitle mt-4">
               Everything you need to know about working with Desjob Global.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="faq-list">
+          <motion.div 
+            className="faq-list"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             {faqs.map((faq, i) => (
               <FAQItem key={i} q={faq.q} a={faq.a} />
             ))}
-          </div>
+          </motion.div>
 
-          <div className="faq-footer">
+          <motion.div 
+            className="faq-footer"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             <p className="faq-bottom-text">
               Still have questions?{' '}
               <Link to="/contact" className="faq-link">
                 Get in touch with our team →
               </Link>
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

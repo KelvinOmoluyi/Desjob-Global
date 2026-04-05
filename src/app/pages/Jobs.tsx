@@ -11,7 +11,7 @@ import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
 
 const JOBS_HERO_IMG = 'https://images.unsplash.com/photo-1758520144417-e1c432042dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqb2IlMjBzZWFyY2glMjByZXN1bWUlMjBjYXJlZXIlMjBvcHBvcnR1bml0eXxlbnwxfHx8fDE3NzQwMjM1NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080';
-const CAREER_IMG = 'https://images.unsplash.com/photo-1758876019673-704b039d405c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBncm93dGglMjBwcm9mZXNzaW9uYWwlMjBzdWNjZXNzJTIwb2ZmaWNlfGVufDF8fHx8MTc3NDAyMzU2MXww&ixlib=rb-4.1.0&q=80&w=1080';
+const CAREER_IMG = 'https://plus.unsplash.com/premium_photo-1683980578016-a1f980719ec2?q=80&w=1080&auto=format&fit=crop';
 
 // ==========================================
 // SHARED DATA & TYPES
@@ -290,7 +290,7 @@ export default function Jobs() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             Desjob Global connects ambitious professionals with the most exciting roles across Nigeria's fastest-growing companies. Your dream job is closer than you think.
           </motion.p>
@@ -299,7 +299,7 @@ export default function Jobs() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
             <JobSearchBar
               searchQuery={searchQuery}

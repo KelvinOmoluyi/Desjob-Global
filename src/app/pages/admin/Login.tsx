@@ -81,6 +81,10 @@ export default function Login() {
               </>
             )}
           </button>
+          
+          <a href="/" className="admin-btn-secondary">
+            Back to Web
+          </a>
         </form>
       </div>
     </div>
