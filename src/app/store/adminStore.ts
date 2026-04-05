@@ -159,11 +159,11 @@ type AdminState = {
 };
 
 export const useAdminStore = create<AdminState>((set) => ({
-  isAuthenticated: false, // Start unauthenticated
-  jobSeekerMessages: initialJobSeekerMessages,
-  employerMessages: initialEmployerMessages,
-  posts: initialJobPosts,
-  blogPosts: initialBlogPosts,
+  isAuthenticated: false,
+  jobSeekerMessages: [],
+  employerMessages: [],
+  posts: [],
+  blogPosts: [],
 
   login: () => set({ isAuthenticated: true }),
   logout: () => set({ isAuthenticated: false }),

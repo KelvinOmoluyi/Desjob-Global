@@ -1,100 +1,241 @@
-import { 
-  useAdminStore, 
-  JobSeekerMessage, 
-  EmployerMessage, 
-  JobPost,
-  BlogPost
-} from '../store/adminStore';
+import { supabase } from '../../lib/supabase';
+import type { JobPost, BlogPost, JobSeekerMessage, EmployerMessage } from '../store/adminStore';
 
-/**
- * Mock API layer for the Admin Dashboard.
- * These functions simulate network requests to a real backend like Supabase or Appwrite.
- * They wrap the synchronous Zustand store actions in Promises with an artificial delay.
- */
-
-// Simulate network delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+// ─── AUTH ───────────────────────────────────────────────────────────────────
 
 export const adminApi = {
-  // Auth
+
   login: async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
-    await delay(1000);
-    // Hardcoded mock credentials for demo purposes
-    if (email === 'admin@desjobglobal.com' && password === 'admin123') {
-      useAdminStore.getState().login();
-      return { success: true };
-    }
-    return { success: false, error: 'Invalid email or password' };
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) return { success: false, error: error.message };
+    return { success: true };
   },
 
   logout: async (): Promise<void> => {
-    await delay(500);
-    useAdminStore.getState().logout();
+    await supabase.auth.signOut();
   },
 
   checkAuthSession: async (): Promise<boolean> => {
-    await delay(300);
-    return useAdminStore.getState().isAuthenticated;
+    const { data } = await supabase.auth.getSession();
+    return !!data.session;
   },
 
-  // Messages
+  // ─── CONTACT MESSAGES ──────────────────────────────────────────────────────
+
   getJobSeekerMessages: async (): Promise<JobSeekerMessage[]> => {
-    await delay(800);
-    return useAdminStore.getState().jobSeekerMessages;
+    const { data, error } = await supabase
+      .from('contact_messages')
+      .select('*')
+      .eq('type', 'job_seeker')
+      .order('submitted_at', { ascending: false });
+
+    if (error) { console.error(error); return []; }
+
+    return (data ?? []).map((row) => ({
+      id: row.id,
+      name: row.name ?? '',
+      email: row.email,
+      phone: row.phone ?? '',
+      field: row.field ?? '',
+      experience: row.experience ?? '',
+      message: row.message ?? '',
+      date: row.submitted_at,
+    }));
   },
 
   getEmployerMessages: async (): Promise<EmployerMessage[]> => {
-    await delay(800);
-    return useAdminStore.getState().employerMessages;
+    const { data, error } = await supabase
+      .from('contact_messages')
+      .select('*')
+      .eq('type', 'employer')
+      .order('submitted_at', { ascending: false });
+
+    if (error) { console.error(error); return []; }
+
+    return (data ?? []).map((row) => ({
+      id: row.id,
+      company: row.company ?? '',
+      contact: row.contact ?? '',
+      email: row.email,
+      phone: row.phone ?? '',
+      industry: row.industry ?? '',
+      positions: row.positions ?? '',
+      hiringNeeds: row.hiring_needs ?? '',
+      timeline: row.timeline ?? '',
+      message: row.message ?? '',
+      date: row.submitted_at,
+    }));
   },
 
-  // Posts
+  deleteMessage: async (id: string): Promise<void> => {
+    const { error } = await supabase.from('contact_messages').delete().eq('id', id);
+    if (error) console.error('deleteMessage error:', error);
+  },
+
+  // ─── JOBS ──────────────────────────────────────────────────────────────────
+
   getPosts: async (): Promise<JobPost[]> => {
-    await delay(800);
-    return useAdminStore.getState().posts;
+    const { data, error } = await supabase
+      .from('jobs')
+      .select('*')
+      .order('posted_at', { ascending: false });
+
+    if (error) { console.error(error); return []; }
+
+    return (data ?? []).map((row) => ({
+      id: row.id,
+      title: row.title,
+      company: row.company,
+      location: row.location,
+      type: row.type,
+      salary: row.salary,
+      category: row.category,
+      tags: row.tags ?? [],
+      posted: new Date(row.posted_at).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric',
+      }),
+    }));
   },
 
   createPost: async (postData: Omit<JobPost, 'id' | 'posted'>): Promise<JobPost> => {
-    await delay(1200);
-    return useAdminStore.getState().addPost(postData);
+    const { data, error } = await supabase
+      .from('jobs')
+      .insert({
+        title: postData.title,
+        company: postData.company,
+        location: postData.location,
+        type: postData.type,
+        salary: postData.salary,
+        category: postData.category,
+        tags: postData.tags,
+      })
+      .select()
+      .single();
+
+    if (error || !data) throw new Error(error?.message ?? 'Failed to create job post');
+
+    return {
+      id: data.id,
+      title: data.title,
+      company: data.company,
+      location: data.location,
+      type: data.type,
+      salary: data.salary,
+      category: data.category,
+      tags: data.tags,
+      posted: 'Just now',
+    };
   },
 
   updateJobPost: async (id: string, postData: Partial<JobPost>): Promise<void> => {
-    await delay(1000);
-    // Note: I should add updatePost to the store too if it becomes needed, 
-    // but for now I'll just use the existing setPosts if necessary or add it.
-    // Actually, I'll add updateJobPost to the store in a separate step if needed.
-    // For now, let's just add deleteJobPost which was explicitly requested.
+    const { error } = await supabase.from('jobs').update({
+      title: postData.title,
+      company: postData.company,
+      location: postData.location,
+      type: postData.type,
+      salary: postData.salary,
+      category: postData.category,
+      tags: postData.tags,
+    }).eq('id', id);
+    if (error) console.error('updateJobPost error:', error);
   },
 
   deleteJobPost: async (id: string): Promise<void> => {
-    await delay(800);
-    useAdminStore.getState().deleteJobPost(id);
+    const { error } = await supabase.from('jobs').delete().eq('id', id);
+    if (error) console.error('deleteJobPost error:', error);
   },
 
-  // Blog
+  // ─── BLOG ──────────────────────────────────────────────────────────────────
+
   getBlogPosts: async (): Promise<BlogPost[]> => {
-    await delay(800);
-    return useAdminStore.getState().blogPosts;
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('published_at', { ascending: false });
+
+    if (error) { console.error(error); return []; }
+
+    return (data ?? []).map((row) => ({
+      id: row.id,
+      title: row.title,
+      slug: row.slug,
+      image: row.image,
+      content: row.content ?? [],
+      author: row.author,
+      category: row.category,
+      date: new Date(row.published_at).toLocaleDateString('en-US', {
+        month: 'long', day: 'numeric', year: 'numeric',
+      }),
+    }));
   },
 
   getBlogPostBySlug: async (slug: string): Promise<BlogPost | undefined> => {
-    await delay(500);
-    return useAdminStore.getState().blogPosts.find(p => p.slug === slug);
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error || !data) return undefined;
+
+    return {
+      id: data.id,
+      title: data.title,
+      slug: data.slug,
+      image: data.image,
+      content: data.content ?? [],
+      author: data.author,
+      category: data.category,
+      date: new Date(data.published_at).toLocaleDateString('en-US', {
+        month: 'long', day: 'numeric', year: 'numeric',
+      }),
+    };
   },
 
   createBlogPost: async (postData: Omit<BlogPost, 'id' | 'date'>): Promise<BlogPost> => {
-    await delay(1200);
-    return useAdminStore.getState().addBlogPost(postData);
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .insert({
+        title: postData.title,
+        slug: postData.slug,
+        image: postData.image,
+        content: postData.content,
+        author: postData.author,
+        category: postData.category,
+      })
+      .select()
+      .single();
+
+    if (error || !data) throw new Error(error?.message ?? 'Failed to create blog post');
+
+    return {
+      id: data.id,
+      title: data.title,
+      slug: data.slug,
+      image: data.image,
+      content: data.content,
+      author: data.author,
+      category: data.category,
+      date: new Date(data.published_at).toLocaleDateString('en-US', {
+        month: 'long', day: 'numeric', year: 'numeric',
+      }),
+    };
   },
 
   updateBlogPost: async (id: string, postData: Partial<BlogPost>): Promise<void> => {
-    await delay(1000);
-    useAdminStore.getState().updateBlogPost(id, postData);
+    const { error } = await supabase.from('blog_posts').update({
+      title: postData.title,
+      slug: postData.slug,
+      image: postData.image,
+      content: postData.content,
+      author: postData.author,
+      category: postData.category,
+    }).eq('id', id);
+    if (error) console.error('updateBlogPost error:', error);
   },
 
   deleteBlogPost: async (id: string): Promise<void> => {
-    await delay(800);
-    useAdminStore.getState().deleteBlogPost(id);
+    const { error } = await supabase.from('blog_posts').delete().eq('id', id);
+    if (error) console.error('deleteBlogPost error:', error);
   },
 };

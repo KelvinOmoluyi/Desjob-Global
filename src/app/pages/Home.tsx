@@ -48,7 +48,7 @@ const faqs = [
 ];
 
 const stats = [
-  { value: '50+', label: 'Companies Served', icon: Building2 },
+  { value: '15+', label: 'Companies Served', icon: Building2 },
   { value: '1250+', label: 'Successful Placements', icon: Users },
   { value: '98%', label: 'Client Satisfaction', icon: Award },
   { value: '9+', label: 'Industries Covered', icon: TrendingUp },
@@ -238,7 +238,7 @@ export default function Home() {
                 <Users className="hero-floating-icon" />
               </div>
               <div>
-                <p className="hero-floating-title">10,000+ Placements</p>
+                <p className="hero-floating-title">1250+ Placements</p>
                 <p className="hero-floating-subtitle">Across Nigeria & Africa</p>
               </div>
             </div>
@@ -248,7 +248,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="hero-floating-title">98% Satisfaction</p>
-                <p className="hero-floating-subtitle">From 500+ companies</p>
+                <p className="hero-floating-subtitle">From 15+ companies</p>
               </div>
             </div>
           </div>

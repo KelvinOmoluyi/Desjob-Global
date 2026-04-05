@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { LucideIcon } from 'lucide-react';
 import {
-  ArrowRight, CheckCircle2, Eye, Target, Heart, Shield, Zap, Users, Award, Star, Briefcase
+  ArrowRight, CheckCircle2, Eye, Target, Heart, Shield, Zap, Users, Award, Star, Briefcase, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './About.css';
@@ -9,10 +10,17 @@ import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
 
 const STORY_IMG = 'https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMGNvbGxhYm9yYXRpb258ZW58MXx8fHwxNzczODk3MzY4fDA&ixlib=rb-4.1.0&q=80&w=1080';
-const TEAM1_IMG = 'https://images.unsplash.com/photo-1760543998147-117ae5649c5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMGV4ZWN1dGl2ZSUyMHBvcnRyYWl0JTIwc21pbGluZ3xlbnwxfHx8fDE3NzM5NDYyMDB8MA&ixlib=rb-4.1.0&q=80&w=1080';
-const TEAM2_IMG = 'https://images.unsplash.com/photo-1737574821698-862e77f044c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBleGVjdXRpdmUlMjBwb3J0cmFpdCUyMG9mZmljZXxlbnwxfHx8fDE3NzQwMjM1NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080';
-const TEAM3_IMG = 'https://images.unsplash.com/photo-1655720348616-184ae7fad7e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBZnJpY2FuJTIwYnVzaW5lc3MlMjBwcm9mZXNzaW9uYWxzJTIwd29ya2luZyUyMGxhcHRvcHxlbnwxfHx8fDE3NzQwMjM1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080';
 const VALUES_IMG = 'https://images.unsplash.com/photo-1565688527174-775059ac429c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxIUiUyMGNvbnN1bHRpbmclMjBzdHJhdGVneSUyMHdvcmtwbGFjZXxlbnwxfHx8fDE3NzQwMjM1NjF8MA&ixlib=rb-4.1.0&q=80&w=1080';
+
+import okorieImg from '../assets/img/employees/Okorie-Godswill-Ifeanyichukwu.jpeg';
+import dadaImg from '../assets/img/employees/Dada-Olorunfemi.jpeg';
+import lawalImg from '../assets/img/employees/Lawal-Olamilekan.jpeg';
+import adenijiImg from '../assets/img/employees/Adeniji-Adedayo.jpeg';
+import alkaliImg from '../assets/img/employees/Alkali-Saure-Kelvin.jpeg';
+import victoryImg from '../assets/img/employees/Victory-Idam-Okocha.jpeg';
+import ojetolaImg from '../assets/img/employees/Ojetola-Ifeoluwa-Elizabeth.jpeg';
+import imphonopiImg from '../assets/img/employees/Imphonopi-Esther-Odufuwa.jpeg';
+import amelokoImg from '../assets/img/employees/Ameloko-Joshua.jpeg';
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
   return (
@@ -33,27 +41,33 @@ const coreValues = [
 ];
 
 const teamMembers = [
-  {
-    name: 'Chidinma Obi',
-    title: 'Founder & CEO',
-    bio: 'A seasoned HR professional with 15+ years of experience transforming organisations through strategic talent management across West Africa.',
-    img: TEAM1_IMG,
-  },
-  {
-    name: 'Segun Adeyemi',
-    title: 'Head of Recruitment',
-    bio: 'Segun leads our talent acquisition team with a data-driven approach that has placed over 3,000 professionals in roles perfectly matched to their potential.',
-    img: TEAM2_IMG,
-  },
-  {
-    name: 'Amara Nwosu',
-    title: 'Director, HR Consulting',
-    bio: 'A certified HR strategist who has helped 200+ Nigerian organisations redesign their people operations for maximum efficiency and employee engagement.',
-    img: TEAM3_IMG,
-  },
+  { name: 'Okorie Godswill Ifeanyichukwu', title: 'HR Supervisor - CWAY NIGERIA', location: 'Lagos State', img: okorieImg },
+  { name: 'Dada Olorunfemi Ayomide', title: 'HR Supervisor - CWAY FOOD & BEVERAGES', location: 'Shagamu, Ogun State', img: dadaImg },
+  { name: 'Lawal Olamilekan', title: 'HR Supervisor - WELLWAY PLASTIC LIMITED', location: 'Shagamu, Ogun State', img: lawalImg },
+  { name: 'Adeniji Adedayo Q.', title: 'HR Supervisor - CWAY FOOD & BEVERAGES', location: 'Otta, Ogun State', img: adenijiImg },
+  { name: 'Alkali Saure Kelvin', title: 'HR Supervisor - CWAY', location: 'Abuja', img: alkaliImg },
+  { name: 'Victory Idam Okocha', title: 'Front Desk Administrator', location: '', img: victoryImg },
+  { name: 'Ojetola Ifeoluwa Elizabeth', title: 'Assistant HR/Admin Manager', location: '', img: ojetolaImg },
+  { name: 'Imphonopi Esther Odufuwa', title: 'Admin/HR Manager', location: '', img: imphonopiImg },
+  { name: 'Ameloko Joshua', title: 'HR Supervisor - SARO AGRO-SCIENCE LTD', location: 'Magboro, Ogun State', img: amelokoImg }
 ];
 
 export default function About() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % teamMembers.length);
+  };
+  const prevSlide = () => {
+    setActiveSlide((prev) => (prev === 0 ? teamMembers.length - 1 : prev - 1));
+  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % teamMembers.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [activeSlide]);
+
   return (
     <div className="about-page">
       {/* ── HERO ── */}
@@ -311,27 +325,87 @@ export default function About() {
             </motion.p>
           </div>
 
-          <div className="team-grid">
-            {teamMembers.map(({ name, title, bio, img }, i) => (
-              <motion.div 
-                key={name} className="team-card"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-              >
-                <img
-                  src={img}
-                  alt={name}
-                  className="team-img"
+          <div className="team-carousel-wrapper">
+            <button className="team-carousel-btn prev" onClick={prevSlide}>
+              <ChevronLeft />
+            </button>
+            <button className="team-carousel-btn next" onClick={nextSlide}>
+              <ChevronRight />
+            </button>
+
+            <div className="team-carousel-viewport" style={{ height: '520px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+              {teamMembers.map(({ name, title, location, img }, i) => {
+                const offset = i - activeSlide;
+                const absOffset = Math.abs(offset);
+                const isActive = offset === 0;
+                
+                return (
+                  <motion.div 
+                    key={i} 
+                    className="team-slide-fancy-wrap"
+                    animate={{
+                      x: `calc(${offset} * var(--team-slide-offset))`,
+                      scale: isActive ? 1 : Math.max(0.7, 1 - absOffset * 0.15),
+                      opacity: absOffset > 2 ? 0 : isActive ? 1 : 0.4,
+                      zIndex: teamMembers.length - absOffset,
+                    }}
+                    transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                  >
+                    <div className="team-card-fancy">
+                      <div className="team-img-wrapper">
+                         <img src={img} alt={name} className="team-img-fancy" style={{ transform: isActive ? 'scale(1.05)' : 'scale(1)' }} />
+                         <div className="team-img-overlay" />
+                      </div>
+                      <div className="team-info-fancy">
+                        <motion.h3 
+                          className="team-name"
+                          animate={{ 
+                            x: isActive ? 0 : offset * 250, 
+                            opacity: isActive ? 1 : 0 
+                          }}
+                          transition={{ ease: "linear", duration: 0.8 }}
+                        >
+                          {name}
+                        </motion.h3>
+                        <motion.p 
+                          className="team-role"
+                          animate={{ 
+                            x: isActive ? 0 : offset * 350, 
+                            opacity: isActive ? 1 : 0 
+                          }}
+                          transition={{ ease: "linear", duration: 0.8 }}
+                        >
+                          {title}
+                        </motion.p>
+                        {location && (
+                          <motion.p 
+                            className="team-location"
+                            animate={{ 
+                              y: isActive ? 0 : 10, 
+                              opacity: isActive ? 1 : 0 
+                            }}
+                            transition={{ ease: "linear", duration: 0.8 }}
+                          >
+                            <span style={{ marginRight: '4px' }}>📍</span> {location}
+                          </motion.p>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="team-carousel-dots">
+              {teamMembers.map((_, i) => (
+                <button 
+                  key={i} 
+                  className={`team-carousel-dot ${i === activeSlide ? 'active' : ''}`}
+                  onClick={() => setActiveSlide(i)}
+                  aria-label={`Go to slide ${i + 1}`}
                 />
-                <div className="team-info">
-                  <h3 className="team-name">{name}</h3>
-                  <p className="team-role">{title}</p>
-                  <p className="team-bio">{bio}</p>
-                </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -346,10 +420,10 @@ export default function About() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="cta-title">
-            Partner With Nigeria's Most Trusted HR Firm
+            Ready to Work With Us?
           </h2>
           <p className="cta-subtitle">
-            Join hundreds of organisations and thousands of professionals who have transformed their futures with Desjob Global.
+            Whether you're looking to hire the right talent or find the right opportunity, we're here to help. Reach out and let's have a conversation.
           </p>
           <div className="cta-links">
             <ButtonPrimary

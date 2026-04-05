@@ -27,10 +27,10 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               {[
-                { icon: Linkedin, href: '#' },
-                { icon: Twitter, href: '#' },
+                // { icon: Linkedin, href: '#' },
+                // { icon: Twitter, href: '#' },
                 { icon: Facebook, href: '#' },
-                { icon: Instagram, href: '#' },
+                { icon: Instagram, href: 'https://www.instagram.com/desjobglobal/' },
               ].map(({ icon: Icon, href }, i) => (
                 <a
                   key={i}
