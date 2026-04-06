@@ -115,6 +115,8 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       <button
         className="faq-btn"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls={`faq-answer-${q.replace(/\s+/g, '-').toLowerCase()}`}
       >
         <p className="faq-q">{q}</p>
         <span className="faq-icon-wrap">
@@ -122,7 +124,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         </span>
       </button>
       {open && (
-        <p className="faq-a">
+        <p className="faq-a" id={`faq-answer-${q.replace(/\s+/g, '-').toLowerCase()}`}>
           {a}
         </p>
       )}
@@ -589,10 +591,18 @@ export default function Home() {
           </div>
 
           <div className="testimonials-carousel-wrapper">
-            <button className="carousel-btn prev" onClick={prevTestimonial}>
+            <button 
+              className="carousel-btn prev" 
+              onClick={prevTestimonial}
+              aria-label="Previous testimonial"
+            >
               <ChevronLeft />
             </button>
-            <button className="carousel-btn next" onClick={nextTestimonial}>
+            <button 
+              className="carousel-btn next" 
+              onClick={nextTestimonial}
+              aria-label="Next testimonial"
+            >
               <ChevronRight />
             </button>
 

@@ -65,7 +65,7 @@ export default function BlogDetail() {
     return (
       <div className="blog-detail-page py-20 text-center">
         <h2 className="text-2xl font-bold mb-4">Post not found</h2>
-        <Link to="/blog" className="text-green-600 hover:underline">
+        <Link to="/blog" className="text-green-600 hover:underline" aria-label="Return to blog insights">
           Return to blog insights
         </Link>
       </div>
@@ -76,13 +76,13 @@ export default function BlogDetail() {
     <article className="blog-detail-page">
       <div className="blog-detail-hero">
         <div className="absolute inset-0 bg-black bg-opacity-20 pointer-events-none">
-          <img src={blog.image} alt={blog.title} className="blog-detail-img" />
+          <img src={blog.image} alt="" className="blog-detail-img" />
         </div>
       </div>
 
       <div className="blog-detail-header-container px-4">
         <div className="blog-detail-header">
-          <Link to="/blog" className="blog-detail-back-link">
+          <Link to="/blog" className="blog-detail-back-link" aria-label="Back to all blog insights">
             <ArrowLeft size={16} className="back-icon" />
             Back to Insights
           </Link>
@@ -116,7 +116,7 @@ export default function BlogDetail() {
             Share this article with your colleagues or subscribe to our newsletter for more HR insights.
           </p>
           <div className="cta-actions">
-            <button className="cta-btn-share" onClick={handleShare}>
+            <button className="cta-btn-share" onClick={handleShare} aria-label="Share this article">
               <Share2 size={18} className="cta-icon-small" />
               Share Article
             </button>

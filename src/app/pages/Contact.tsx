@@ -26,19 +26,22 @@ function InputField({
   label: string; type?: string; name: string; value?: string; onChange?: (e: any) => void;
   placeholder?: string; required?: boolean; children?: React.ReactNode;
 }) {
+  const id = `input-${name}`;
   return (
     <div className="input-group">
-      <label className="input-label">
-        {label} {required && <span className="input-required">*</span>}
+      <label htmlFor={id} className="input-label">
+        {label} {required && <span className="input-required" aria-hidden="true">*</span>}
       </label>
       {children || (
         <input
+          id={id}
           type={type}
           name={name}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
           required={required}
+          aria-required={required}
           className="input-field"
         />
       )}
@@ -50,17 +53,20 @@ function TextAreaField({ label, name, value, onChange, placeholder, required, ro
   label: string; name: string; value?: string; onChange?: (e: any) => void;
   placeholder?: string; required?: boolean; rows?: number;
 }) {
+  const id = `textarea-${name}`;
   return (
     <div className="input-group">
-      <label className="input-label">
-        {label} {required && <span className="input-required">*</span>}
+      <label htmlFor={id} className="input-label">
+        {label} {required && <span className="input-required" aria-hidden="true">*</span>}
       </label>
       <textarea
+        id={id}
         name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         required={required}
+        aria-required={required}
         rows={rows}
         className="input-field"
       />
@@ -72,17 +78,20 @@ function SelectField({ label, name, value, onChange, options, required }: {
   label: string; name: string; value?: string; onChange?: (e: any) => void;
   options: string[]; required?: boolean;
 }) {
+  const id = `select-${name}`;
   return (
     <div className="input-group">
-      <label className="input-label">
-        {label} {required && <span className="input-required">*</span>}
+      <label htmlFor={id} className="input-label">
+        {label} {required && <span className="input-required" aria-hidden="true">*</span>}
       </label>
       <div className="select-wrapper">
         <select
+          id={id}
           name={name}
           value={value}
           onChange={onChange}
           required={required}
+          aria-required={required}
           className={`input-field ${value ? 'select-selected' : 'select-placeholder'}`}
         >
           <option value="">Select an option...</option>
@@ -90,7 +99,7 @@ function SelectField({ label, name, value, onChange, options, required }: {
             <option key={opt} value={opt}>{opt}</option>
           ))}
         </select>
-        <ChevronDown className="select-icon" />
+        <ChevronDown className="select-icon" aria-hidden="true" />
       </div>
     </div>
   );
@@ -142,7 +151,7 @@ function JobSeekerForm() {
 
   if (submitted) {
     return (
-      <div className="form-success-container">
+      <div className="form-success-container" role="alert" aria-live="polite">
         <div className="form-success-icon-wrap">
           <CheckCircle className="form-success-icon" />
         </div>
@@ -155,6 +164,7 @@ function JobSeekerForm() {
         <button
           onClick={() => setSubmitted(false)}
           className="form-success-btn"
+          aria-label="Submit another application"
         >
           Submit Another Application →
         </button>
@@ -164,7 +174,7 @@ function JobSeekerForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-layout">
-      {error && <div className="contact-error-msg" style={{ gridColumn: '1 / -1', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '1rem' }}>{error}</div>}
+      {error && <div className="contact-error-msg" role="alert" style={{ gridColumn: '1 / -1', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '1rem' }}>{error}</div>}
       <div className="form-row">
         <InputField label="Full Name" name="name" value={form.name} onChange={handleChange} placeholder="e.g. Adaeze Williams" required />
         <InputField label="Email Address" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@email.com" required />
@@ -191,8 +201,8 @@ function JobSeekerForm() {
 
       {/* CV Upload */}
       <div className="input-group">
-        <label className="input-label">
-          Upload Your CV <span className="input-required">*</span>
+        <label className="input-label" id="cv-upload-label">
+          Upload Your CV <span className="input-required" aria-hidden="true">*</span>
         </label>
         <div
           className={`upload-area ${dragging || cvFile ? 'active' : ''}`}
@@ -200,6 +210,10 @@ function JobSeekerForm() {
           onDragLeave={() => setDragging(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
+          aria-labelledby="cv-upload-label"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
         >
           <input
             ref={fileInputRef}
@@ -208,6 +222,8 @@ function JobSeekerForm() {
             className="hidden"
             style={{ display: 'none' }}
             onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
+            aria-labelledby="cv-upload-label"
+            required={!cvFile}
           />
           {cvFile ? (
             <div className="upload-file-info">
@@ -217,13 +233,14 @@ function JobSeekerForm() {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setCvFile(null); }}
                 className="upload-remove-btn"
+                aria-label={`Remove uploaded CV: ${cvFile.name}`}
               >
                 Remove
               </button>
             </div>
           ) : (
             <>
-              <Upload className="upload-icon" />
+              <Upload className="upload-icon" aria-hidden="true" />
               <p className="upload-text">
                 Drag & drop your CV here, or <span className="upload-text-highlight">click to browse</span>
               </p>
@@ -248,11 +265,12 @@ function JobSeekerForm() {
         type="submit"
         className="form-submit-btn"
         disabled={isSubmitting}
+        aria-busy={isSubmitting}
       >
         {isSubmitting ? (
-          <RefreshCw className="submit-icon animate-spin" />
+          <RefreshCw className="submit-icon animate-spin" aria-hidden="true" />
         ) : (
-          <Send className="submit-icon" />
+          <Send className="submit-icon" aria-hidden="true" />
         )}
         <p>{isSubmitting ? 'Submitting Application...' : 'Submit My Application'}</p>
       </button>
@@ -297,7 +315,7 @@ function EmployerForm() {
 
   if (submitted) {
     return (
-      <div className="form-success-container">
+      <div className="form-success-container" role="alert" aria-live="polite">
         <div className="form-success-icon-wrap">
           <CheckCircle className="form-success-icon" />
         </div>
@@ -310,6 +328,7 @@ function EmployerForm() {
         <button
           onClick={() => setSubmitted(false)}
           className="form-success-btn"
+          aria-label="Submit another enquiry"
         >
           Submit Another Enquiry →
         </button>
@@ -319,7 +338,7 @@ function EmployerForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-layout">
-      {error && <div className="contact-error-msg" style={{ gridColumn: '1 / -1', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '1rem' }}>{error}</div>}
+      {error && <div className="contact-error-msg" role="alert" style={{ gridColumn: '1 / -1', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '1rem' }}>{error}</div>}
       <div className="form-row">
         <InputField label="Company Name" name="company" value={form.company} onChange={handleChange} placeholder="e.g. Acme Nigeria Ltd" required />
         <InputField label="Contact Person" name="contact" value={form.contact} onChange={handleChange} placeholder="Your full name" required />
@@ -377,11 +396,12 @@ function EmployerForm() {
         type="submit"
         className="form-submit-btn"
         disabled={isSubmitting}
+        aria-busy={isSubmitting}
       >
         {isSubmitting ? (
-          <RefreshCw className="submit-icon animate-spin" />
+          <RefreshCw className="submit-icon animate-spin" aria-hidden="true" />
         ) : (
-          <Send className="submit-icon" />
+          <Send className="submit-icon" aria-hidden="true" />
         )}
         <p>{isSubmitting ? 'Sending Enquiry...' : 'Send Hiring Enquiry'}</p>
       </button>
@@ -441,26 +461,34 @@ export default function Contact() {
             {/* Form */}
             <div className="main-column">
               {/* Tabs */}
-              <div className="tab-container">
+              <div className="tab-container" role="tablist" aria-label="Contact form options">
                 <button
                   onClick={() => setActiveTab('jobseeker')}
                   className={`tab-btn ${activeTab === 'jobseeker' ? 'active' : ''}`}
+                  role="tab"
+                  aria-selected={activeTab === 'jobseeker'}
+                  aria-controls="jobseeker-panel"
+                  id="jobseeker-tab"
                 >
-                  <User className="tab-icon" /> Job Seeker
+                  <User className="tab-icon" aria-hidden="true" /> Job Seeker
                 </button>
                 <button
                   onClick={() => setActiveTab('employer')}
                   className={`tab-btn ${activeTab === 'employer' ? 'active' : ''}`}
+                  role="tab"
+                  aria-selected={activeTab === 'employer'}
+                  aria-controls="employer-panel"
+                  id="employer-tab"
                 >
-                  <Building2 className="tab-icon" /> Employer
+                  <Building2 className="tab-icon" aria-hidden="true" /> Employer
                 </button>
               </div>
 
               {/* Context hint */}
-              <div className="context-hint">
+              <div className="context-hint" aria-live="polite">
                 {activeTab === 'jobseeker' ? (
                   <>
-                    <User className="context-hint-icon" />
+                    <User className="context-hint-icon" aria-hidden="true" />
                     <div>
                       <p className="context-hint-title">You're applying as a Job Seeker</p>
                       <p className="context-hint-text">
@@ -470,7 +498,7 @@ export default function Contact() {
                   </>
                 ) : (
                   <>
-                    <Building2 className="context-hint-icon" />
+                    <Building2 className="context-hint-icon" aria-hidden="true" />
                     <div>
                       <p className="context-hint-title">You're contacting us as an Employer</p>
                       <p className="context-hint-text">
@@ -482,7 +510,12 @@ export default function Contact() {
               </div>
 
               {/* Form card */}
-              <div className="form-card">
+              <div 
+                className="form-card" 
+                role="tabpanel" 
+                id={`${activeTab}-panel`} 
+                aria-labelledby={`${activeTab}-tab`}
+              >
                 {activeTab === 'jobseeker' ? <JobSeekerForm /> : <EmployerForm />}
               </div>
             </div>
@@ -518,7 +551,7 @@ export default function Contact() {
                   ].map(({ icon: Icon, label, value, href }) => (
                     <div key={label} className="info-item">
                       <div className="info-icon-wrap">
-                        <Icon className="info-icon" />
+                        <Icon className="info-icon" aria-hidden="true" />
                       </div>
                       <div>
                         <p className="info-label">{label}</p>
@@ -544,7 +577,7 @@ export default function Contact() {
                   {['Response within 24 hours', 'Confidential & professional', 'No obligation required'].map((item) => (
                     <div key={item} className="guarantee-item">
                       <div className="guarantee-check">
-                        <svg className="guarantee-check-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="guarantee-check-icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                       </div>

@@ -326,10 +326,18 @@ export default function About() {
           </div>
 
           <div className="team-carousel-wrapper">
-            <button className="team-carousel-btn prev" onClick={prevSlide}>
+            <button 
+              className="team-carousel-btn prev" 
+              onClick={prevSlide}
+              aria-label="Previous team member"
+            >
               <ChevronLeft />
             </button>
-            <button className="team-carousel-btn next" onClick={nextSlide}>
+            <button 
+              className="team-carousel-btn next" 
+              onClick={nextSlide}
+              aria-label="Next team member"
+            >
               <ChevronRight />
             </button>
 

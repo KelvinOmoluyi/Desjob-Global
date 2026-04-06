@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2.5 mb-4">
+            <Link to="/" className="flex items-center gap-2.5 mb-4" aria-label="Desjob Global Home">
               <div
                 className="w-9 h-9 rounded-lg flex items-center justify-center"
                 style={{ background: 'rgba(34,197,94,0.2)', border: '1px solid rgba(34,197,94,0.3)' }}
@@ -29,14 +29,15 @@ export default function Footer() {
               {[
                 // { icon: Linkedin, href: '#' },
                 // { icon: Twitter, href: '#' },
-                { icon: Facebook, href: '#' },
-                { icon: Instagram, href: 'https://www.instagram.com/desjobglobal/' },
-              ].map(({ icon: Icon, href }, i) => (
+                { icon: Facebook, href: '#', label: 'Facebook' },
+                { icon: Instagram, href: 'https://www.instagram.com/desjobglobal/', label: 'Instagram' },
+              ].map(({ icon: Icon, href, label }, i) => (
                 <a
                   key={i}
                   href={href}
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:bg-green-600"
                   style={{ background: 'rgba(255,255,255,0.08)' }}
+                  aria-label={`Visit our ${label} page`}
                 >
                   <Icon className="w-4 h-4 text-green-200" />
                 </a>
@@ -45,7 +46,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav aria-label="Footer Quick Links">
             <h4 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', marginBottom: '1rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
               Quick Links
             </h4>
@@ -69,10 +70,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Services */}
-          <div>
+          <nav aria-label="Footer Services Links">
             <h4 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', marginBottom: '1rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
               Services
             </h4>
@@ -96,7 +97,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Contact */}
           <div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { publicApi } from '../api/publicApi';
 import { JobPost } from '../store/adminStore';
 import { LucideIcon } from 'lucide-react';
+import { Link } from 'react-router';
 import {
   Search, MapPin, Briefcase, Clock, ArrowRight, Upload, Filter,
   Building2, TrendingUp, Shield, Star, CheckCircle2, ChevronRight
@@ -74,6 +75,7 @@ function JobSearchBar({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
+          aria-label="Search job title, keyword, or company"
         />
       </div>
       <div className="location-input-wrap">
@@ -84,6 +86,7 @@ function JobSearchBar({
           value={locationFilter}
           onChange={(e) => setLocationFilter(e.target.value)}
           className="location-input"
+          aria-label="Filter by location"
         />
       </div>
       <ButtonPrimary
@@ -104,8 +107,10 @@ function CategoryCard({
     <button
       onClick={onClick}
       className={`category-card ${isActive ? 'active' : ''}`}
+      aria-label={`Filter by ${name} category. ${count} open roles available.`}
+      aria-pressed={isActive}
     >
-      <span className="category-icon">{icon}</span>
+      <span className="category-icon" aria-hidden="true">{icon}</span>
       <p className="category-name">{name}</p>
       <p className="category-count">{count} open roles</p>
     </button>
@@ -274,6 +279,7 @@ export default function Jobs() {
             <button
               className="view-all-btn"
               onClick={() => setActiveCategory(null)}
+              aria-label="Clear all category filters"
             >
               {activeCategory ? 'Clear filter' : 'View all'}
               <ChevronRight className="view-all-icon" />

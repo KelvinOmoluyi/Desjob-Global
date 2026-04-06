@@ -48,7 +48,11 @@ export default function AdminLayout() {
           <ShieldCheck size={24} color="var(--main-color-01)" />
           Admin Panel
         </div>
-        <button className="admin-menu-btn" onClick={() => setSidebarOpen(true)}>
+        <button 
+          className="admin-menu-btn" 
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open admin sidebar"
+        >
           <Menu size={24} />
         </button>
       </header>

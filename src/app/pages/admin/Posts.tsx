@@ -123,11 +123,21 @@ export default function Posts() {
       <div className="admin-header-row">
         <h1 className="admin-page-title">Job Posts</h1>
         <div className="admin-header-actions">
-          <button onClick={fetchPosts} className="admin-btn-outline" disabled={isBusy}>
+          <button 
+            onClick={fetchPosts} 
+            className="admin-btn-outline" 
+            disabled={isBusy}
+            aria-label="Refresh job posts"
+          >
             <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
             Refresh
           </button>
-          <button onClick={() => showForm ? resetForm() : setShowForm(true)} className="admin-btn-primary" disabled={isSubmitting}>
+          <button 
+            onClick={() => showForm ? resetForm() : setShowForm(true)} 
+            className="admin-btn-primary" 
+            disabled={isSubmitting}
+            aria-label={showForm ? "Cancel creating post" : "Create new job post"}
+          >
             {showForm ? <><X size={18} /> Cancel</> : <><Plus size={18} /> Create Post</>}
           </button>
         </div>
@@ -141,23 +151,53 @@ export default function Posts() {
 
           <div className="admin-form-row">
             <div className="admin-form-group">
-              <label className="admin-label">Job Title</label>
-              <input type="text" name="title" className="admin-input" required value={formData.title} onChange={handleInputChange} placeholder="e.g. Senior Frontend Developer" />
+              <label htmlFor="job-title" className="admin-label">Job Title</label>
+              <input 
+                id="job-title"
+                type="text" 
+                name="title" 
+                className="admin-input" 
+                required 
+                aria-required="true"
+                value={formData.title} 
+                onChange={handleInputChange} 
+                placeholder="e.g. Senior Frontend Developer" 
+              />
             </div>
             <div className="admin-form-group">
-              <label className="admin-label">Company</label>
-              <input type="text" name="company" className="admin-input" required value={formData.company} onChange={handleInputChange} placeholder="e.g. TechBridge Nigeria" />
+              <label htmlFor="company-name" className="admin-label">Company</label>
+              <input 
+                id="company-name"
+                type="text" 
+                name="company" 
+                className="admin-input" 
+                required 
+                aria-required="true"
+                value={formData.company} 
+                onChange={handleInputChange} 
+                placeholder="e.g. TechBridge Nigeria" 
+              />
             </div>
           </div>
 
           <div className="admin-form-row">
             <div className="admin-form-group">
-              <label className="admin-label">Location</label>
-              <input type="text" name="location" className="admin-input" required value={formData.location} onChange={handleInputChange} placeholder="e.g. Lagos, Nigeria (Hybrid)" />
+              <label htmlFor="location" className="admin-label">Location</label>
+              <input 
+                id="location"
+                type="text" 
+                name="location" 
+                className="admin-input" 
+                required 
+                aria-required="true"
+                value={formData.location} 
+                onChange={handleInputChange} 
+                placeholder="e.g. Lagos, Nigeria (Hybrid)" 
+              />
             </div>
             <div className="admin-form-group">
-              <label className="admin-label">Job Type</label>
-              <select name="type" className="admin-input" value={formData.type} onChange={handleInputChange}>
+              <label htmlFor="job-type" className="admin-label">Job Type</label>
+              <select id="job-type" name="type" className="admin-input" value={formData.type} onChange={handleInputChange}>
                 <option value="Full-time">Full-time</option>
                 <option value="Part-time">Part-time</option>
                 <option value="Contract">Contract</option>
@@ -168,12 +208,14 @@ export default function Posts() {
 
           <div className="admin-form-row">
             <div className="admin-form-group">
-              <label className="admin-label">Salary Range</label>
+              <label htmlFor="salary" className="admin-label">Salary Range</label>
               <input
+                id="salary"
                 type="text"
                 name="salary"
                 className="admin-input"
                 required
+                aria-required="true"
                 value={formData.salary}
                 onChange={handleInputChange}
                 onBlur={(e) => {
@@ -193,8 +235,8 @@ export default function Posts() {
               />
             </div>
             <div className="admin-form-group">
-              <label className="admin-label">Category</label>
-              <select name="category" className="admin-input" value={formData.category} onChange={handleInputChange}>
+              <label htmlFor="category" className="admin-label">Category</label>
+              <select id="category" name="category" className="admin-input" value={formData.category} onChange={handleInputChange}>
                 {['Technology', 'Finance & Banking', 'Marketing', 'HR & People', 'Sales', 'Operations', 'Healthcare', 'Oil & Gas'].map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
@@ -203,8 +245,8 @@ export default function Posts() {
           </div>
 
           <div className="admin-form-group">
-            <label className="admin-label">Tags (comma separated)</label>
-            <input type="text" name="tags" className="admin-input" value={formData.tags} onChange={handleInputChange} placeholder="e.g. React, Node.js, TypeScript" />
+            <label htmlFor="tags" className="admin-label">Tags (comma separated)</label>
+            <input id="tags" type="text" name="tags" className="admin-input" value={formData.tags} onChange={handleInputChange} placeholder="e.g. React, Node.js, TypeScript" />
           </div>
 
           <div className="admin-form-group">
@@ -220,19 +262,20 @@ export default function Posts() {
               />
               <label htmlFor="job-image-upload" className={`admin-image-upload-label ${isUploading ? 'uploading' : ''}`}>
                 {isUploading ? (
-                  <><Loader2 className="animate-spin" size={18} /> Uploading...</>
+                  <><Loader2 className="animate-spin" size={18} aria-hidden="true" /> Uploading...</>
                 ) : (
-                  <><ImageIcon size={18} /> {formData.image ? 'Change Image' : 'Upload Image'}</>
+                  <><ImageIcon size={18} aria-hidden="true" /> {formData.image ? 'Change Image' : 'Upload Image'}</>
                 )}
               </label>
               
               {formData.image && (
                 <div className="admin-image-preview">
-                  <img src={formData.image} alt="Preview" />
+                  <img src={formData.image} alt="Header Preview" />
                   <button 
                     type="button" 
                     className="admin-remove-image" 
                     onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                    aria-label="Remove image"
                   >
                     <X size={14} />
                   </button>
@@ -250,9 +293,9 @@ export default function Posts() {
         </form>
       )}
 
-      <div className="admin-data-card">
+      <div className="admin-data-card" aria-busy={isLoading}>
         {isLoading ? (
-          <div className="admin-loading-state">Loading posts...</div>
+          <div className="admin-loading-state" aria-live="polite">Loading posts...</div>
         ) : posts.length === 0 ? (
           <div className="admin-empty-state">No posts available.</div>
         ) : (
@@ -270,22 +313,34 @@ export default function Posts() {
 
                   <div className="admin-list-card-footer">
                     <div className="admin-list-card-meta-tags">
-                      <span className="admin-meta-tag"><MapPin size={14} /> {post.location}</span>
-                      <span className="admin-meta-tag"><Clock size={14} /> {post.type}</span>
-                      <span className="admin-meta-tag"><Briefcase size={14} /> {post.category}</span>
-                      <span className="admin-meta-tag salary-tag">{post.salary}</span>
+                      <span className="admin-meta-tag" aria-label="Location"><MapPin size={14} aria-hidden="true" /> {post.location}</span>
+                      <span className="admin-meta-tag" aria-label="Job type"><Clock size={14} aria-hidden="true" /> {post.type}</span>
+                      <span className="admin-meta-tag" aria-label="Category"><Briefcase size={14} aria-hidden="true" /> {post.category}</span>
+                      <span className="admin-meta-tag salary-tag" aria-label="Salary">{post.salary}</span>
                     </div>
                     <div className="admin-list-card-actions">
-                      <button onClick={() => handleEdit(post)} className="admin-btn-icon btn-edit" title="Edit" disabled={isBusy}>
+                      <button 
+                        onClick={() => handleEdit(post)} 
+                        className="admin-btn-icon btn-edit" 
+                        title="Edit post" 
+                        aria-label={`Edit ${post.title} at ${post.company}`}
+                        disabled={isBusy}
+                      >
                         <Edit2 size={18} />
                       </button>
-                      <button onClick={() => handleDeleteClick(post)} className="admin-btn-icon btn-delete" title="Delete" disabled={isBusy}>
+                      <button 
+                        onClick={() => handleDeleteClick(post)} 
+                        className="admin-btn-icon btn-delete" 
+                        title="Delete post" 
+                        aria-label={`Delete ${post.title} at ${post.company}`}
+                        disabled={isBusy}
+                      >
                         <Trash2 size={18} />
                       </button>
                     </div>
                   </div>
 
-                  <div className="admin-list-card-tags">
+                  <div className="admin-list-card-tags" aria-label="Skills and tags">
                     {post.tags.map((tag: string) => (
                       <span key={tag} className="admin-tag-pill">{tag}</span>
                     ))}

@@ -7,24 +7,30 @@ interface ButtonProps {
   text: string
   link?: string
   icon?: React.ReactNode
+  ariaLabel?: string
+  onClick?: () => void
 }
 
-const ButtonPrimary = ({type = "link", text, link, icon}: ButtonProps) => {
+const ButtonPrimary = ({type = "link", text, link, icon, ariaLabel, onClick}: ButtonProps) => {
   return (
     <>
       {type === "button" ? (
-        <div
+        <button
           className="btn-01"
+          aria-label={ariaLabel || text}
+          onClick={onClick}
+          type="button"
         >
           <div className="inner-btn-01">
             <p>{text}</p>
             {icon ? icon : null}
           </div>
-        </div>
+        </button>
       ) : (
         <Link
           to={link as string}
           className="btn-01"
+          aria-label={ariaLabel || text}
         >
           <div className="inner-btn-01">
             <p>{text}</p>

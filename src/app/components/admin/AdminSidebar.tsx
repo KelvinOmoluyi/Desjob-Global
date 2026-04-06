@@ -25,9 +25,16 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
   return (
     <>
-      <div className={`admin-sidebar-overlay ${isOpen ? 'open' : ''}`} onClick={onClose} />
+      <div 
+        className={`admin-sidebar-overlay ${isOpen ? 'open' : ''}`} 
+        onClick={onClose} 
+        aria-hidden="true"
+      />
       
-      <aside className={`admin-sidebar ${isOpen ? 'open' : ''}`}>
+      <aside 
+        className={`admin-sidebar ${isOpen ? 'open' : ''}`}
+        aria-label="Admin Sidebar"
+      >
         <div className="admin-sidebar-header">
           <h2 className="admin-sidebar-logo">
             <ShieldCheck className="admin-nav-icon" style={{ color: 'var(--main-color-01)' }} />
@@ -35,11 +42,12 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           </h2>
         </div>
         
-        <nav className="admin-sidebar-nav">
+        <nav className="admin-sidebar-nav" aria-label="Admin Sidebar Navigation">
           <NavLink 
             to="/admin/messages" 
             className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
             onClick={onClose}
+            aria-label="View messages"
           >
             <MessageSquare className="admin-nav-icon" />
             Messages
@@ -49,6 +57,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             to="/admin/posts" 
             className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
             onClick={onClose}
+            aria-label="Manage job posts"
           >
             <Briefcase className="admin-nav-icon" />
             Job Posts
@@ -58,6 +67,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             to="/admin/blog" 
             className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
             onClick={onClose}
+            aria-label="Manage blog posts"
           >
             <BookOpen className="admin-nav-icon" />
             Manage Blog
@@ -65,7 +75,11 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         </nav>
         
         <div className="admin-sidebar-footer">
-          <button onClick={handleLogout} className="admin-logout-btn">
+          <button 
+            onClick={handleLogout} 
+            className="admin-logout-btn"
+            aria-label="Sign out of admin panel"
+          >
             <LogOut className="admin-nav-icon" />
             Sign Out
           </button>

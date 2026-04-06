@@ -137,11 +137,21 @@ export default function BlogManager() {
       <div className="admin-header-row">
         <h1 className="admin-page-title">Manage Blog</h1>
         <div className="admin-header-actions">
-          <button onClick={fetchBlogs} className="admin-btn-outline" disabled={isBusy}>
+          <button 
+            onClick={fetchBlogs} 
+            className="admin-btn-outline" 
+            disabled={isBusy}
+            aria-label="Refresh blog posts"
+          >
             <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
             Refresh
           </button>
-          <button onClick={() => showForm ? resetForm() : setShowForm(true)} className="admin-btn-primary" disabled={isSubmitting}>
+          <button 
+            onClick={() => showForm ? resetForm() : setShowForm(true)} 
+            className="admin-btn-primary" 
+            disabled={isSubmitting}
+            aria-label={showForm ? "Cancel creating blog post" : "Create new blog post"}
+          >
             {showForm ? 'Cancel' : <><Plus size={18} /> Create Post</>}
           </button>
         </div>
@@ -152,8 +162,18 @@ export default function BlogManager() {
           <h2 className="admin-form-title">{editingId ? 'Edit Blog Post' : 'Create New Blog Post'}</h2>
           
           <div className="admin-form-group">
-            <label className="admin-label">Blog Title</label>
-            <input type="text" name="title" className="admin-input" required value={formData.title} onChange={handleInputChange} placeholder="e.g. 5 recruitment tips for 2026" />
+            <label htmlFor="blog-title" className="admin-label">Blog Title</label>
+            <input 
+              id="blog-title"
+              type="text" 
+              name="title" 
+              className="admin-input" 
+              required 
+              aria-required="true"
+              value={formData.title} 
+              onChange={handleInputChange} 
+              placeholder="e.g. 5 recruitment tips for 2026" 
+            />
           </div>
 
           <div className="admin-form-row">
@@ -170,19 +190,20 @@ export default function BlogManager() {
                 />
                 <label htmlFor="blog-image-upload" className={`admin-image-upload-label ${isUploading ? 'uploading' : ''}`}>
                   {isUploading ? (
-                    <><Loader2 className="animate-spin" size={18} /> Uploading...</>
+                    <><Loader2 className="animate-spin" size={18} aria-hidden="true" /> Uploading...</>
                   ) : (
-                    <><ImageIcon size={18} /> {formData.image ? 'Change Image' : 'Upload Image'}</>
+                    <><ImageIcon size={18} aria-hidden="true" /> {formData.image ? 'Change Image' : 'Upload Image'}</>
                   )}
                 </label>
                 
                 {formData.image && (
                   <div className="admin-image-preview">
-                    <img src={formData.image} alt="Preview" />
+                    <img src={formData.image} alt="Header Preview" />
                     <button 
                       type="button" 
                       className="admin-remove-image" 
                       onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                      aria-label="Remove image"
                     >
                       <X size={14} />
                     </button>
@@ -192,8 +213,8 @@ export default function BlogManager() {
               <p className="admin-hint">Max size: 5MB. Formats: JPG, PNG, WEBP.</p>
             </div>
             <div className="admin-form-group">
-              <label className="admin-label">Category</label>
-              <select name="category" className="admin-input" value={formData.category} onChange={handleInputChange}>
+              <label htmlFor="blog-category" className="admin-label">Category</label>
+              <select id="blog-category" name="category" className="admin-input" value={formData.category} onChange={handleInputChange}>
                 {['Hiring Tips', 'Industry News', 'Marketing', 'Talent Search', 'Business Trends'].map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
@@ -202,11 +223,13 @@ export default function BlogManager() {
           </div>
 
           <div className="admin-form-group">
-            <label className="admin-label">Content (double enter for new paragraph)</label>
+            <label htmlFor="blog-content" className="admin-label">Content (double enter for new paragraph)</label>
             <textarea 
+              id="blog-content"
               name="content" 
               className="admin-input" 
               required 
+              aria-required="true"
               rows={8}
               value={formData.content} 
               onChange={handleInputChange} 
@@ -216,8 +239,17 @@ export default function BlogManager() {
           </div>
 
           <div className="admin-form-group">
-            <label className="admin-label">Author</label>
-            <input type="text" name="author" className="admin-input" required value={formData.author} onChange={handleInputChange} />
+            <label htmlFor="blog-author" className="admin-label">Author</label>
+            <input 
+              id="blog-author"
+              type="text" 
+              name="author" 
+              className="admin-input" 
+              required 
+              aria-required="true"
+              value={formData.author} 
+              onChange={handleInputChange} 
+            />
           </div>
 
           <div className="admin-form-footer">
@@ -229,9 +261,9 @@ export default function BlogManager() {
         </form>
       )}
 
-      <div className="admin-data-card">
+      <div className="admin-data-card" aria-busy={isLoading}>
         {isLoading ? (
-          <div className="admin-loading-state">Searching for stories...</div>
+          <div className="admin-loading-state" aria-live="polite">Searching for stories...</div>
         ) : blogs.length === 0 ? (
           <div className="admin-empty-state">No stories published yet.</div>
         ) : (
@@ -239,7 +271,7 @@ export default function BlogManager() {
             {blogs.map(blog => (
               <div key={blog.id} className="admin-list-card">
                 <div className="admin-list-card-content">
-                  <img src={blog.image} alt="" className="admin-list-card-thumb" />
+                  <img src={blog.image} alt="" className="admin-list-card-thumb" aria-hidden="true" />
                   <div className="admin-list-card-details">
                     <div className="admin-list-card-header">
                       <div>
@@ -254,13 +286,32 @@ export default function BlogManager() {
                     <div className="admin-list-card-footer">
                       <span className="admin-list-card-author">Author: {blog.author}</span>
                       <div className="admin-list-card-actions">
-                        <a href={`/blog/${blog.slug}`} target="_blank" rel="noopener noreferrer" className="admin-btn-icon" title="View Article">
+                        <a 
+                          href={`/blog/${blog.slug}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="admin-btn-icon" 
+                          title="View Article"
+                          aria-label={`View full article: ${blog.title}`}
+                        >
                           <ExternalLink size={18} />
                         </a>
-                        <button onClick={() => handleEdit(blog)} className="admin-btn-icon btn-edit" title="Edit" disabled={isBusy}>
+                        <button 
+                          onClick={() => handleEdit(blog)} 
+                          className="admin-btn-icon btn-edit" 
+                          title="Edit article" 
+                          aria-label={`Edit article: ${blog.title}`}
+                          disabled={isBusy}
+                        >
                           <Edit2 size={18} />
                         </button>
-                        <button onClick={() => handleDeleteClick(blog)} className="admin-btn-icon btn-delete" title="Delete" disabled={isBusy}>
+                        <button 
+                          onClick={() => handleDeleteClick(blog)} 
+                          className="admin-btn-icon btn-delete" 
+                          title="Delete article" 
+                          aria-label={`Delete article: ${blog.title}`}
+                          disabled={isBusy}
+                        >
                           <Trash2 size={18} />
                         </button>
                       </div>

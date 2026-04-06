@@ -30,7 +30,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
+          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0" aria-label="Desjob Global Home">
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{ background: 'linear-gradient(135deg, #16a34a, #22c55e)' }}
@@ -43,7 +43,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = pathname === link.to;
               return (
@@ -57,12 +57,13 @@ export default function Navbar() {
                     color: isActive ? '#16a34a' : '#374151',
                     background: isActive ? '#f0fdf4' : 'transparent',
                   }}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   <p>{link.label}</p>
                 </Link>
               );
             })}
-          </div>
+          </nav>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
@@ -73,6 +74,8 @@ export default function Navbar() {
           <button
             className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -81,7 +84,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-1">
+        <nav className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-1" aria-label="Mobile Navigation">
           {navLinks.map((link) => {
             const isActive = pathname === link.to;
             return (
@@ -96,6 +99,7 @@ export default function Navbar() {
                   color: isActive ? '#16a34a' : '#374151',
                   background: isActive ? '#f0fdf4' : 'transparent',
                 }}
+                aria-current={isActive ? 'page' : undefined}
               >
                 {link.label}
               </Link>
@@ -111,11 +115,12 @@ export default function Navbar() {
                 fontWeight: 600,
                 background: 'linear-gradient(135deg, #16a34a, #22c55e)',
               }}
+              aria-label="Admin Login"
             >
               Login <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-        </div>
+        </nav>
       )}
     </nav>
   );

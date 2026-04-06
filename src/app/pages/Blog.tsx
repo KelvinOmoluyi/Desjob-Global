@@ -77,8 +77,16 @@ export default function Blog() {
           <div className="col-span-full text-center py-20 text-gray-500">No blog posts found.</div>
         ) : (
           blogs.map((blog) => (
-            <div key={blog.id} className="blog-card" onClick={() => handleCardClick(blog.slug)}>
-              <img src={blog.image} alt={blog.title} className="blog-card-img" />
+            <div 
+              key={blog.id} 
+              className="blog-card" 
+              onClick={() => handleCardClick(blog.slug)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && handleCardClick(blog.slug)}
+              aria-label={`Read blog post: ${blog.title}`}
+            >
+              <img src={blog.image} alt="" className="blog-card-img" />
               <div className="blog-card-overlay">
                 <span className="blog-card-category">{blog.category}</span>
                 <h4 className="blog-card-title">{blog.title}</h4>
