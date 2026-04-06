@@ -160,6 +160,10 @@ textarea.input-field {
   border-color: #16a34a;
   background: #f0fdf4;
 }
+.upload-area.error {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
 .upload-file-info {
   display: flex;
   align-items: center;
@@ -474,6 +478,7 @@ textarea.input-field {
   font-size: 0.8125rem;
   color: rgba(255,255,255,0.8);
   font-weight: 500;
+  font-family: Inter, Twk, Arial, Helvetica, sans-serif;
 }
 
 .office-card {

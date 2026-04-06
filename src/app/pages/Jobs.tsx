@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { publicApi } from '../api/publicApi';
+import { useState } from 'react';
 import { JobPost } from '../store/adminStore';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Loader2 } from 'lucide-react';
 import { Link } from 'react-router';
 import {
   Search, MapPin, Briefcase, Clock, ArrowRight, Upload, Filter,
   Building2, TrendingUp, Shield, Star, CheckCircle2, ChevronRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useJobs } from '../hooks/useJobs';
 import './Jobs.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
@@ -151,7 +151,7 @@ function JobCard({ job }: { job: Job }) {
       </div>
 
       <div className="job-tags">
-        {job.tags.map((tag) => (
+        {job.tags.map((tag: string) => (
           <span key={tag} className="job-tag">
             {tag}
           </span>
@@ -192,17 +192,8 @@ export default function Jobs() {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      const data = await publicApi.getJobs();
-      setJobs(data);
-      setIsLoading(false);
-    };
-    fetchJobs();
-  }, []);
+  const { data: jobs = [], isLoading } = useJobs();
 
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
@@ -319,7 +310,12 @@ export default function Jobs() {
             /> */}
           </div>
 
-          {filteredJobs.length === 0 ? (
+          {isLoading ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5rem 0', gap: '1rem', color: '#6b7280' }}>
+              <Loader2 className="animate-spin" style={{ color: '#16a34a' }} size={40} />
+              <p>Scanning the current job market for you...</p>
+            </div>
+          ) : filteredJobs.length === 0 ? (
             <div className="no-jobs-container">
               <p className="no-jobs-text">No jobs found for your search. Try different keywords.</p>
             </div>

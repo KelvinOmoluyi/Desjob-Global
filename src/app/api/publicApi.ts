@@ -89,18 +89,43 @@ export const publicApi = {
     field: string;
     experience: string;
     message: string;
-  }): Promise<{ success: boolean; error?: string }> => {
-    const { error } = await supabase.from('contact_messages').insert({
-      type: 'job_seeker',
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      field: formData.field,
-      experience: formData.experience,
-      message: formData.message,
-    });
-    if (error) return { success: false, error: error.message };
-    return { success: true };
+  }, cvFile: File): Promise<{ success: boolean; error?: string }> => {
+    try {
+      // 1. Upload CV to storage
+      const fileExt = cvFile.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2, 11)}_${Date.now()}.${fileExt}`;
+      const filePath = `cvs/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('resumes')
+        .upload(filePath, cvFile);
+
+      if (uploadError) throw uploadError;
+
+      // 2. Get public URL
+      const { data: urlData } = supabase.storage
+        .from('resumes')
+        .getPublicUrl(filePath);
+
+      // 3. Insert message into DB
+      const { error: dbError } = await supabase.from('contact_messages').insert({
+        type: 'job_seeker',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        field: formData.field,
+        experience: formData.experience,
+        message: formData.message,
+        resume_url: urlData.publicUrl,
+      });
+
+      if (dbError) throw dbError;
+
+      return { success: true };
+    } catch (err: any) {
+      console.error('Job Seeker submission error:', err);
+      return { success: false, error: err.message || 'Submission failed' };
+    }
   },
 
   submitEmployerForm: async (formData: {

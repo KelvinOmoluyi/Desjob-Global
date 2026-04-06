@@ -65,6 +65,7 @@ export const adminApi = {
       field: row.field ?? '',
       experience: row.experience ?? '',
       message: row.message ?? '',
+      resumeUrl: row.resume_url,
       date: row.submitted_at,
     }));
   },

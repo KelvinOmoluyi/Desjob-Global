@@ -8,7 +8,7 @@ export type JobSeekerMessage = {
   field: string;
   experience: string;
   message: string;
-  cvUrl?: string; // Mock URL for CV
+  resumeUrl?: string; // URL for CV stored in Supabase
   date: string;
 };
 

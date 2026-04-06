@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { publicApi } from '../api/publicApi';
-import { BlogPost } from '../store/adminStore';
 import { LucideIcon, Briefcase, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useBlogPosts } from '../hooks/useBlog';
 import './Blog.css';
-
-
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
   return (
@@ -18,18 +14,9 @@ function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
 }
 
 export default function Blog() {
-  const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      const data = await publicApi.getBlogPosts();
-      setBlogs(data);
-      setIsLoading(false);
-    };
-    fetchBlogs();
-  }, []);
+  const { data: blogs = [], isLoading } = useBlogPosts();
 
   const handleCardClick = (slug: string) => {
     navigate(`/blog/${slug}`);

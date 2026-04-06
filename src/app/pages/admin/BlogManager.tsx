@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Plus, Trash2, Edit2, ExternalLink, RefreshCw, X, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { BlogPost } from '../../store/adminStore';
 import ConfirmModal from '../../components/admin/ConfirmModal';
+import { useAdminBlog } from '../../hooks/useAdmin';
 
 const slugify = (text: string) => {
   return text
@@ -16,12 +17,18 @@ const slugify = (text: string) => {
 
 export default function BlogManager() {
 
-  const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const { 
+    blogPosts: { data: blogs = [], isLoading, refetch },
+    createPost,
+    updatePost,
+    deletePost
+  } = useAdminBlog();
+
+  const isSubmitting = createPost.isPending || updatePost.isPending || deletePost.isPending;
   const isBusy = isLoading || isSubmitting || isUploading;
   
   // Modal state
@@ -36,7 +43,6 @@ export default function BlogManager() {
     variant: 'confirm',
     type: 'blog'
   });
-  const [postToDelete, setPostToDelete] = useState<{ id: string, title: string } | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -47,16 +53,9 @@ export default function BlogManager() {
     author: 'Desjob Editor'
   });
 
-  const fetchBlogs = async () => {
-    setIsLoading(true);
-    const data = await adminApi.getBlogPosts();
-    setBlogs(data);
-    setIsLoading(false);
+  const fetchBlogs = () => {
+    refetch();
   };
-
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -86,23 +85,22 @@ export default function BlogManager() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
     const blogData = {
       ...formData,
       slug: slugify(formData.title),
       content: formData.content.split('\n\n').map((p: string) => p.trim()).filter((p: string) => p),
-    };
+    } as any;
 
     if (editingId) {
-      await adminApi.updateBlogPost(editingId, blogData);
+      updatePost.mutate({ id: editingId, data: blogData }, {
+        onSuccess: resetForm
+      });
     } else {
-      await adminApi.createBlogPost(blogData);
+      createPost.mutate(blogData, {
+        onSuccess: resetForm
+      });
     }
-
-    await fetchBlogs();
-    setIsSubmitting(false);
-    resetForm();
   };
 
   const handleEdit = (blog: BlogPost) => {
@@ -118,28 +116,21 @@ export default function BlogManager() {
   };
 
   const handleDeleteClick = (blog: BlogPost) => {
-    setPostToDelete({ id: blog.id, title: blog.title });
     setModalConfig({
       variant: 'confirm',
       type: 'blog',
-      title: blog.title,
-      onConfirm: confirmDelete
+      title: `Delete ${blog.title}?`,
+      message: 'Are you sure you want to remove this blog post?',
+      onConfirm: () => {
+        deletePost.mutate(blog.id);
+        setModalOpen(false);
+      }
     });
     setModalOpen(true);
   };
 
-  const confirmDelete = async () => {
-    if (postToDelete) {
-      await adminApi.deleteBlogPost(postToDelete.id);
-      await fetchBlogs();
-      setModalOpen(false);
-      setPostToDelete(null);
-    }
-  };
-
   const cancelDelete = () => {
     setModalOpen(false);
-    setPostToDelete(null);
   };
 
   const resetForm = () => {

@@ -135,8 +135,14 @@ function JobSeekerForm() {
     setIsSubmitting(true);
     setError('');
 
+    if (!cvFile) {
+      setError('Please upload your CV before submitting your application.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await publicApi.submitJobSeekerForm(form);
+      const response = await publicApi.submitJobSeekerForm(form, cvFile!);
       if (response.success) {
         setSubmitted(true);
       } else {
@@ -206,7 +212,7 @@ function JobSeekerForm() {
           Upload Your CV <span className="input-required" aria-hidden="true">*</span>
         </label>
         <div
-          className={`upload-area ${dragging || cvFile ? 'active' : ''}`}
+          className={`upload-area ${dragging || cvFile ? 'active' : ''} ${error && !cvFile ? 'error' : ''}`}
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
           onDragLeave={() => setDragging(false)}
           onDrop={handleDrop}
@@ -224,7 +230,6 @@ function JobSeekerForm() {
             style={{ display: 'none' }}
             onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
             aria-labelledby="cv-upload-label"
-            required={!cvFile}
           />
           {cvFile ? (
             <div className="upload-file-info">

@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Download, RefreshCw } from 'lucide-react';
+import { Mail, Phone, MapPin, Download, RefreshCw, Trash2 } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { JobSeekerMessage, EmployerMessage } from '../../store/adminStore';
+import ConfirmModal from '../../components/admin/ConfirmModal';
 
 export default function Messages() {
   const [activeTab, setActiveTab] = useState<'jobseeker' | 'employer'>('jobseeker');
   const [jobSeekers, setJobSeekers] = useState<JobSeekerMessage[]>([]);
   const [employers, setEmployers] = useState<EmployerMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalConfig, setModalConfig] = useState<{
+    variant: 'confirm' | 'alert',
+    type: 'job' | 'blog' | 'error',
+    title?: string,
+    message?: string,
+    onConfirm?: () => void
+  }>({
+    variant: 'confirm',
+    type: 'job'
+  });
+  const [messageToDelete, setMessageToDelete] = useState<string | null>(null);
 
   const fetchMessages = async () => {
     setIsLoading(true);
@@ -28,6 +44,32 @@ export default function Messages() {
     return new Date(isoStr).toLocaleDateString('en-GB', {
       day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
     });
+  };
+
+  const handleDeleteClick = (id: string, name: string) => {
+    setMessageToDelete(id);
+    setModalConfig({
+      variant: 'confirm',
+      type: activeTab === 'jobseeker' ? 'job' : 'blog', // Just using these as placeholders for the icon style
+      title: `Delete message from ${name}?`,
+      message: 'Are you sure you want to delete this message? This action cannot be undone.',
+      onConfirm: () => confirmDelete(id)
+    });
+    setModalOpen(true);
+  };
+
+  const confirmDelete = async (id: string) => {
+    setIsDeleting(true);
+    try {
+      await adminApi.deleteMessage(id);
+      await fetchMessages();
+    } catch (error) {
+      console.error('Delete failed:', error);
+    } finally {
+      setIsDeleting(false);
+      setModalOpen(false);
+      setMessageToDelete(null);
+    }
   };
 
   return (
@@ -91,16 +133,27 @@ export default function Messages() {
                       <div className="admin-item-meta">
                         <span className="admin-meta-tag"><Mail size={14} /> {msg.email}</span>
                         <span className="admin-meta-tag"><Phone size={14} /> {msg.phone}</span>
-                        {msg.cvUrl && (
+                        {msg.resumeUrl && (
                           <a 
-                            href={msg.cvUrl} 
+                            href={msg.resumeUrl} 
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="admin-meta-tag" 
                             style={{ color: 'var(--main-color-01)', background: '#ecfdf5', textDecoration: 'none' }}
-                            aria-label={`Download CV for ${msg.name}`}
+                            aria-label={`Download Resume for ${msg.name}`}
                           >
-                            <Download size={14} /> Download CV
+                            <Download size={14} /> Resume
                           </a>
                         )}
+                        <button 
+                          className="admin-btn-icon btn-delete" 
+                          onClick={() => handleDeleteClick(msg.id, msg.name)}
+                          disabled={isDeleting}
+                          title="Delete message"
+                          style={{ marginLeft: 'auto' }}
+                        >
+                          <Trash2 size={16} />
+                        </button>
                       </div>
 
                       <div className="admin-item-content">
@@ -130,6 +183,15 @@ export default function Messages() {
                         <span className="admin-meta-tag"><Phone size={14} /> {msg.phone}</span>
                         <span className="admin-meta-tag" style={{ background: '#fef3c7', color: '#92400e' }} aria-label="Hiring timeline">{msg.timeline}</span>
                         <span className="admin-meta-tag" style={{ background: '#e0e7ff', color: '#3730a3' }} aria-label="Hiring needs">{msg.positions} ({msg.hiringNeeds})</span>
+                        <button 
+                          className="admin-btn-icon btn-delete" 
+                          onClick={() => handleDeleteClick(msg.id, msg.company)}
+                          disabled={isDeleting}
+                          title="Delete message"
+                          style={{ marginLeft: 'auto' }}
+                        >
+                          <Trash2 size={16} />
+                        </button>
                       </div>
 
                       <div className="admin-item-content">
@@ -143,6 +205,17 @@ export default function Messages() {
           </div>
         )}
       </div>
+
+      <ConfirmModal
+        isOpen={modalOpen}
+        variant={modalConfig.variant}
+        type={modalConfig.type}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        onConfirm={modalConfig.onConfirm || (() => setModalOpen(false))}
+        onCancel={() => setModalOpen(false)}
+        confirmText="Yes, Delete Message"
+      />
     </div>
   );
 }

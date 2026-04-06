@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router';
-import { publicApi } from '../api/publicApi';
-import { BlogPost } from '../store/adminStore';
-import { ArrowLeft, Calendar, User, Share2, Facebook, Twitter, Linkedin, Link as LinkIcon, Check } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Share2, Facebook, Twitter, Linkedin, Link as LinkIcon, Check, Loader2 } from 'lucide-react';
+import { useBlogPost } from '../hooks/useBlog';
 import './BlogDetail.css';
 import { toast } from 'sonner';
 
 export default function BlogDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const [blog, setBlog] = useState<BlogPost | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBlog = async () => {
-      if (slug) {
-        const data = await publicApi.getBlogPostBySlug(slug);
-        setBlog(data || null);
-        setIsLoading(false);
-      }
-    };
-    fetchBlog();
-  }, [slug]);
+  const { data: blog, isLoading } = useBlogPost(slug!);
 
   const handleShare = async () => {
     const shareData = {
@@ -55,7 +43,8 @@ export default function BlogDetail() {
 
   if (isLoading) {
     return (
-      <div className="blog-detail-page py-20 text-center text-gray-500">
+      <div className="blog-detail-page py-20 text-center text-gray-500 flex flex-col gap-y-4 justify-center items-center">
+        <Loader2 className="blog-spinner" size={40} />
         Finding the perfect article for you...
       </div>
     );
