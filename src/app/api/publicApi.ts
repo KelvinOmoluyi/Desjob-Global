@@ -26,6 +26,7 @@ export const publicApi = {
       salary: row.salary,
       category: row.category,
       tags: row.tags ?? [],
+      image: row.image || '',
       posted: new Date(row.posted_at).toLocaleDateString('en-US', {
         month: 'short', day: 'numeric', year: 'numeric',
       }),

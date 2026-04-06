@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { publicApi } from '../api/publicApi';
 import { BlogPost } from '../store/adminStore';
-import { LucideIcon, Briefcase } from 'lucide-react';
+import { LucideIcon, Briefcase, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Blog.css';
 
@@ -72,7 +72,10 @@ export default function Blog() {
 
       <div className="blog-grid-section">
         {isLoading ? (
-          <div className="col-span-full text-center py-20 text-gray-500">Loading insights...</div>
+          <div className="blog-loader-container">
+            <Loader2 className="blog-spinner" size={40} />
+            <p>Loading insights...</p>
+          </div>
         ) : blogs.length === 0 ? (
           <div className="col-span-full text-center py-20 text-gray-500">No blog posts found.</div>
         ) : (

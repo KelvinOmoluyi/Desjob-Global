@@ -165,6 +165,7 @@ function JobSeekerForm() {
           onClick={() => setSubmitted(false)}
           className="form-success-btn"
           aria-label="Submit another application"
+          disabled={isSubmitting}
         >
           Submit Another Application →
         </button>
@@ -329,6 +330,7 @@ function EmployerForm() {
           onClick={() => setSubmitted(false)}
           className="form-success-btn"
           aria-label="Submit another enquiry"
+          disabled={isSubmitting}
         >
           Submit Another Enquiry →
         </button>

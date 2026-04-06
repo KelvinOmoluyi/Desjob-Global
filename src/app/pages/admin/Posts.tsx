@@ -16,6 +16,16 @@ export default function Posts() {
 
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalConfig, setModalConfig] = useState<{
+    variant: 'confirm' | 'alert',
+    type: 'job' | 'blog' | 'error',
+    title?: string,
+    message?: string,
+    onConfirm?: () => void
+  }>({
+    variant: 'confirm',
+    type: 'job'
+  });
   const [postToDelete, setPostToDelete] = useState<{ id: string, title: string } | null>(null);
 
   // Form state
@@ -61,9 +71,15 @@ export default function Posts() {
       setIsUploading(true);
       const publicUrl = await adminApi.uploadImage(file);
       setFormData(prev => ({ ...prev, image: publicUrl }));
-    } catch (error) {
+    } catch (error: any) {
       console.error('Upload failed:', error);
-      alert('Failed to upload image. Please try again.');
+      setModalConfig({
+        variant: 'alert',
+        type: 'error',
+        title: 'Upload Failed',
+        message: error.message || 'Failed to upload image. Please ensure the "images" bucket exists in your Supabase storage and you have permission to upload.',
+      });
+      setModalOpen(true);
     } finally {
       setIsUploading(false);
     }
@@ -97,6 +113,12 @@ export default function Posts() {
 
   const handleDeleteClick = (post: JobPost) => {
     setPostToDelete({ id: post.id, title: post.title });
+    setModalConfig({
+      variant: 'confirm',
+      type: 'job',
+      title: post.title,
+      onConfirm: confirmDelete
+    });
     setModalOpen(true);
   };
 
@@ -354,10 +376,12 @@ export default function Posts() {
 
       <ConfirmModal
         isOpen={modalOpen}
-        type="job"
-        title={postToDelete?.title}
-        onConfirm={confirmDelete}
-        onCancel={cancelDelete}
+        variant={modalConfig.variant}
+        type={modalConfig.type}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        onConfirm={modalConfig.onConfirm || (() => setModalOpen(false))}
+        onCancel={() => setModalOpen(false)}
       />
     </div>
   );

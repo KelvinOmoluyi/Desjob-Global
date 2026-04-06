@@ -26,6 +26,16 @@ export default function BlogManager() {
   
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalConfig, setModalConfig] = useState<{
+    variant: 'confirm' | 'alert',
+    type: 'blog' | 'error',
+    title?: string,
+    message?: string,
+    onConfirm?: () => void
+  }>({
+    variant: 'confirm',
+    type: 'blog'
+  });
   const [postToDelete, setPostToDelete] = useState<{ id: string, title: string } | null>(null);
 
   // Form state
@@ -56,9 +66,15 @@ export default function BlogManager() {
       setIsUploading(true);
       const publicUrl = await adminApi.uploadImage(file);
       setFormData(prev => ({ ...prev, image: publicUrl }));
-    } catch (error) {
+    } catch (error: any) {
       console.error('Upload failed:', error);
-      alert('Failed to upload image. Please try again.');
+      setModalConfig({
+        variant: 'alert',
+        type: 'error',
+        title: 'Upload Failed',
+        message: error.message || 'Failed to upload image. Please ensure the "images" bucket exists in your Supabase storage and you have permission to upload.',
+      });
+      setModalOpen(true);
     } finally {
       setIsUploading(false);
     }
@@ -103,6 +119,12 @@ export default function BlogManager() {
 
   const handleDeleteClick = (blog: BlogPost) => {
     setPostToDelete({ id: blog.id, title: blog.title });
+    setModalConfig({
+      variant: 'confirm',
+      type: 'blog',
+      title: blog.title,
+      onConfirm: confirmDelete
+    });
     setModalOpen(true);
   };
 
@@ -326,10 +348,12 @@ export default function BlogManager() {
 
       <ConfirmModal 
         isOpen={modalOpen}
-        type="blog"
-        title={postToDelete?.title}
-        onConfirm={confirmDelete}
-        onCancel={cancelDelete}
+        variant={modalConfig.variant}
+        type={modalConfig.type}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        onConfirm={modalConfig.onConfirm || (() => setModalOpen(false))}
+        onCancel={() => setModalOpen(false)}
       />
     </div>
   );

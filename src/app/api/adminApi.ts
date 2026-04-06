@@ -16,21 +16,29 @@ export const adminApi = {
   },
 
   uploadImage: async (file: File): Promise<string> => {
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
-    const filePath = `post-images/${fileName}`;
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
+      const filePath = `post-images/${fileName}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from('images')
-      .upload(filePath, file);
+      const { error: uploadError } = await supabase.storage
+        .from('images')
+        .upload(filePath, file);
 
-    if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Supabase Storage Error:', uploadError);
+        throw new Error(uploadError.message || 'Upload failed');
+      }
 
-    const { data } = supabase.storage
-      .from('images')
-      .getPublicUrl(filePath);
+      const { data } = supabase.storage
+        .from('images')
+        .getPublicUrl(filePath);
 
-    return data.publicUrl;
+      return data.publicUrl;
+    } catch (err: any) {
+      console.error('uploadImage catch:', err);
+      throw new Error(err.message || 'Unknown upload error');
+    }
   },
 
   checkAuthSession: async (): Promise<boolean> => {
