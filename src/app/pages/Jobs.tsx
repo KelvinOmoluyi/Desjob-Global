@@ -1,5 +1,6 @@
-import { Link } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { publicApi } from '../api/publicApi';
+import { JobPost } from '../store/adminStore';
 import { LucideIcon } from 'lucide-react';
 import {
   Search, MapPin, Briefcase, Clock, ArrowRight, Upload, Filter,
@@ -17,74 +18,8 @@ const CAREER_IMG = 'https://plus.unsplash.com/premium_photo-1683980578016-a1f980
 // SHARED DATA & TYPES
 // ==========================================
 
-const featuredJobs = [
-  {
-    id: 1,
-    title: 'Senior Software Engineer',
-    company: 'TechBridge Nigeria',
-    location: 'Lagos, Nigeria',
-    type: 'Full-time',
-    salary: '₦500k – ₦800k/month',
-    category: 'Technology',
-    tags: ['React', 'Node.js', 'TypeScript'],
-    posted: '2 days ago',
-  },
-  {
-    id: 2,
-    title: 'Head of Marketing',
-    company: 'Greenfield FMCG Ltd',
-    location: 'Abuja, Nigeria',
-    type: 'Full-time',
-    salary: '₦600k – ₦900k/month',
-    category: 'Marketing',
-    tags: ['Brand Strategy', 'Digital Marketing', 'Team Leadership'],
-    posted: '3 days ago',
-  },
-  {
-    id: 3,
-    title: 'Finance Manager',
-    company: 'Apex Commercial Bank',
-    location: 'Lagos, Nigeria',
-    type: 'Full-time',
-    salary: '₦450k – ₦700k/month',
-    category: 'Finance',
-    tags: ['Financial Reporting', 'IFRS', 'Treasury'],
-    posted: '5 days ago',
-  },
-  {
-    id: 4,
-    title: 'Human Resources Business Partner',
-    company: 'OilServ Energy',
-    location: 'Port Harcourt, Nigeria',
-    type: 'Full-time',
-    salary: '₦400k – ₦650k/month',
-    category: 'HR',
-    tags: ['HR Strategy', 'Labour Relations', 'HRIS'],
-    posted: '1 week ago',
-  },
-  {
-    id: 5,
-    title: 'Product Manager',
-    company: 'Paystack (Contract)',
-    location: 'Lagos, Nigeria (Hybrid)',
-    type: 'Contract',
-    salary: '₦700k – ₦1.1m/month',
-    category: 'Technology',
-    tags: ['Product Strategy', 'Agile', 'FinTech'],
-    posted: '4 days ago',
-  },
-  {
-    id: 6,
-    title: 'Sales Director West Africa',
-    company: 'Novo Pharma Ltd',
-    location: 'Lagos, Nigeria',
-    type: 'Full-time',
-    salary: '₦800k – ₦1.2m/month',
-    category: 'Sales',
-    tags: ['B2B Sales', 'Team Leadership', 'Pharmaceuticals'],
-    posted: '6 days ago',
-  },
-];
+// featuredJobs moved to state inside Jobs component
+
 
 const categories = [
   { name: 'Technology', count: 45, icon: '💻' },
@@ -103,7 +38,7 @@ const whyApplyFeatures = [
   { icon: TrendingUp, title: 'Long-Term Career Development', desc: 'We\'re invested in your long-term success not just today\'s placement. Many of our candidates return to us as they grow in their careers.' },
 ];
 
-type Job = typeof featuredJobs[0];
+type Job = JobPost;
 
 // ==========================================
 // COMPONENTS
@@ -192,6 +127,12 @@ function JobCard({ job }: { job: Job }) {
         </div>
       </div>
 
+      {job.image && (
+        <div className="job-card-image">
+          <img src={job.image} alt={job.title} />
+        </div>
+      )}
+
       <div className="job-meta">
         <span className="job-meta-item">
           <MapPin className="job-meta-icon" /> {job.location}
@@ -246,8 +187,19 @@ export default function Jobs() {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredJobs = featuredJobs.filter((job) => {
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const data = await publicApi.getJobs();
+      setJobs(data);
+      setIsLoading(false);
+    };
+    fetchJobs();
+  }, []);
+
+  const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
       !searchQuery ||
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

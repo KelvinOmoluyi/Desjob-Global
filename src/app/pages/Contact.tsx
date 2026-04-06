@@ -3,12 +3,13 @@ import { Link } from 'react-router';
 import { LucideIcon } from 'lucide-react';
 import {
   Mail, Phone, MapPin, Clock, Upload, Building2, User,
-  Send, CheckCircle, ArrowRight, Briefcase, ChevronDown
+  Send, CheckCircle, ArrowRight, Briefcase, ChevronDown, RefreshCw
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Contact.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
+import { publicApi } from '../api/publicApi';
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
   return (
@@ -99,7 +100,9 @@ function JobSeekerForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', field: '', experience: '', message: '' });
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [error, setError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -118,9 +121,23 @@ function JobSeekerForm() {
     if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const response = await publicApi.submitJobSeekerForm(form);
+      if (response.success) {
+        setSubmitted(true);
+      } else {
+        setError(response.error || 'Failed to submit application. Please try again.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -147,6 +164,7 @@ function JobSeekerForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-layout">
+      {error && <div className="contact-error-msg" style={{ gridColumn: '1 / -1', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '1rem' }}>{error}</div>}
       <div className="form-row">
         <InputField label="Full Name" name="name" value={form.name} onChange={handleChange} placeholder="e.g. Adaeze Williams" required />
         <InputField label="Email Address" type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@email.com" required />
@@ -229,9 +247,14 @@ function JobSeekerForm() {
       <button
         type="submit"
         className="form-submit-btn"
+        disabled={isSubmitting}
       >
-        <Send className="submit-icon" /> 
-        <p>Submit My Application</p>
+        {isSubmitting ? (
+          <RefreshCw className="submit-icon animate-spin" />
+        ) : (
+          <Send className="submit-icon" />
+        )}
+        <p>{isSubmitting ? 'Submitting Application...' : 'Submit My Application'}</p>
       </button>
 
       <p className="form-disclaimer">
@@ -246,14 +269,30 @@ function EmployerForm() {
     company: '', contact: '', email: '', phone: '', industry: '', positions: '', hiringNeeds: '', timeline: '', message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const response = await publicApi.submitEmployerForm(form);
+      if (response.success) {
+        setSubmitted(true);
+      } else {
+        setError(response.error || 'Failed to submit enquiry. Please try again.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -280,6 +319,7 @@ function EmployerForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-layout">
+      {error && <div className="contact-error-msg" style={{ gridColumn: '1 / -1', padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '1rem' }}>{error}</div>}
       <div className="form-row">
         <InputField label="Company Name" name="company" value={form.company} onChange={handleChange} placeholder="e.g. Acme Nigeria Ltd" required />
         <InputField label="Contact Person" name="contact" value={form.contact} onChange={handleChange} placeholder="Your full name" required />
@@ -336,9 +376,14 @@ function EmployerForm() {
       <button
         type="submit"
         className="form-submit-btn"
+        disabled={isSubmitting}
       >
-        <Send className="submit-icon" />
-        <p>Send Hiring Enquiry</p>
+        {isSubmitting ? (
+          <RefreshCw className="submit-icon animate-spin" />
+        ) : (
+          <Send className="submit-icon" />
+        )}
+        <p>{isSubmitting ? 'Sending Enquiry...' : 'Send Hiring Enquiry'}</p>
       </button>
 
       <p className="form-disclaimer">

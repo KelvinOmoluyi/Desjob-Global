@@ -348,6 +348,27 @@
   font-weight: 700;
 }
 
+.job-card-image {
+  width: 100%;
+  height: 160px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #f1f5f9;
+}
+
+.job-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.job-card:hover .job-card-image img {
+  transform: scale(1.05);
+}
+
 .job-meta {
   display: flex;
   flex-wrap: wrap;

@@ -15,6 +15,24 @@ export const adminApi = {
     await supabase.auth.signOut();
   },
 
+  uploadImage: async (file: File): Promise<string> => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random().toString(36).substring(2, 11)}.${fileExt}`;
+    const filePath = `post-images/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('images')
+      .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+
+    const { data } = supabase.storage
+      .from('images')
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  },
+
   checkAuthSession: async (): Promise<boolean> => {
     const { data } = await supabase.auth.getSession();
     return !!data.session;
@@ -91,6 +109,7 @@ export const adminApi = {
       salary: row.salary,
       category: row.category,
       tags: row.tags ?? [],
+      image: row.image ?? '',
       posted: new Date(row.posted_at).toLocaleDateString('en-US', {
         month: 'short', day: 'numeric', year: 'numeric',
       }),
@@ -108,6 +127,7 @@ export const adminApi = {
         salary: postData.salary,
         category: postData.category,
         tags: postData.tags,
+        image: postData.image,
       })
       .select()
       .single();
@@ -123,6 +143,7 @@ export const adminApi = {
       salary: data.salary,
       category: data.category,
       tags: data.tags,
+      image: data.image ?? '',
       posted: 'Just now',
     };
   },
@@ -136,6 +157,7 @@ export const adminApi = {
       salary: postData.salary,
       category: postData.category,
       tags: postData.tags,
+      image: postData.image,
     }).eq('id', id);
     if (error) console.error('updateJobPost error:', error);
   },

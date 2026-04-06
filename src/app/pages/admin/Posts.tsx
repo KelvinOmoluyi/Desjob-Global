@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, Edit2, Plus, Briefcase, MapPin, Clock, RefreshCw } from 'lucide-react';
+import { Image as ImageIcon, Trash2, Edit2, Plus, Briefcase, MapPin, Clock, RefreshCw, X, Loader2 } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { JobPost } from '../../store/adminStore';
 import ConfirmModal from '../../components/admin/ConfirmModal';
+
+const EMPTY_FORM = { title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: '', image: '' };
 
 export default function Posts() {
   const [posts, setPosts] = useState<JobPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState<{ id: string, title: string } | null>(null);
 
   // Form state
-  const [formData, setFormData] = useState({
-    title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: ''
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -35,25 +37,62 @@ export default function Posts() {
     setFormData({ ...formData, [e.target.name]: value });
   };
 
-  const handleCreatePost = async (e: React.FormEvent) => {
+  const handleEdit = (post: JobPost) => {
+    setFormData({
+      title: post.title,
+      company: post.company,
+      location: post.location,
+      type: post.type,
+      salary: post.salary,
+      category: post.category,
+      tags: post.tags.join(', '),
+      image: post.image || '',
+    });
+    setEditingId(post.id);
+    setShowForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      const publicUrl = await adminApi.uploadImage(file);
+      setFormData(prev => ({ ...prev, image: publicUrl }));
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('Failed to upload image. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setFormData(EMPTY_FORM);
+    setEditingId(null);
+    setShowForm(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    const newPostData = {
+
+    const postData = {
       ...formData,
       tags: formData.tags.split(',').map((tag: string) => tag.trim()).filter((t: string) => t),
     };
-    
-    await adminApi.createPost(newPostData);
+
+    if (editingId) {
+      await adminApi.updateJobPost(editingId, postData);
+    } else {
+      await adminApi.createPost(postData);
+    }
+
     await fetchPosts();
-    
     setIsSubmitting(false);
-    setShowForm(false);
-    
-    // Reset form
-    setFormData({
-      title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: ''
-    });
+    resetForm();
   };
 
   const handleDeleteClick = (post: JobPost) => {
@@ -63,8 +102,10 @@ export default function Posts() {
 
   const confirmDelete = async () => {
     if (postToDelete) {
+      setIsSubmitting(true);
       await adminApi.deleteJobPost(postToDelete.id);
       await fetchPosts();
+      setIsSubmitting(false);
       setModalOpen(false);
       setPostToDelete(null);
     }
@@ -75,25 +116,29 @@ export default function Posts() {
     setPostToDelete(null);
   };
 
+  const isBusy = isLoading || isSubmitting || isUploading;
+
   return (
     <div className="admin-page-container">
       <div className="admin-header-row">
         <h1 className="admin-page-title">Job Posts</h1>
         <div className="admin-header-actions">
-          <button onClick={fetchPosts} className="admin-btn-outline" disabled={isLoading || isSubmitting}>
+          <button onClick={fetchPosts} className="admin-btn-outline" disabled={isBusy}>
             <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
             Refresh
           </button>
-          <button onClick={() => setShowForm(!showForm)} className="admin-btn-primary">
-            {showForm ? 'Cancel' : <><Plus size={18} /> Create Post</>}
+          <button onClick={() => showForm ? resetForm() : setShowForm(true)} className="admin-btn-primary" disabled={isSubmitting}>
+            {showForm ? <><X size={18} /> Cancel</> : <><Plus size={18} /> Create Post</>}
           </button>
         </div>
       </div>
 
       {showForm && (
-        <form onSubmit={handleCreatePost} className="admin-form" style={{ marginBottom: '2rem' }}>
-          <h2 style={{ margin: '0 0 1rem 0', fontSize: '1.25rem' }}>Create New Job Post</h2>
-          
+        <form onSubmit={handleSubmit} className="admin-form" style={{ marginBottom: '2rem' }}>
+          <h2 style={{ margin: '0 0 1rem 0', fontSize: '1.25rem' }}>
+            {editingId ? 'Edit Job Post' : 'Create New Job Post'}
+          </h2>
+
           <div className="admin-form-row">
             <div className="admin-form-group">
               <label className="admin-label">Job Title</label>
@@ -124,7 +169,28 @@ export default function Posts() {
           <div className="admin-form-row">
             <div className="admin-form-group">
               <label className="admin-label">Salary Range</label>
-              <input type="text" name="salary" className="admin-input" required value={formData.salary} onChange={handleInputChange} placeholder="e.g. ₦500k – ₦800k/month" />
+              <input
+                type="text"
+                name="salary"
+                className="admin-input"
+                required
+                value={formData.salary}
+                onChange={handleInputChange}
+                onBlur={(e) => {
+                  const raw = e.target.value.trim();
+                  if (!raw) return;
+                  const formatted = raw
+                    .split(/\s*[-\u2013]\s*/)
+                    .map(part => {
+                      const clean = part.trim().replace(/^\u20a6/, '');
+                      return clean ? `\u20a6${clean}` : '';
+                    })
+                    .filter(Boolean)
+                    .join(' \u2013 ') + '/month';
+                  setFormData(prev => ({ ...prev, salary: formatted }));
+                }}
+                placeholder="e.g. 500,000 - 800,000"
+              />
             </div>
             <div className="admin-form-group">
               <label className="admin-label">Category</label>
@@ -141,9 +207,44 @@ export default function Posts() {
             <input type="text" name="tags" className="admin-input" value={formData.tags} onChange={handleInputChange} placeholder="e.g. React, Node.js, TypeScript" />
           </div>
 
+          <div className="admin-form-group">
+            <label className="admin-label">Header Image</label>
+            <div className="admin-image-upload-wrap">
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleFileChange} 
+                className="admin-file-input" 
+                id="job-image-upload"
+                disabled={isUploading}
+              />
+              <label htmlFor="job-image-upload" className={`admin-image-upload-label ${isUploading ? 'uploading' : ''}`}>
+                {isUploading ? (
+                  <><Loader2 className="animate-spin" size={18} /> Uploading...</>
+                ) : (
+                  <><ImageIcon size={18} /> {formData.image ? 'Change Image' : 'Upload Image'}</>
+                )}
+              </label>
+              
+              {formData.image && (
+                <div className="admin-image-preview">
+                  <img src={formData.image} alt="Preview" />
+                  <button 
+                    type="button" 
+                    className="admin-remove-image" 
+                    onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
+            </div>
+            <p className="admin-hint">Max size: 5MB. Formats: JPG, PNG, WEBP.</p>
+          </div>
+
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
             <button type="submit" className="admin-btn-primary" disabled={isSubmitting}>
-              {isSubmitting ? 'Creating...' : 'Publish Post'}
+              {isSubmitting ? (editingId ? 'Saving...' : 'Creating...') : (editingId ? 'Save Changes' : 'Publish Post')}
             </button>
           </div>
         </form>
@@ -161,14 +262,12 @@ export default function Posts() {
                 <div className="admin-list-card-details">
                   <div className="admin-list-card-header">
                     <div>
-                      <div className="admin-list-card-title-row">
-                        <h3 className="admin-list-card-title">{post.title}</h3>
-                      </div>
+                      <h3 className="admin-list-card-title">{post.title}</h3>
                       <p className="admin-list-card-subtitle">{post.company}</p>
                     </div>
                     <span className="admin-list-card-date">{post.posted}</span>
                   </div>
-                
+
                   <div className="admin-list-card-footer">
                     <div className="admin-list-card-meta-tags">
                       <span className="admin-meta-tag"><MapPin size={14} /> {post.location}</span>
@@ -177,7 +276,10 @@ export default function Posts() {
                       <span className="admin-meta-tag salary-tag">{post.salary}</span>
                     </div>
                     <div className="admin-list-card-actions">
-                      <button onClick={() => handleDeleteClick(post)} className="admin-btn-icon btn-delete" title="Delete">
+                      <button onClick={() => handleEdit(post)} className="admin-btn-icon btn-edit" title="Edit" disabled={isBusy}>
+                        <Edit2 size={18} />
+                      </button>
+                      <button onClick={() => handleDeleteClick(post)} className="admin-btn-icon btn-delete" title="Delete" disabled={isBusy}>
                         <Trash2 size={18} />
                       </button>
                     </div>
@@ -195,7 +297,7 @@ export default function Posts() {
         )}
       </div>
 
-      <ConfirmModal 
+      <ConfirmModal
         isOpen={modalOpen}
         type="job"
         title={postToDelete?.title}

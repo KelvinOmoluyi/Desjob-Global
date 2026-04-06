@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Edit2, ExternalLink, RefreshCw, X, Image as ImageIcon } from 'lucide-react';
+import { Plus, Trash2, Edit2, ExternalLink, RefreshCw, X, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { BlogPost } from '../../store/adminStore';
 import ConfirmModal from '../../components/admin/ConfirmModal';
@@ -21,6 +21,8 @@ export default function BlogManager() {
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const isBusy = isLoading || isSubmitting || isUploading;
   
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
@@ -45,6 +47,22 @@ export default function BlogManager() {
   useEffect(() => {
     fetchBlogs();
   }, []);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      const publicUrl = await adminApi.uploadImage(file);
+      setFormData(prev => ({ ...prev, image: publicUrl }));
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('Failed to upload image. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -119,11 +137,11 @@ export default function BlogManager() {
       <div className="admin-header-row">
         <h1 className="admin-page-title">Manage Blog</h1>
         <div className="admin-header-actions">
-          <button onClick={fetchBlogs} className="admin-btn-outline" disabled={isLoading || isSubmitting}>
+          <button onClick={fetchBlogs} className="admin-btn-outline" disabled={isBusy}>
             <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
             Refresh
           </button>
-          <button onClick={() => setShowForm(!showForm)} className="admin-btn-primary">
+          <button onClick={() => showForm ? resetForm() : setShowForm(true)} className="admin-btn-primary" disabled={isSubmitting}>
             {showForm ? 'Cancel' : <><Plus size={18} /> Create Post</>}
           </button>
         </div>
@@ -140,8 +158,38 @@ export default function BlogManager() {
 
           <div className="admin-form-row">
             <div className="admin-form-group">
-              <label className="admin-label">Header Image URL</label>
-              <input type="text" name="image" className="admin-input" required value={formData.image} onChange={handleInputChange} placeholder="Unsplash URL, etc." />
+              <label className="admin-label">Header Image</label>
+              <div className="admin-image-upload-wrap">
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleFileChange} 
+                  className="admin-file-input" 
+                  id="blog-image-upload"
+                  disabled={isUploading}
+                />
+                <label htmlFor="blog-image-upload" className={`admin-image-upload-label ${isUploading ? 'uploading' : ''}`}>
+                  {isUploading ? (
+                    <><Loader2 className="animate-spin" size={18} /> Uploading...</>
+                  ) : (
+                    <><ImageIcon size={18} /> {formData.image ? 'Change Image' : 'Upload Image'}</>
+                  )}
+                </label>
+                
+                {formData.image && (
+                  <div className="admin-image-preview">
+                    <img src={formData.image} alt="Preview" />
+                    <button 
+                      type="button" 
+                      className="admin-remove-image" 
+                      onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                )}
+              </div>
+              <p className="admin-hint">Max size: 5MB. Formats: JPG, PNG, WEBP.</p>
             </div>
             <div className="admin-form-group">
               <label className="admin-label">Category</label>
@@ -209,10 +257,10 @@ export default function BlogManager() {
                         <a href={`/blog/${blog.slug}`} target="_blank" rel="noopener noreferrer" className="admin-btn-icon" title="View Article">
                           <ExternalLink size={18} />
                         </a>
-                        <button onClick={() => handleEdit(blog)} className="admin-btn-icon btn-edit" title="Edit">
+                        <button onClick={() => handleEdit(blog)} className="admin-btn-icon btn-edit" title="Edit" disabled={isBusy}>
                           <Edit2 size={18} />
                         </button>
-                        <button onClick={() => handleDeleteClick(blog)} className="admin-btn-icon btn-delete" title="Delete">
+                        <button onClick={() => handleDeleteClick(blog)} className="admin-btn-icon btn-delete" title="Delete" disabled={isBusy}>
                           <Trash2 size={18} />
                         </button>
                       </div>

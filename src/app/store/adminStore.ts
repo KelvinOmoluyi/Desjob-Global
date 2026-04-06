@@ -35,6 +35,7 @@ export type JobPost = {
   salary: string;
   category: string;
   tags: string[];
+  image: string;
   posted: string;
 };
 
@@ -64,46 +65,9 @@ const initialJobSeekerMessages: JobSeekerMessage[] = [
   },
 ];
 
-const initialEmployerMessages: EmployerMessage[] = [
-  {
-    id: '1',
-    company: 'Acme Nigeria Ltd',
-    contact: 'John Doe',
-    email: 'john.doe@acmenigeria.com',
-    phone: '+234 000 111 2222',
-    industry: 'Manufacturing',
-    positions: '4–10 positions',
-    hiringNeeds: 'Talent Acquisition / Recruitment',
-    timeline: 'Within 2 weeks',
-    message: 'We are expanding our operations in Kano and urgently need plant supervisors.',
-    date: new Date(Date.now() - 172800000).toISOString(),
-  },
-];
+const initialEmployerMessages: EmployerMessage[] = [];
 
-const initialJobPosts: JobPost[] = [
-  {
-    id: '1',
-    title: 'Senior Software Engineer',
-    company: 'TechBridge Nigeria',
-    location: 'Lagos, Nigeria',
-    type: 'Full-time',
-    salary: '₦500k – ₦800k/month',
-    category: 'Technology',
-    tags: ['React', 'Node.js', 'TypeScript'],
-    posted: '2 days ago',
-  },
-  {
-    id: '2',
-    title: 'Head of Marketing',
-    company: 'Greenfield FMCG Ltd',
-    location: 'Abuja, Nigeria',
-    type: 'Full-time',
-    salary: '₦600k – ₦900k/month',
-    category: 'Marketing',
-    tags: ['Brand Strategy', 'Digital Marketing', 'Team Leadership'],
-    posted: '3 days ago',
-  },
-];
+const initialJobPosts: JobPost[] = [];
 
 const initialBlogPosts: BlogPost[] = [
   {
@@ -149,6 +113,7 @@ type AdminState = {
   setEmployerMessages: (messages: EmployerMessage[]) => void;
   setPosts: (posts: JobPost[]) => void;
   addPost: (post: Omit<JobPost, 'id' | 'posted'>) => JobPost;
+  updateJobPost: (id: string, post: Partial<JobPost>) => void;
   deleteJobPost: (id: string) => void;
   
   // Blog Actions
@@ -185,6 +150,12 @@ export const useAdminStore = create<AdminState>((set) => ({
   deleteJobPost: (id) => {
     set((state) => ({
       posts: state.posts.filter((post) => post.id !== id),
+    }));
+  },
+
+  updateJobPost: (id: string, updatedFields: Partial<JobPost>) => {
+    set((state) => ({
+      posts: state.posts.map((post) => (post.id === id ? { ...post, ...updatedFields } : post)),
     }));
   },
 

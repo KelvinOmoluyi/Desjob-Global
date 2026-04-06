@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
-import { adminApi } from '../api/adminApi';
+import { publicApi } from '../api/publicApi';
 import { BlogPost } from '../store/adminStore';
 import { ArrowLeft, Calendar, User, Share2, Facebook, Twitter, Linkedin, Link as LinkIcon, Check } from 'lucide-react';
 import './BlogDetail.css';
@@ -14,7 +14,7 @@ export default function BlogDetail() {
   useEffect(() => {
     const fetchBlog = async () => {
       if (slug) {
-        const data = await adminApi.getBlogPostBySlug(slug);
+        const data = await publicApi.getBlogPostBySlug(slug);
         setBlog(data || null);
         setIsLoading(false);
       }

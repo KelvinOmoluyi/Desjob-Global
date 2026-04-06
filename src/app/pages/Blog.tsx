@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { adminApi } from '../api/adminApi';
+import { publicApi } from '../api/publicApi';
 import { BlogPost } from '../store/adminStore';
-import { LucideIcon } from 'lucide-react';
-import { Briefcase } from 'lucide-react';
+import { LucideIcon, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Blog.css';
 
@@ -25,7 +24,7 @@ export default function Blog() {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const data = await adminApi.getBlogPosts();
+      const data = await publicApi.getBlogPosts();
       setBlogs(data);
       setIsLoading(false);
     };
