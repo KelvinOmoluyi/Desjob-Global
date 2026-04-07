@@ -104,13 +104,13 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
                 <span className="text-green-100/70" style={{ fontSize: '0.875rem' }}>
-                  14 Broad Street, Lagos Island, Lagos, Nigeria
+                  113 Idiroko Road, OTA, Ogun State
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-green-400 flex-shrink-0" />
                 <a href="tel:+2348012345678" className="text-green-100/70 hover:text-green-400 transition-colors" style={{ fontSize: '0.875rem' }}>
-                  +234 801 234 5678
+                  +234 913 402 0665
                 </a>
               </li>
               <li className="flex items-center gap-3">
