@@ -100,7 +100,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            At Desjob Global, we believe that the right people in the right roles change everything. Since our founding, we've been on a mission to transform how Nigerian businesses attract, develop, and retain exceptional talent.
+            At Desjob Global Limited, we believe that the right people in the right roles change everything. Since our founding, we've been on a mission to transform how Nigerian businesses attract, develop, and retain exceptional talent.
           </motion.p>
         </div>
       </section>
@@ -121,10 +121,10 @@ export default function About() {
               </h2>
               <div className="story-text">
                 <p>
-                  Desjob Global was founded with a singular vision: to bridge the widening gap between outstanding talent and the organisations that need them most in Nigeria and across Africa.
+                  Desjob Global Limited was founded with a singular vision: to bridge the widening gap between outstanding talent and the organisations that need them most in Nigeria and across Africa.
                 </p>
                 <p>
-                  We built Desjob Global differently combining human insight with modern technology, deep industry expertise with genuine personal attention. Today, we are proud to be the preferred HR partner for hundreds of organisations, from promising startups to Fortune 500 subsidiaries operating in Nigeria.
+                  We built Desjob Global Limited differently combining human insight with modern technology, deep industry expertise with genuine personal attention. Today, we are proud to be the preferred HR partner for hundreds of organisations, from promising startups to Fortune 500 subsidiaries operating in Nigeria.
                 </p>
                 <p>
                   Our work isn't just about filling vacancies. It's about fuelling ambitions, building legacies, and shaping the future of work in Nigeria.
@@ -141,7 +141,7 @@ export default function About() {
               <div className="img-glow" />
               <img
                 src={STORY_IMG}
-                alt="Desjob Global team collaborating"
+                alt="Desjob Global Limited team collaborating"
                 className="story-img"
               />
             </motion.div>
@@ -285,7 +285,7 @@ export default function About() {
               <div className="img-glow" />
               <img
                 src={VALUES_IMG}
-                alt="Desjob Global values in action"
+                alt="Desjob Global Limited values in action"
                 className="values-img"
               />
             </motion.div>

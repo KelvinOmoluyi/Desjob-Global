@@ -38,7 +38,7 @@ export default function Login() {
             <ShieldCheck size={48} className="admin-login-logo" />
           </div>
           <h1 className="admin-login-title">Admin Login</h1>
-          <p className="admin-login-subtitle">Sign in to manage Desjob Global</p>
+          <p className="admin-login-subtitle">Sign in to manage Desjob Global Limited</p>
         </div>
 
         {error && <div className="admin-error-msg">{error}</div>}

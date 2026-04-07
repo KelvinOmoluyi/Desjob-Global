@@ -240,7 +240,7 @@ export default function Jobs() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Desjob Global connects ambitious professionals with the most exciting roles across Nigeria's fastest-growing companies. Your dream job is closer than you think.
+            Desjob Global Limited connects ambitious professionals with the most exciting roles across Nigeria's fastest-growing companies. Your dream job is closer than you think.
           </motion.p>
 
           <motion.div
@@ -346,7 +346,7 @@ export default function Jobs() {
               <div className="img-glow" />
               <img
                 src={CAREER_IMG}
-                alt="Career growth through Desjob Global"
+                alt="Career growth through Desjob Global Limited"
                 className="why-img"
               />
             </div>
@@ -357,7 +357,7 @@ export default function Jobs() {
                 Your Career Deserves More Than Just a Job Board
               </h2>
               <p className="why-section-desc">
-                When you apply through Desjob Global, you gain more than access to job listings you gain a dedicated career partner who understands your industry and advocates for your best interests.
+                When you apply through Desjob Global Limited, you gain more than access to job listings you gain a dedicated career partner who understands your industry and advocates for your best interests.
               </p>
 
               <div className="why-features">

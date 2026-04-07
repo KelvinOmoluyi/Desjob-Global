@@ -60,14 +60,14 @@ const testimonials = [
     title: 'HRM manager (Wellway Nigeria Plastic Industry)',
     avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'Desjob Global has been an exceptional recruitment partner. Their deep understanding of the talent market helped us build our technical team seamlessly in record time. Truly world-class service!',
+    text: 'Desjob Global Limited has been an exceptional recruitment partner. Their deep understanding of the talent market helped us build our technical team seamlessly in record time. Truly world-class service!',
   },
   {
     name: 'Mr Francis Chukwemezie',
     title: 'Senior HRM Manager (CWAY NIGERIA DRINKING WATER LIMITED)',
     avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'Partnering with Desjob Global transformed our hiring strategy. Their professional approach to workforce management and swift execution makes them an invaluable HR asset to our company.',
+    text: 'Partnering with Desjob Global Limited transformed our hiring strategy. Their professional approach to workforce management and swift execution makes them an invaluable HR asset to our company.',
   },
   {
     name: 'Mr Idowu Odogberin',
@@ -81,14 +81,14 @@ const testimonials = [
     title: 'Head, HRM Manager (EUROMEGA ATLANTIC NIGERIA LIMITED)',
     avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'Desjob Global consistently delivers outstanding talent solutions. Their dedication to understanding our company culture ensures we get perfect hires every single time. An absolute game-changer for HR!',
+    text: 'Desjob Global Limited consistently delivers outstanding talent solutions. Their dedication to understanding our company culture ensures we get perfect hires every single time. An absolute game-changer for HR!',
   },
   {
     name: 'Mr Belema Job-Kalio',
     title: 'HRM Manager (SARO AGRO-SCIENCES LIMITED)',
     avatar: IMAGES.personIcon,
     stars: 5,
-    text: 'We rely on Desjob Global for all our major recruitment drives. They do not just fill roles; they provide strategic HR guidance that adds immense value to our entire organizational structure.',
+    text: 'We rely on Desjob Global Limited for all our major recruitment drives. They do not just fill roles; they provide strategic HR guidance that adds immense value to our entire organizational structure.',
   },
   {
     name: 'Mrs Comfort Eyo',
@@ -211,7 +211,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Desjob Global bridges the gap between exceptional professionals and forward-thinking organisations. Whether you're growing your team or advancing your career, we're your trusted HR partner.
+              Desjob Global Limited bridges the gap between exceptional professionals and forward-thinking organisations. Whether you're growing your team or advancing your career, we're your trusted HR partner.
             </motion.p>
 
             <motion.div 
@@ -231,7 +231,7 @@ export default function Home() {
             <div className="hero-img-bg" />
             <img
               src={HERO_IMG}
-              alt="Desjob Global professional HR team at work"
+              alt="Desjob Global Limited professional HR team at work"
               className="hero-img"
             />
             {/* Floating card */}
@@ -464,7 +464,7 @@ export default function Home() {
               <div className="why-img-bg" />
               <img
                 src={WHY_IMG}
-                alt="Desjob Global team collaborating on talent strategies"
+                alt="Desjob Global Limited team collaborating on talent strategies"
                 className="why-img"
               />
             </motion.div>
@@ -487,7 +487,7 @@ export default function Home() {
               <div className="why-img-bg" />
               <img
                 src={HOWIT_IMG}
-                alt="Desjob Global recruitment process in action"
+                alt="Desjob Global Limited recruitment process in action"
                 className="home-process-img"
               />
             </motion.div>
@@ -664,7 +664,7 @@ export default function Home() {
             Ready to Transform Your Workforce or Your Career?
           </h2>
           <p className="cta-subtitle" style={{ maxWidth: 560 }}>
-            Whether you're an organisation seeking exceptional talent or a professional aiming higher, Desjob Global is ready to make it happen.
+            Whether you're an organisation seeking exceptional talent or a professional aiming higher, Desjob Global Limited is ready to make it happen.
           </p>
           <div className="cta-links">
             <ButtonSecondary
@@ -696,7 +696,7 @@ export default function Home() {
               Frequently Asked Questions
             </h2>
             <p className="section-subtitle mt-4">
-              Everything you need to know about working with Desjob Global.
+              Everything you need to know about working with Desjob Global Limited.
             </p>
           </motion.div>
 

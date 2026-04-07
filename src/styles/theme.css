@@ -162,6 +162,41 @@
     transition: all 0.3s;
     text-decoration: none;
   }
+  .btn-01-mobile {
+    position: relative;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: 100%;
+    padding: 0.05rem 0.05rem;
+    background: linear-gradient(#8DDB99, #57BD5E);
+    border-radius: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--border-01);
+    box-shadow: 0 0.1rem 0.5rem rgba(7, 1, 19, 0.23),
+    0 0.3rem 0.3rem rgba(67, 0, 202, 0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .inner-btn-01-mobile {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    background: var(--gradient-01);
+    border-radius: 0.8rem;
+    justify-content: center;
+    color: var(--text-color-02);
+    display: flex;
+    -moz-column-gap: 0.3rem;
+          column-gap: 0.3rem;
+          align-items: center;
+  }
 
   .btn-01:hover {
     scale: 1.06;

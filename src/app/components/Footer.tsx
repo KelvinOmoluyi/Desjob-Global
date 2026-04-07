@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Briefcase, Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import IMAGES from '../../data/images';
 
 export default function Footer() {
   return (
@@ -11,15 +12,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2.5 mb-4" aria-label="Desjob Global Home">
-              <div
-                className="w-9 h-9 rounded-lg flex items-center justify-center"
-                style={{ background: 'rgba(34,197,94,0.2)', border: '1px solid rgba(34,197,94,0.3)' }}
-              >
-                <Briefcase className="w-4.5 h-4.5 text-green-400" />
-              </div>
+            <Link to="/" className="flex items-center gap-2.5 mb-4" aria-label="Desjob Global Limited Home">
+              <img src={IMAGES.logox1} alt="Desjob Global Limited Logo" className="w-8 h-8" />
               <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#fff' }}>
-                Desjob<span style={{ color: '#4ade80' }}>Global</span>
+                Desjob<span style={{ color: '#4ade80' }}> Global Limited</span>
               </span>
             </Link>
             <p className="text-green-100/70 mb-5" style={{ fontSize: '0.875rem', lineHeight: '1.6' }}>
@@ -131,7 +127,7 @@ export default function Footer() {
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '2rem' }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)' }}>
-              © {new Date().getFullYear()} Desjob Global. All rights reserved.
+              © {new Date().getFullYear()} Desjob Global Limited. All rights reserved.
             </p>
             <div className="flex items-center gap-5">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (

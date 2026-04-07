@@ -12,7 +12,7 @@ export default function BlogDetail() {
 
   const handleShare = async () => {
     const shareData = {
-      title: blog?.title || 'Desjob Global - HR Insights',
+      title: blog?.title || 'Desjob Global Limited - HR Insights',
       text: blog?.content[0]?.substring(0, 100) + '...',
       url: window.location.href,
     };

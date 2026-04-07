@@ -31,10 +31,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0" aria-label="Desjob Global Home">
-            <img src={IMAGES.logox1} alt="Desjob Global Logo" className="w-8 h-8" />
+          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0" aria-label="Desjob Global Limited Home">
+            <img src={IMAGES.logox1} alt="Desjob Global Limited Logo" className="w-8 h-8" />
             <span className="text-gray-900" style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '-0.01em' }}>
-              Desjob <span style={{ color: '#16a34a' }}>Global</span>
+              Desjob <span style={{ color: '#16a34a' }}>Global Limited</span>
             </span>
           </Link>
 
@@ -102,18 +102,27 @@ export default function Navbar() {
             );
           })}
           <div className="pt-2">
+            {/* <button
+              className="btn-01"
+              aria-label={ariaLabel || text}
+              onClick={() => setMobileOpen(false)}
+              type="button"
+            >
+              <div className="inner-btn-01">
+                <p>Login</p>
+                {icon ? icon : null}
+              </div>
+            </button> */}
             <Link
               to="/admin/login"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 w-full rounded-full py-3 text-white"
-              style={{
-                fontSize: '0.9375rem',
-                fontWeight: 600,
-                background: 'linear-gradient(135deg, #16a34a, #22c55e)',
-              }}
+              className="btn-01-mobile"
               aria-label="Admin Login"
             >
-              Login <ChevronRight className="w-4 h-4" />
+              <div className="inner-btn-01-mobile">
+                <p>Login</p>
+                <ChevronRight className="w-4 h-4" />
+              </div>
             </Link>
           </div>
         </nav>

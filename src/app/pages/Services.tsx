@@ -163,7 +163,7 @@ export default function Services() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            From recruitment to consulting to compliance, Desjob Global offers a comprehensive suite of HR services designed to help Nigerian businesses compete, grow, and thrive.
+            From recruitment to consulting to compliance, Desjob Global Limited offers a comprehensive suite of HR services designed to help Nigerian businesses compete, grow, and thrive.
           </motion.p>
 
           <motion.div 
@@ -342,7 +342,7 @@ export default function Services() {
             Ready to Build Your Dream Team?
           </h2>
           <p className="cta-subtitle">
-            Let Desjob Global take the complexity out of hiring and HR management. Contact our team today for a no-obligation consultation.
+            Let Desjob Global Limited take the complexity out of hiring and HR management. Contact our team today for a no-obligation consultation.
           </p>
           <div className='cta-links'>
             <ButtonSecondary

@@ -52,7 +52,7 @@ export default function Blog() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Stay ahead with the latest strategies in talent acquisition, workforce management, and African business trends from the Desjob Global team.
+            Stay ahead with the latest strategies in talent acquisition, workforce management, and African business trends from the Desjob Global Limited team.
           </motion.p>
         </div>
       </section>
