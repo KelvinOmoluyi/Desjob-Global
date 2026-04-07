@@ -21,6 +21,7 @@ import victoryImg from '../assets/img/employees/Victory-Idam-Okocha.jpeg';
 import ojetolaImg from '../assets/img/employees/Ojetola-Ifeoluwa-Elizabeth.jpeg';
 import imphonopiImg from '../assets/img/employees/Imphonopi-Esther-Odufuwa.jpeg';
 import amelokoImg from '../assets/img/employees/Ameloko-Joshua.jpeg';
+import adegbiteImg from '../assets/img/employees/Adegbite-babajide.jpeg';
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
   return (
@@ -49,7 +50,8 @@ const teamMembers = [
   { name: 'Victory Idam Okocha', title: 'Front Desk Administrator', location: '', img: victoryImg },
   { name: 'Ojetola Ifeoluwa Elizabeth', title: 'Assistant HR/Admin Manager', location: '', img: ojetolaImg },
   { name: 'Imphonopi Esther Odufuwa', title: 'Admin/HR Manager', location: '', img: imphonopiImg },
-  { name: 'Ameloko Joshua', title: 'HR Supervisor - SARO AGRO-SCIENCE LTD', location: 'Magboro, Ogun State', img: amelokoImg }
+  { name: 'Ameloko Joshua', title: 'HR Supervisor - SARO AGRO-SCIENCE LTD', location: 'Magboro, Ogun State', img: amelokoImg },
+  { name: 'Adegbite Babajide. Z', title: 'Field Coordinator Officer.', location: 'Otta, Ogun State', img: adegbiteImg }
 ];
 
 export default function About() {
