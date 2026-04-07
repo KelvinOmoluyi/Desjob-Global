@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Menu, X, Briefcase, ChevronRight } from 'lucide-react';
 import ButtonPrimary from './form/ButtonPrimary';
 import ButtonPrimarySmall from './form/ButtonPrimarySmall';
+import IMAGES from '../../data/images';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -31,12 +32,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0" aria-label="Desjob Global Home">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #16a34a, #22c55e)' }}
-            >
-              <Briefcase className="w-4 h-4 text-white" />
-            </div>
+            <img src={IMAGES.logox1} alt="Desjob Global Logo" className="w-8 h-8" />
             <span className="text-gray-900" style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '-0.01em' }}>
               Desjob <span style={{ color: '#16a34a' }}>Global</span>
             </span>
