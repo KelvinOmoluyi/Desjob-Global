@@ -22,6 +22,7 @@ import ojetolaImg from '../assets/img/employees/Ojetola-Ifeoluwa-Elizabeth.jpeg'
 import imphonopiImg from '../assets/img/employees/Imphonopi-Esther-Odufuwa.jpeg';
 import amelokoImg from '../assets/img/employees/Ameloko-Joshua.jpeg';
 import adegbiteImg from '../assets/img/employees/Adegbite-babajide.jpeg';
+import IMAGES from '../../data/images';
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
   return (
@@ -142,7 +143,7 @@ export default function About() {
             >
               <div className="img-glow" />
               <img
-                src={STORY_IMG}
+                src={IMAGES.officePic1}
                 alt="Desjob Global Limited team collaborating"
                 className="story-img"
               />
