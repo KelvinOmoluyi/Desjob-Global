@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import './Services.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
+import IMAGES from '../../data/images';
 
 const RECRUIT_IMG = 'https://images.unsplash.com/photo-1528901166007-3784c7dd3653?q=80&w=1080&auto=format&fit=crop';
 const CONSULT_IMG = 'https://images.unsplash.com/photo-1653565685001-92267a18233a?q=80&w=1080&auto=format&fit=crop';
@@ -39,7 +40,7 @@ const services = [
       'Operational support services',
       'Administrative task delegation',
     ],
-    img: RECRUIT_IMG,
+    img: IMAGES.officePic2,
     reverse: false,
   },
   {
@@ -55,7 +56,7 @@ const services = [
       'Team building & culture workshops',
       'E-learning & blended learning solutions',
     ],
-    img: TRAINING_IMG,
+    img: IMAGES.officePic3,
     reverse: true,
   },
   {
@@ -71,7 +72,7 @@ const services = [
       'Change management support',
       'Organisational restructuring',
     ],
-    img: CONSULT_IMG,
+    img: IMAGES.officePic4,
     reverse: false,
   },
   {
@@ -87,7 +88,7 @@ const services = [
       'Inventory control solutions',
       'Logistics and delivery support',
     ],
-    img: WORKFORCE_IMG,
+    img: IMAGES.officePic5,
     reverse: true,
   },
   {
@@ -103,7 +104,7 @@ const services = [
       'HR compliance & labour law advisory',
       'Compensation & benefits consulting',
     ],
-    img: EXEC_IMG,
+    img: IMAGES.officePic6,
     reverse: false,
   },
   {
@@ -119,7 +120,7 @@ const services = [
       'HR compliance & regulatory filings',
       'Employee records management',
     ],
-    img: SEARCH_IMG,
+    img: IMAGES.officePic1,
     reverse: true,
   },
 ];

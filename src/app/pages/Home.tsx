@@ -1,13 +1,13 @@
+import './Home.css'
 import { Link } from 'react-router';
 import { useState, useEffect } from 'react';
 import { LucideIcon } from 'lucide-react';
 import {
   ArrowRight, CheckCircle2, Users, TrendingUp, Award, Building2,
   Star, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Search, Briefcase, Target, Heart, Zap,
-  Repeat, Lightbulb, Package
+  Repeat, Lightbulb, Package, Eye
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import './Home.css';
 import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
 import { PARTNERS } from '../../data/DATA';
@@ -49,7 +49,7 @@ const faqs = [
 
 const stats = [
   { value: '15+', label: 'Companies Served', icon: Building2 },
-  { value: '1250+', label: 'Successful Placements', icon: Users },
+  { value: '2000+', label: 'Successful Placements', icon: Users },
   { value: '98%', label: 'Client Satisfaction', icon: Award },
   { value: '9+', label: 'Industries Covered', icon: TrendingUp },
 ];
@@ -180,7 +180,7 @@ export default function Home() {
           />
         ))}
 
-        <div className="hero-content">
+        <div className="home-hero-content">
           <div className="hero-header">
             <motion.div 
               className="hero-badge-wrap"
@@ -199,9 +199,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Find Top Talent or{' '}
-              <span className="hero-title-highlight">Your Dream Job</span>{' '}
-              in Nigeria
+              Welcome to{' '}
+              <span className="hero-title-highlight">Desjob Global</span>{' '}
+              Limited
             </motion.h1>
 
             <motion.p 
@@ -211,18 +211,30 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Desjob Global Limited bridges the gap between exceptional professionals and forward-thinking organisations. Whether you're growing your team or advancing your career, we're your trusted HR partner.
+              Desjob Global Limited; otherwise known as DGL, is a detailed recruiting, outsourcing, supplying and management service firm. We are a team of experts licensed to operate and trained in every aspect of human resources with a passion in delivering exceptional services.
+            </motion.p>
+
+
+            <motion.p 
+              className="hero-subtitle"
+              style={{marginTop: 16, fontWeight: "800", fontFamily: "TWK", color: "var(--primary-color)"}}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              info@desjobglobal.com | +234 91 3402 0665
             </motion.p>
 
             <motion.div 
-              className="cta-links"
+              style={{display: "flex", marginTop: "2rem", columnGap: "1rem"}}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <ButtonPrimary text="Hire Top Talent" link="/contact" icon={<ArrowRight className="hero-btn-icon" />} />
-              <ButtonSecondary text="Find Your Dream Job" link="/jobs" />
+              <ButtonPrimary text="About Us" link="/about" icon={<ArrowRight className="hero-btn-icon" />} />
+              <ButtonSecondary text="Contact Us" link="/contact" />
             </motion.div>
           </div>
 
@@ -230,7 +242,7 @@ export default function Home() {
           <div className="hero-img-wrap">
             <div className="hero-img-bg" />
             <img
-              src={HERO_IMG}
+              src={IMAGES.officePic6}
               alt="Desjob Global Limited professional HR team at work"
               className="hero-img"
             />
@@ -306,6 +318,97 @@ export default function Home() {
                 <p className="stat-label">{label}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About section */}
+
+      {/* ── MISSION & VISION ── */}
+      <section className="purpose-section">
+        <div className="container">
+          <div className="section-header">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge text="PURPOSE & DIRECTION" />
+            </motion.div>
+            <motion.h2 
+              className="purpose-title"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              What Drives Everything We Do
+            </motion.h2>
+          </div>
+
+          <div className="purpose-grid">
+            {/* Mission */}
+            <motion.div 
+              className="mission-card"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="mission-icon-wrap">
+                <Target className="mission-icon" />
+              </div>
+              <h3 className="mission-card-title">Our Mission</h3>
+              <p className="mission-desc">
+                Our mission is to drive efficiency for clients by relieving them of possible distractions from their core businesses.
+              </p>
+              <div className="mission-list">
+                {['Relieve clients of operational distractions', 'Drive efficiency across business functions', 'Enable focus on core objectives'].map((item, i) => (
+                  <motion.div 
+                    key={item} className="mission-list-item"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.5 + (i * 0.1) }}
+                  >
+                    <CheckCircle2 className="mission-list-icon" />
+                    <span className="mission-list-text">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Vision */}
+            <motion.div 
+              className="vision-card"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="vision-icon-wrap">
+                <Eye className="vision-icon" />
+              </div>
+              <h3 className="vision-card-title">Our Vision</h3>
+              <p className="vision-desc">
+                To be the human capital partner of choice in Africa, delivering exceptional value through insight, innovation, and integrity.
+              </p>
+              <div className="vision-list">
+                {['Preferred partner across Africa', 'Driving innovation in HR tech', 'Building sustainable workforce legacies'].map((item, i) => (
+                  <motion.div 
+                    key={item} className="vision-list-item"
+                    initial={{ opacity: 0, x: 10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.5 + (i * 0.1) }}
+                  >
+                    <CheckCircle2 className="vision-list-icon" />
+                    <span className="vision-list-text">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -414,22 +517,24 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <Badge icon={CheckCircle2} text="WHY DESJOB GLOBAL" />
+              <Badge icon={CheckCircle2} text="BENEFITS TO YOU" />
               <h2 className="why-title">
-                The HR Partner That Consistently Delivers Results
+                The benefits of using our Outsourcing recruitment process services
               </h2>
               <p className="why-text">
-                In a market where talent is your greatest competitive advantage, you need an HR partner who truly understands the Nigerian business landscape. With years of deep expertise, we deliver the right people at the right time.
+                With years of deep expertise, we deliver the right people at the right time.
               </p>
 
               <ul className="why-list">
                 {[
-                  'Proven track record with 500+ companies across industries',
-                  'Deep, localised understanding of the Nigerian job market',
-                  'End-to-end recruitment from sourcing to onboarding',
-                  'Dedicated account managers for every client',
-                  'Industry-specific specialist recruiting teams',
-                  'Transparent process with regular progress updates',
+                  'We will help you translate fixed cost into variable cost.',
+                  'Access to a ready/steady man-power.',
+                  'We will help you promptly access markets currently unavailable as we are able to deploy nationwide.',
+                  'We will take away the challenges of man power planning.',
+                  'We will give you the well needed relief from endless paper work.',
+                  'We will also help you to well reduce and manage operational cost.',
+                  'We will also improve and motivate employee relations.',
+                  'We will also guarantee all our staffs in case any problem occurs.',
                 ].map((item, i) => (
                   <motion.li 
                     key={i} className="why-list-item"
@@ -463,190 +568,11 @@ export default function Home() {
             >
               <div className="why-img-bg" />
               <img
-                src={WHY_IMG}
+                src={IMAGES.officePic4}
                 alt="Desjob Global Limited team collaborating on talent strategies"
                 className="why-img"
               />
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── HOW IT WORKS ── */}
-      <section className="home-process-section">
-        <div className="container">
-          <div className="home-process-grid flex-reverse">
-            {/* Image */}
-            <motion.div 
-              className="home-process-img-wrap"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="why-img-bg" />
-              <img
-                src={HOWIT_IMG}
-                alt="Desjob Global Limited recruitment process in action"
-                className="home-process-img"
-              />
-            </motion.div>
-
-            {/* Steps */}
-            <motion.div 
-              className="home-process-content"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge icon={Zap} text="HOW WE WORK" />
-              <h2 className="home-process-section-title">
-                A Simple Process Built for Speed and Precision
-              </h2>
-              <p className="home-process-section-desc">
-                We've refined our approach over hundreds of successful engagements to make hiring and job-hunting as seamless as possible.
-              </p>
-
-              <div className="home-process-steps">
-                {[
-                  {
-                    step: '01',
-                    title: 'Share Your Requirements',
-                    desc: 'Tell us what you\'re looking for, whether it\'s a specific job role or a complete workforce solution. We listen, ask the right questions, and get to work immediately.',
-                  },
-                  {
-                    step: '02',
-                    title: 'Expert Matching & Screening',
-                    desc: 'Our specialist recruiters leverage deep market knowledge and rigorous evaluation to identify candidates who match your requirements in skills, culture, and ambition.',
-                  },
-                  {
-                    step: '03',
-                    title: 'Interview, Hire & Grow',
-                    desc: 'We manage interviews, negotiate offers, and support onboarding ensuring a smooth transition for both employers and new hires. Our support doesn\'t stop at placement.',
-                  },
-                ].map(({ step, title, desc }, i) => (
-                  <motion.div 
-                    key={step} className="home-process-step"
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.15 }}
-                  >
-                    <div className="home-process-step-num-wrap">
-                      <span className="home-process-step-num">{step}</span>
-                    </div>
-                    <div>
-                      <h3 className="home-process-step-title">{title}</h3>
-                      <p className="home-process-step-desc">{desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="home-process-footer">
-                <ButtonPrimary
-                  link="/contact"
-                  text="Start the Conversation"
-                  icon={<ArrowRight className="why-btn-icon" />}
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section className="testimonials-section">
-        <div className="container">
-          <div className="section-header">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge icon={Star} text="TESTIMONIALS" />
-            </motion.div>
-            <motion.h2 
-              className="section-title testimonials-title" 
-              style={{ maxWidth: 620 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              What Our Clients & Candidates Say
-            </motion.h2>
-            <motion.p 
-              className="section-subtitle testimonials-subtitle" 
-              style={{ maxWidth: 520 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Real stories from the companies and professionals we've partnered with to achieve extraordinary outcomes.
-            </motion.p>
-          </div>
-
-          <div className="testimonials-carousel-wrapper">
-            <button 
-              className="carousel-btn prev" 
-              onClick={prevTestimonial}
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft />
-            </button>
-            <button 
-              className="carousel-btn next" 
-              onClick={nextTestimonial}
-              aria-label="Next testimonial"
-            >
-              <ChevronRight />
-            </button>
-
-            <div className="testimonials-viewport">
-              <div 
-                className="testimonials-track"
-                style={{ transform: `translateX(calc(-${testimonialIndex} * var(--slide-width)))` }}
-              >
-                {[...testimonials, ...testimonials.slice(0, 3)].map(({ name, title, avatar, stars, text }, i) => (
-                  <div key={i} className="testimonial-slide">
-                    <div className="testimonial-card">
-                      <div className="testimonial-stars">
-                        {Array.from({ length: stars }).map((_, si) => (
-                          <Star key={si} className="testimonial-star" />
-                        ))}
-                      </div>
-                      <p className="testimonial-text">"{text}"</p>
-                      <div className="testimonial-author">
-                        <img
-                          src={avatar}
-                          alt={name}
-                          className="testimonial-avatar"
-                        />
-                        <div>
-                          <p className="testimonial-name">{name}</p>
-                          <p className="testimonial-role">{title}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="carousel-dots">
-              {testimonials.map((_, i) => (
-                <button 
-                  key={i} 
-                  className={`carousel-dot ${i === testimonialIndex ? 'active' : ''}`}
-                  onClick={() => setTestimonialIndex(i)}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </section>

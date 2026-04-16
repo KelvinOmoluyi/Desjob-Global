@@ -4,14 +4,14 @@
   /* --font-size: 62.5%; */
   /* 1rem = 10px */
   --background: #ffffff;
-  --main-color-01: #00a13e;
+  --main-color-01: #00b32d;
   --main-color-03: #5882fd;
   --main-color-04: #edf5ff;
   --text-color-01: #4b5563;
   --text-color-02: #ffffff;
   --text-color-03: #0f172a;
-  --text-color-04: #00a13e;
-  --border-01: 1px solid #00a13e;
+  --text-color-04: #00b32d;
+  --border-01: 1px solid #00b32d;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);

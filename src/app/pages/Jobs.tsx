@@ -234,7 +234,7 @@ export default function Jobs() {
           </motion.h1>
 
           <motion.p 
-            className="hero-subtitle"
+            className="jobs-hero-subtitle"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

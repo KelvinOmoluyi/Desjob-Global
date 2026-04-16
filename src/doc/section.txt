@@ -1,0 +1,180 @@
+
+
+      {/* ── HOW IT WORKS ── */}
+      <section className="home-process-section">
+        <div className="container">
+          <div className="home-process-grid flex-reverse">
+            {/* Image */}
+            <motion.div 
+              className="home-process-img-wrap"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="why-img-bg" />
+              <img
+                src={HOWIT_IMG}
+                alt="Desjob Global Limited recruitment process in action"
+                className="home-process-img"
+              />
+            </motion.div>
+
+            {/* Steps */}
+            <motion.div 
+              className="home-process-content"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge icon={Zap} text="HOW WE WORK" />
+              <h2 className="home-process-section-title">
+                A Simple Process Built for Speed and Precision
+              </h2>
+              <p className="home-process-section-desc">
+                We've refined our approach over hundreds of successful engagements to make hiring and job-hunting as seamless as possible.
+              </p>
+
+              <div className="home-process-steps">
+                {[
+                  {
+                    step: '01',
+                    title: 'Share Your Requirements',
+                    desc: 'Tell us what you\'re looking for, whether it\'s a specific job role or a complete workforce solution. We listen, ask the right questions, and get to work immediately.',
+                  },
+                  {
+                    step: '02',
+                    title: 'Expert Matching & Screening',
+                    desc: 'Our specialist recruiters leverage deep market knowledge and rigorous evaluation to identify candidates who match your requirements in skills, culture, and ambition.',
+                  },
+                  {
+                    step: '03',
+                    title: 'Interview, Hire & Grow',
+                    desc: 'We manage interviews, negotiate offers, and support onboarding ensuring a smooth transition for both employers and new hires. Our support doesn\'t stop at placement.',
+                  },
+                ].map(({ step, title, desc }, i) => (
+                  <motion.div 
+                    key={step} className="home-process-step"
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.15 }}
+                  >
+                    <div className="home-process-step-num-wrap">
+                      <span className="home-process-step-num">{step}</span>
+                    </div>
+                    <div>
+                      <h3 className="home-process-step-title">{title}</h3>
+                      <p className="home-process-step-desc">{desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="home-process-footer">
+                <ButtonPrimary
+                  link="/contact"
+                  text="Start the Conversation"
+                  icon={<ArrowRight className="why-btn-icon" />}
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="testimonials-section">
+        <div className="container">
+          <div className="section-header">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge icon={Star} text="TESTIMONIALS" />
+            </motion.div>
+            <motion.h2 
+              className="section-title testimonials-title" 
+              style={{ maxWidth: 620 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              What Our Clients & Candidates Say
+            </motion.h2>
+            <motion.p 
+              className="section-subtitle testimonials-subtitle" 
+              style={{ maxWidth: 520 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Real stories from the companies and professionals we've partnered with to achieve extraordinary outcomes.
+            </motion.p>
+          </div>
+
+          <div className="testimonials-carousel-wrapper">
+            <button 
+              className="carousel-btn prev" 
+              onClick={prevTestimonial}
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft />
+            </button>
+            <button 
+              className="carousel-btn next" 
+              onClick={nextTestimonial}
+              aria-label="Next testimonial"
+            >
+              <ChevronRight />
+            </button>
+
+            <div className="testimonials-viewport">
+              <div 
+                className="testimonials-track"
+                style={{ transform: `translateX(calc(-${testimonialIndex} * var(--slide-width)))` }}
+              >
+                {[...testimonials, ...testimonials.slice(0, 3)].map(({ name, title, avatar, stars, text }, i) => (
+                  <div key={i} className="testimonial-slide">
+                    <div className="testimonial-card">
+                      <div className="testimonial-stars">
+                        {Array.from({ length: stars }).map((_, si) => (
+                          <Star key={si} className="testimonial-star" />
+                        ))}
+                      </div>
+                      <p className="testimonial-text">"{text}"</p>
+                      <div className="testimonial-author">
+                        <img
+                          src={avatar}
+                          alt={name}
+                          className="testimonial-avatar"
+                        />
+                        <div>
+                          <p className="testimonial-name">{name}</p>
+                          <p className="testimonial-role">{title}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="carousel-dots">
+              {testimonials.map((_, i) => (
+                <button 
+                  key={i} 
+                  className={`carousel-dot ${i === testimonialIndex ? 'active' : ''}`}
+                  onClick={() => setTestimonialIndex(i)}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>

@@ -43,7 +43,7 @@
 }
 .hero-content {
   position: relative;
-  max-width: 56rem; /* 4xl */
+  max-width: 96rem; /* 4xl */
   margin: 0 auto;
   padding: 0 1rem;
   text-align: center;
@@ -497,9 +497,9 @@
   .cta-section { margin-left: 2rem; margin-right: 2rem; }
 }
 .cta-container {
-  max-width: 48rem; /* 3xl */
+  max-width: 96rem; /* 3xl */
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 3rem;
   text-align: center;
 }
 

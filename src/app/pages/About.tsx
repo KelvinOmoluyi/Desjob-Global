@@ -83,7 +83,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <Badge icon={Briefcase} text="ABOUT DESJOB GLOBAL" />
+            <Badge icon={Briefcase} text="YOUR TRUSTED PARTNER" />
           </motion.div>
           
           <motion.h1 
@@ -93,7 +93,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Your Trusted HR Partner in Nigeria
+            About <span className="hero-title-highlight">Desjob Global </span>Limited
           </motion.h1>
 
           <motion.p 
@@ -108,7 +108,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── OUR STORY ── */}
+            {/* ── OUR STORY ── */}
       <section className="story-section">
         <div className="container">
           <div className="story-grid">
@@ -127,10 +127,10 @@ export default function About() {
                   Desjob Global Limited was founded with a singular vision: to bridge the widening gap between outstanding talent and the organisations that need them most in Nigeria and across Africa.
                 </p>
                 <p>
-                  We built Desjob Global Limited differently combining human insight with modern technology, deep industry expertise with genuine personal attention. Today, we are proud to be the preferred HR partner for hundreds of organisations, from promising startups to Fortune 500 subsidiaries operating in Nigeria.
+                  We built Desjob Global Limited differently combining human insight with modern technology, deep industry expertise with genuine personal attention. Today, we are proud to be the preferred HR partner for many organisations.
                 </p>
                 <p>
-                  Our work isn't just about filling vacancies. It's about fuelling ambitions, building legacies, and shaping the future of work in Nigeria.
+                  Our aim is to create and sustain a work place culture with people management practices and initiatives that encourage, recognize and reward behaviour  focused on qulaity of performance.
                 </p>
               </div>
             </motion.div>
@@ -242,7 +242,7 @@ export default function About() {
       </section>
 
       {/* ── CORE VALUES ── */}
-      <section className="values-section">
+      {/* <section className="values-section">
         <div className="container">
           <div className="values-grid">
             <motion.div
@@ -294,7 +294,7 @@ export default function About() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── TEAM ── */}
       <section className="team-section">

@@ -25,7 +25,7 @@
 }
 
 .blog-detail-header {
-  max-width: 48rem;
+  max-width: 96rem;
   margin: -4rem auto 2rem;
   position: relative;
   z-index: 10;
@@ -97,7 +97,7 @@
 }
 
 .blog-detail-content {
-  max-width: 48rem;
+  max-width: 96rem;
   margin: 0 auto;
   padding: 0 2rem;
 }

@@ -541,8 +541,8 @@ export default function Contact() {
                     {
                       icon: Phone,
                       label: 'Phone',
-                      value: '09134020665',
-                      href: 'tel:09134020665',
+                      value: '+234 91 3402 0665',
+                      href: 'tel:+234 91 3402 0665',
                     },
                     {
                       icon: Mail,

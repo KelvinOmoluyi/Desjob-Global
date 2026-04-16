@@ -12,7 +12,7 @@
 }
 
 .blog-hero-container {
-  max-width: 48rem;
+  max-width: 96rem;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -56,12 +56,13 @@
   color: #16a34a;
 }
 
-.blog-hero-subtitle {
+.jobs-hero-subtitle {
   font-size: 1.125rem;
   color: #4b5563;
-  max-width: 36rem;
-  margin: 0 auto;
+  max-width: 60rem;
+  margin: 0rem auto 2rem;
   line-height: 1.6;
+  text-align: center;
 }
 
 .blog-grid-section {
