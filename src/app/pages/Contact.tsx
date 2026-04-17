@@ -426,7 +426,7 @@ export default function Contact() {
   return (
     <div className="contact-page">
       {/* ── HERO ── */}
-      <section className="hero-section">
+      <section className="contact-hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
           <motion.div

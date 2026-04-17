@@ -211,7 +211,7 @@ export default function Jobs() {
   return (
     <div className="jobs-page">
       {/* ── HERO ── */}
-      <section className="hero-section">
+      <section className="jobs-hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
           <motion.div

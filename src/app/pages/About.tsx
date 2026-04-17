@@ -74,7 +74,7 @@ export default function About() {
   return (
     <div className="about-page">
       {/* ── HERO ── */}
-      <section className="hero-section">
+      <section className="about-hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
           <motion.div

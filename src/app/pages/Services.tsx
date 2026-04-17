@@ -135,7 +135,7 @@ export default function Services() {
   return (
     <div className="services-page">
       {/* ── HERO ── */}
-      <section className="hero-section">
+      <section className="services-hero-section">
         <div className="hero-bg-glow" />
         <div className="hero-content">
           <motion.div

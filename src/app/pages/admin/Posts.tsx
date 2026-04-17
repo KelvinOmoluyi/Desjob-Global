@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Image as ImageIcon, Trash2, Edit2, Plus, Briefcase, MapPin, Clock, RefreshCw, X, Loader2 } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { Trash2, Edit2, Plus, Briefcase, MapPin, Clock, RefreshCw, X } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { JobPost } from '../../store/adminStore';
 import ConfirmModal from '../../components/admin/ConfirmModal';
 
-const EMPTY_FORM = { title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: '', image: '' };
+const EMPTY_FORM = { title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: '' };
 
 export default function Posts() {
+  const queryClient = useQueryClient();
   const [posts, setPosts] = useState<JobPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
   // Modal state
@@ -56,33 +57,10 @@ export default function Posts() {
       salary: post.salary,
       category: post.category,
       tags: post.tags.join(', '),
-      image: post.image || '',
     });
     setEditingId(post.id);
     setShowForm(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setIsUploading(true);
-      const publicUrl = await adminApi.uploadImage(file);
-      setFormData(prev => ({ ...prev, image: publicUrl }));
-    } catch (error: any) {
-      console.error('Upload failed:', error);
-      setModalConfig({
-        variant: 'alert',
-        type: 'error',
-        title: 'Upload Failed',
-        message: error.message || 'Failed to upload image. Please ensure the "images" bucket exists in your Supabase storage and you have permission to upload.',
-      });
-      setModalOpen(true);
-    } finally {
-      setIsUploading(false);
-    }
   };
 
   const resetForm = () => {
@@ -106,6 +84,10 @@ export default function Posts() {
       await adminApi.createPost(postData);
     }
 
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ['admin-jobs'] }),
+      queryClient.invalidateQueries({ queryKey: ['jobs'] }),
+    ]);
     await fetchPosts();
     setIsSubmitting(false);
     resetForm();
@@ -126,6 +108,10 @@ export default function Posts() {
     if (postToDelete) {
       setIsSubmitting(true);
       await adminApi.deleteJobPost(postToDelete.id);
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['admin-jobs'] }),
+        queryClient.invalidateQueries({ queryKey: ['jobs'] }),
+      ]);
       await fetchPosts();
       setIsSubmitting(false);
       setModalOpen(false);
@@ -138,7 +124,7 @@ export default function Posts() {
     setPostToDelete(null);
   };
 
-  const isBusy = isLoading || isSubmitting || isUploading;
+  const isBusy = isLoading || isSubmitting;
 
   return (
     <div className="admin-page-container">
@@ -269,42 +255,6 @@ export default function Posts() {
           <div className="admin-form-group">
             <label htmlFor="tags" className="admin-label">Tags (comma separated)</label>
             <input id="tags" type="text" name="tags" className="admin-input" value={formData.tags} onChange={handleInputChange} placeholder="e.g. React, Node.js, TypeScript" />
-          </div>
-
-          <div className="admin-form-group">
-            <label className="admin-label">Header Image</label>
-            <div className="admin-image-upload-wrap">
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleFileChange} 
-                className="admin-file-input" 
-                id="job-image-upload"
-                disabled={isUploading}
-              />
-              <label htmlFor="job-image-upload" className={`admin-image-upload-label ${isUploading ? 'uploading' : ''}`}>
-                {isUploading ? (
-                  <><Loader2 className="animate-spin" size={18} aria-hidden="true" /> Uploading...</>
-                ) : (
-                  <><ImageIcon size={18} aria-hidden="true" /> {formData.image ? 'Change Image' : 'Upload Image'}</>
-                )}
-              </label>
-              
-              {formData.image && (
-                <div className="admin-image-preview">
-                  <img src={formData.image} alt="Header Preview" />
-                  <button 
-                    type="button" 
-                    className="admin-remove-image" 
-                    onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
-                    aria-label="Remove image"
-                  >
-                    <X size={14} />
-                  </button>
-                </div>
-              )}
-            </div>
-            <p className="admin-hint">Max size: 5MB. Formats: JPG, PNG, WEBP.</p>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>

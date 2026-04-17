@@ -323,6 +323,66 @@ export default function Home() {
       </section>
 
       {/* About section */}
+      <section className="about-overview-section">
+        <div className="container">
+          <div className="about-overview-grid">
+            <motion.div
+              className="about-overview-content"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge icon={Building2} text="ABOUT DESJOB GLOBAL" />
+              <h2 className="about-overview-title">
+                About Us
+              </h2>
+              <p className="about-overview-text">
+                Desjob Global Limited works with organisations that need dependable human resource support across recruitment, staffing, background checks, training and development, payroll administration, and related outsourcing services.
+              </p>
+              <p className="about-overview-text">
+                Our approach focuses on helping clients maintain structured workplace practices, support employee performance, and keep people operations aligned with business goals.
+              </p>
+
+              <div className="about-overview-points">
+                {[
+                  'Recruitment and staffing support for different workforce needs.',
+                  'Background checks, induction, and orientation for smoother onboarding.',
+                  'Training, development, and payroll administration as part of broader HR support.',
+                  'A steady focus on client feedback and continuous improvement in service delivery.',
+                ].map((item, index) => (
+                  <motion.div
+                    key={item}
+                    className="about-overview-point"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 + (index * 0.1) }}
+                  >
+                    <CheckCircle2 className="about-overview-point-icon" />
+                    <span className="about-overview-point-text">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="about-overview-image-wrap"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="about-overview-image-bg" />
+              <img
+                src={IMAGES.officePic4}
+                alt="Desjob Global Limited office team during a meeting"
+                className="about-overview-image"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* ── MISSION & VISION ── */}
       <section className="purpose-section">
@@ -568,7 +628,7 @@ export default function Home() {
             >
               <div className="why-img-bg" />
               <img
-                src={IMAGES.officePic4}
+                src={IMAGES.officePic2}
                 alt="Desjob Global Limited team collaborating on talent strategies"
                 className="why-img"
               />

@@ -29,7 +29,7 @@
 }
 
 /* HERO */
-.hero-section {
+.services-hero-section {
   position: relative;
   overflow: hidden;
   padding: 7rem 0; /* py-28 */
@@ -48,6 +48,9 @@
   margin: 0 auto;
   padding: 0 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 @media (min-width: 640px) {
   .hero-content { padding-left: 1.5rem; padding-right: 1.5rem; }

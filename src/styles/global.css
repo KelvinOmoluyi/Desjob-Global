@@ -2,6 +2,7 @@
   color: var(--text-color-01);
   line-height: 1.75;
   max-width: 62rem;
+  align-self: center;
   /* margin: 0 auto 2.5rem; */
 }
 
