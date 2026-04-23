@@ -7,6 +7,10 @@ import officePic3 from "../app/assets/img/office-pics/office-pic-3.jpeg"
 import officePic4 from "../app/assets/img/office-pics/office-pic-4.jpeg"
 import officePic5 from "../app/assets/img/office-pics/office-pic-5.jpeg"
 import officePic6 from "../app/assets/img/office-pics/office-pic-6.jpeg"
+import companyWorkers1 from "../app/assets/img/workers/company-workers-1.jpeg"
+import companyWorkers2 from "../app/assets/img/workers/company-workers-2.jpeg"
+import companyWorkers3 from "../app/assets/img/workers/company-workers-3.jpeg"
+import companyWorkers4 from "../app/assets/img/workers/company-workers-4.jpeg"
 
 
 const IMAGES = {
@@ -19,6 +23,10 @@ const IMAGES = {
   officePic4,
   officePic5,
   officePic6,
+  companyWorkers1,
+  companyWorkers2,
+  companyWorkers3,
+  companyWorkers4,
 }
 
 export default IMAGES;

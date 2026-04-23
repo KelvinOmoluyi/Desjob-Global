@@ -22,6 +22,8 @@
 
 .blog-detail-header-container {
   padding: 0 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .blog-detail-header {
@@ -97,7 +99,7 @@
 }
 
 .blog-detail-content {
-  max-width: 96rem;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 2rem;
 }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
-import { Briefcase, Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import { Briefcase, Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import IMAGES from '../../data/images';
+import WhatsAppIcon from './icons/WhatsappIcon';
 
 export default function Footer() {
   return (
@@ -42,7 +43,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <nav aria-label="Footer Quick Links">
+          <nav aria-label="Footer Quick Links"> 
             <h4 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff', marginBottom: '1rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
               Quick Links
             </h4>
@@ -75,20 +76,20 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5">
               {[
-                'Talent Acquisition',
-                'Executive Search',
-                'HR Consulting',
-                'Workforce Management',
-                'Employee Training',
-                'Background Checks',
+                { name: 'Outsourcing Solutions', id: 'outsourcing' },
+                { name: 'Training & Development', id: 'training-development' },
+                { name: 'General Consulting', id: 'general-consulting' },
+                { name: 'Procurement & Supplies', id: 'supplies' },
+                { name: 'HR Consulting', id: 'hr-consulting' },
+                { name: 'Workforce Management', id: 'workforce-management' },
               ].map((service) => (
-                <li key={service}>
+                <li key={service.id}>
                   <Link
-                    to="/services"
+                    to={`/services#${service.id}`}
                     className="text-green-100/70 hover:text-green-400 transition-colors"
                     style={{ fontSize: '0.9rem' }}
                   >
-                    {service}
+                    {service.name}
                   </Link>
                 </li>
               ))}
@@ -109,7 +110,19 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-green-400 flex-shrink-0" />
-                <a href="tel:+2348012345678" className="text-green-100/70 hover:text-green-400 transition-colors" style={{ fontSize: '0.875rem' }}>
+                <a href="tel:+2349030993292" className="text-green-100/70 hover:text-green-400 transition-colors" style={{ fontSize: '0.875rem' }}>
+                  +234 90 3099 3292
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <WhatsAppIcon size='24px' />
+                <a 
+                  href="https://wa.me/2349134020665" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-green-100/70 hover:text-green-400 transition-colors" 
+                  style={{ fontSize: '0.875rem' }}
+                >
                   +234 913 402 0665
                 </a>
               </li>

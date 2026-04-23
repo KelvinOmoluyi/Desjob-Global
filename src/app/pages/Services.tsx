@@ -56,7 +56,7 @@ const services = [
       'Team building & culture workshops',
       'E-learning & blended learning solutions',
     ],
-    img: IMAGES.officePic3,
+    img: IMAGES.companyWorkers4,
     reverse: true,
   },
   {
@@ -88,7 +88,7 @@ const services = [
       'Inventory control solutions',
       'Logistics and delivery support',
     ],
-    img: IMAGES.officePic5,
+    img: IMAGES.companyWorkers3,
     reverse: true,
   },
   {
@@ -120,7 +120,7 @@ const services = [
       'HR compliance & regulatory filings',
       'Employee records management',
     ],
-    img: IMAGES.officePic1,
+    img: IMAGES.companyWorkers2,
     reverse: true,
   },
 ];
@@ -191,6 +191,7 @@ export default function Services() {
       {services.map((service, idx) => (
         <section
           key={service.id}
+          id={service.id}
           className={idx % 2 === 0 ? 'service-section' : 'service-section-alt'}
         >
           <div className="container">

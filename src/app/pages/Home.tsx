@@ -12,6 +12,7 @@ import ButtonPrimary from '../components/form/ButtonPrimary';
 import ButtonSecondary from '../components/form/ButtonSecondary';
 import { PARTNERS } from '../../data/DATA';
 import IMAGES from '../../data/images';
+import WhatsAppIcon from '../components/icons/WhatsappIcon';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1758519289200-384c7ef2d163?q=80&w=1080&auto=format&fit=crop';
 const WHY_IMG = 'https://images.unsplash.com/photo-1528901166007-3784c7dd3653?q=80&w=1080&auto=format&fit=crop';
@@ -48,10 +49,10 @@ const faqs = [
 ];
 
 const stats = [
-  { value: '15+', label: 'Companies Served', icon: Building2 },
-  { value: '2000+', label: 'Successful Placements', icon: Users },
+  { value: '30+', label: 'Companies Served', icon: Building2 },
+  { value: '30,000+', label: 'Successful Placements', icon: Users },
   { value: '98%', label: 'Client Satisfaction', icon: Award },
-  { value: '9+', label: 'Industries Covered', icon: TrendingUp },
+  { value: '25+', label: 'Industries Covered', icon: TrendingUp },
 ];
 
 const testimonials = [
@@ -223,7 +224,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              info@desjobglobal.com | +234 91 3402 0665
+              info@desjobglobal.com |  +234 90 3099 3292 <br/> 
+              <span style={{display: "flex", alignItems: "center", gap: "4px"}}><WhatsAppIcon /> +234 91 3402 0665 </span> 
             </motion.p>
 
             <motion.div 
@@ -252,7 +254,7 @@ export default function Home() {
                 <Users className="hero-floating-icon" />
               </div>
               <div>
-                <p className="hero-floating-title">1250+ Placements</p>
+                <p className="hero-floating-title">30,000+ Placements</p>
                 <p className="hero-floating-subtitle">Across Nigeria & Africa</p>
               </div>
             </div>
@@ -262,7 +264,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="hero-floating-title">98% Satisfaction</p>
-                <p className="hero-floating-subtitle">From 15+ companies</p>
+                <p className="hero-floating-subtitle">From 30+ companies</p>
               </div>
             </div>
           </div>
@@ -628,7 +630,7 @@ export default function Home() {
             >
               <div className="why-img-bg" />
               <img
-                src={IMAGES.officePic2}
+                src={IMAGES.companyWorkers1}
                 alt="Desjob Global Limited team collaborating on talent strategies"
                 className="why-img"
               />

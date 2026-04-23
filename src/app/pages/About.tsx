@@ -108,7 +108,7 @@ export default function About() {
         </div>
       </section>
 
-            {/* ── OUR STORY ── */}
+      {/* ── OUR STORY ── */}
       <section className="story-section">
         <div className="container">
           <div className="story-grid">
