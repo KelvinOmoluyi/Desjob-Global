@@ -5,7 +5,7 @@ import { LucideIcon } from 'lucide-react';
 import {
   ArrowRight, CheckCircle2, Users, TrendingUp, Award, Building2,
   Star, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Search, Briefcase, Target, Heart, Zap,
-  Repeat, Lightbulb, Package, Eye
+  Repeat, Lightbulb, Package, Eye, Facebook
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ButtonPrimary from '../components/form/ButtonPrimary';
@@ -13,6 +13,7 @@ import ButtonSecondary from '../components/form/ButtonSecondary';
 import { PARTNERS } from '../../data/DATA';
 import IMAGES from '../../data/images';
 import WhatsAppIcon from '../components/icons/WhatsappIcon';
+import TiktokIcon from '../components/icons/TiktokIcon';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1758519289200-384c7ef2d163?q=80&w=1080&auto=format&fit=crop';
 const WHY_IMG = 'https://images.unsplash.com/photo-1528901166007-3784c7dd3653?q=80&w=1080&auto=format&fit=crop';
@@ -225,7 +226,15 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               info@desjobglobal.com |  +234 90 3099 3292 <br/> 
-              <span style={{display: "flex", alignItems: "center", gap: "4px"}}><WhatsAppIcon /> +234 91 3402 0665 </span> 
+              <span style={{display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", marginTop: "8px"}}>
+                <span style={{display: "flex", alignItems: "center", gap: "4px"}}><WhatsAppIcon /> +234 91 3402 0665 </span> 
+                <a href="https://web.facebook.com/p/Desjob-Global-Limited-DGL-61576001079652/?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" style={{display: "flex", alignItems: "center", gap: "4px", color: "var(--main-color-01)", textDecoration: "none"}}>
+                  <Facebook size={20} /> 
+                </a>
+                <a href="https://www.tiktok.com/@desjobglobal" target="_blank" rel="noopener noreferrer" style={{display: "flex", alignItems: "center", gap: "4px", color: "var(--main-color-01)", textDecoration: "none"}}>
+                  <TiktokIcon size={20} /> 
+                </a>
+              </span> 
             </motion.p>
 
             <motion.div 

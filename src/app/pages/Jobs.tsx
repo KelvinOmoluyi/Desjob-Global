@@ -145,9 +145,6 @@ function JobCard({ job }: { job: Job }) {
         <span className="job-meta-item">
           <Clock className="job-meta-icon" /> {job.type}
         </span>
-        <span className="job-meta-highlight">
-          <TrendingUp className="job-meta-icon" /> {job.salary}
-        </span>
       </div>
 
       <div className="job-tags">
@@ -243,25 +240,14 @@ export default function Jobs() {
             Desjob Global Limited connects ambitious professionals with the most exciting roles across Nigeria's fastest-growing companies. Your dream job is closer than you think.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <JobSearchBar
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              locationFilter={locationFilter}
-              setLocationFilter={setLocationFilter}
-            />
-          </motion.div>
+
         </div>
       </section>
 
       {/* ── JOB CATEGORIES ── */}
       <section className="categories-section">
         <div className="container">
+
           <div className="section-header-flex">
             <div>
               <h2 className="section-title">Browse by Category</h2>
@@ -309,6 +295,21 @@ export default function Jobs() {
               icon={<Filter className="filter-icon" />}
             /> */}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            style={{ marginBottom: '3rem', marginTop: '1rem' }}
+          >
+            <JobSearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              locationFilter={locationFilter}
+              setLocationFilter={setLocationFilter}
+            />
+          </motion.div>
 
           {isLoading ? (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5rem 0', gap: '1rem', color: '#6b7280' }}>

@@ -22,6 +22,10 @@ import ojetolaImg from '../assets/img/employees/Ojetola-Ifeoluwa-Elizabeth.jpeg'
 import imphonopiImg from '../assets/img/employees/Imphonopi-Esther-Odufuwa.jpeg';
 import amelokoImg from '../assets/img/employees/Ameloko-Joshua.jpeg';
 import adegbiteImg from '../assets/img/employees/Adegbite-babajide.jpeg';
+import adedoniOpeyemi from '../assets/img/employees/Adedoni-Opeyemi.jpeg';
+import anieKennyChucks from '../assets/img/employees/Anie-Kenny-Chucks.jpeg';
+import idrisIbrahim from '../assets/img/employees/Idris-Ibrahim.jpeg';
+import oguTempleIzunwanne  from '../assets/img/employees/Ogu-Temple Izunwanne.jpeg';
 import IMAGES from '../../data/images';
 
 function Badge({ icon: Icon, text }: { icon?: LucideIcon; text: string }) {
@@ -52,7 +56,11 @@ const teamMembers = [
   { name: 'Ojetola Ifeoluwa Elizabeth', title: 'Assistant HR/Admin Manager', location: '', img: ojetolaImg },
   { name: 'Imphonopi Esther Odufuwa', title: 'Admin/HR Manager', location: '', img: imphonopiImg },
   { name: 'Ameloko Joshua', title: 'HR Supervisor - SARO AGRO-SCIENCE LTD', location: 'Magboro, Ogun State', img: amelokoImg },
-  { name: 'Adegbite Babajide. Z', title: 'Field Coordinator Officer.', location: 'Otta, Ogun State', img: adegbiteImg }
+  { name: 'Adegbite Babajide. Z', title: 'Field Coordinator Officer.', location: 'Otta, Ogun State', img: adegbiteImg },
+  { name: 'Adenodi Opeyemi', title: 'Logistics HR - CWAY FOOD AND BEVERAGES', location: 'Otta', img: adedoniOpeyemi },
+  { name: 'Ogu Temple Izunwanne', title: 'HR Supervisor - CWAY NUTRICHOCO NIGERIA LIMITED', location: 'Enugu', img: oguTempleIzunwanne },
+  { name: 'Idris Ibrahim Hamza', title: 'Logistics Supervisor - EUROMEGA ATLANTIC NIGERIA LIMITED', location: 'Kano Depot', img: idrisIbrahim },
+  { name: 'Anie Kenny Chucks', title: 'Lucky Fibre Nigeria Limited', location: 'Benin', img: anieKennyChucks }
 ];
 
 export default function About() {

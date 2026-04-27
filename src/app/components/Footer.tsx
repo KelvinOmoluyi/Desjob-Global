@@ -1,7 +1,8 @@
 import { Link } from 'react-router';
-import { Briefcase, Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { Briefcase, Mail, Phone, MapPin, Linkedin, Twitter, Facebook, MessageCircle } from 'lucide-react';
 import IMAGES from '../../data/images';
 import WhatsAppIcon from './icons/WhatsappIcon';
+import TiktokIcon from './icons/TiktokIcon';
 
 export default function Footer() {
   return (
@@ -26,8 +27,8 @@ export default function Footer() {
               {[
                 // { icon: Linkedin, href: '#' },
                 // { icon: Twitter, href: '#' },
-                { icon: Facebook, href: '#', label: 'Facebook' },
-                { icon: Instagram, href: 'https://www.instagram.com/desjobglobal/', label: 'Instagram' },
+                { icon: Facebook, href: 'https://web.facebook.com/p/Desjob-Global-Limited-DGL-61576001079652/?_rdc=1&_rdr#', label: 'Facebook' },
+                { icon: TiktokIcon, href: 'https://www.tiktok.com/@desjobglobal', label: 'TikTok' },
               ].map(({ icon: Icon, href, label }, i) => (
                 <a
                   key={i}
@@ -35,6 +36,8 @@ export default function Footer() {
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:bg-green-600"
                   style={{ background: 'rgba(255,255,255,0.08)' }}
                   aria-label={`Visit our ${label} page`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Icon className="w-4 h-4 text-green-200" />
                 </a>

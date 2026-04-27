@@ -4,12 +4,32 @@ import { adminApi } from '../../api/adminApi';
 import { JobSeekerMessage, EmployerMessage } from '../../store/adminStore';
 import ConfirmModal from '../../components/admin/ConfirmModal';
 
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
 export default function Messages() {
+  const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<'jobseeker' | 'employer'>('jobseeker');
-  const [jobSeekers, setJobSeekers] = useState<JobSeekerMessage[]>([]);
-  const [employers, setEmployers] = useState<EmployerMessage[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
+  
+  const { data: jobSeekers = [], isLoading: isLoadingJS } = useQuery({
+    queryKey: ['admin-messages', 'jobseeker'],
+    queryFn: adminApi.getJobSeekerMessages,
+  });
+
+  const { data: employers = [], isLoading: isLoadingEmp } = useQuery({
+    queryKey: ['admin-messages', 'employer'],
+    queryFn: adminApi.getEmployerMessages,
+  });
+
+  const isLoading = isLoadingJS || isLoadingEmp;
+  
+  const deleteMutation = useMutation({
+    mutationFn: adminApi.deleteMessage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-messages'] });
+    },
+  });
+
+  const isDeleting = deleteMutation.isPending;
 
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,20 +45,9 @@ export default function Messages() {
   });
   const [messageToDelete, setMessageToDelete] = useState<string | null>(null);
 
-  const fetchMessages = async () => {
-    setIsLoading(true);
-    const [jsMessages, empMessages] = await Promise.all([
-      adminApi.getJobSeekerMessages(),
-      adminApi.getEmployerMessages()
-    ]);
-    setJobSeekers(jsMessages);
-    setEmployers(empMessages);
-    setIsLoading(false);
+  const fetchMessages = () => {
+    queryClient.invalidateQueries({ queryKey: ['admin-messages'] });
   };
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
 
   const formatDate = (isoStr: string) => {
     return new Date(isoStr).toLocaleDateString('en-GB', {
@@ -59,14 +68,11 @@ export default function Messages() {
   };
 
   const confirmDelete = async (id: string) => {
-    setIsDeleting(true);
     try {
-      await adminApi.deleteMessage(id);
-      await fetchMessages();
+      await deleteMutation.mutateAsync(id);
     } catch (error) {
       console.error('Delete failed:', error);
     } finally {
-      setIsDeleting(false);
       setModalOpen(false);
       setMessageToDelete(null);
     }
@@ -125,7 +131,7 @@ export default function Messages() {
                       <div className="admin-list-header">
                         <div>
                           <h3 className="admin-item-title">{msg.name}</h3>
-                          <p className="admin-item-subtitle">{msg.field} • {msg.experience}</p>
+                          <p className="admin-item-subtitle">{msg.field}</p>
                         </div>
                         <span className="admin-item-date">{formatDate(msg.date)}</span>
                       </div>

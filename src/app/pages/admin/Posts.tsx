@@ -1,19 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Trash2, Edit2, Plus, Briefcase, MapPin, Clock, RefreshCw, X } from 'lucide-react';
 import { adminApi } from '../../api/adminApi';
 import { JobPost } from '../../store/adminStore';
 import ConfirmModal from '../../components/admin/ConfirmModal';
 
-const EMPTY_FORM = { title: '', company: '', location: '', type: 'Full-time', salary: '', category: 'Technology', tags: '' };
+const EMPTY_FORM = { title: '', company: '', location: '', type: 'Full-time', category: 'Technology', tags: '' };
 
 export default function Posts() {
   const queryClient = useQueryClient();
-  const [posts, setPosts] = useState<JobPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ['admin-jobs'],
+    queryFn: adminApi.getPosts,
+  });
+
+  const mutationCreate = useMutation({
+    mutationFn: adminApi.createPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-jobs'] });
+      queryClient.invalidateQueries({ queryKey: ['jobs'] });
+    }
+  });
+
+  const mutationUpdate = useMutation({
+    mutationFn: ({ id, data }: { id: string, data: Partial<JobPost> }) => adminApi.updateJobPost(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-jobs'] });
+      queryClient.invalidateQueries({ queryKey: ['jobs'] });
+    }
+  });
+
+  const mutationDelete = useMutation({
+    mutationFn: adminApi.deleteJobPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-jobs'] });
+      queryClient.invalidateQueries({ queryKey: ['jobs'] });
+    }
+  });
+
+  const isSubmitting = mutationCreate.isPending || mutationUpdate.isPending || mutationDelete.isPending;
 
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,16 +60,9 @@ export default function Posts() {
   // Form state
   const [formData, setFormData] = useState(EMPTY_FORM);
 
-  const fetchPosts = async () => {
-    setIsLoading(true);
-    const fetchedPosts = await adminApi.getPosts();
-    setPosts(fetchedPosts);
-    setIsLoading(false);
+  const fetchPosts = () => {
+    queryClient.invalidateQueries({ queryKey: ['admin-jobs'] });
   };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
@@ -54,7 +75,6 @@ export default function Posts() {
       company: post.company,
       location: post.location,
       type: post.type,
-      salary: post.salary,
       category: post.category,
       tags: post.tags.join(', '),
     });
@@ -71,7 +91,6 @@ export default function Posts() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
     const postData = {
       ...formData,
@@ -79,17 +98,11 @@ export default function Posts() {
     };
 
     if (editingId) {
-      await adminApi.updateJobPost(editingId, postData);
+      await mutationUpdate.mutateAsync({ id: editingId, data: postData });
     } else {
-      await adminApi.createPost(postData);
+      await mutationCreate.mutateAsync(postData);
     }
 
-    await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ['admin-jobs'] }),
-      queryClient.invalidateQueries({ queryKey: ['jobs'] }),
-    ]);
-    await fetchPosts();
-    setIsSubmitting(false);
     resetForm();
   };
 
@@ -106,14 +119,7 @@ export default function Posts() {
 
   const confirmDelete = async () => {
     if (postToDelete) {
-      setIsSubmitting(true);
-      await adminApi.deleteJobPost(postToDelete.id);
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['admin-jobs'] }),
-        queryClient.invalidateQueries({ queryKey: ['jobs'] }),
-      ]);
-      await fetchPosts();
-      setIsSubmitting(false);
+      await mutationDelete.mutateAsync(postToDelete.id);
       setModalOpen(false);
       setPostToDelete(null);
     }
@@ -216,33 +222,6 @@ export default function Posts() {
 
           <div className="admin-form-row">
             <div className="admin-form-group">
-              <label htmlFor="salary" className="admin-label">Salary Range</label>
-              <input
-                id="salary"
-                type="text"
-                name="salary"
-                className="admin-input"
-                required
-                aria-required="true"
-                value={formData.salary}
-                onChange={handleInputChange}
-                onBlur={(e) => {
-                  const raw = e.target.value.trim();
-                  if (!raw) return;
-                  const formatted = raw
-                    .split(/\s*[-\u2013]\s*/)
-                    .map(part => {
-                      const clean = part.trim().replace(/^\u20a6/, '');
-                      return clean ? `\u20a6${clean}` : '';
-                    })
-                    .filter(Boolean)
-                    .join(' \u2013 ') + '/month';
-                  setFormData(prev => ({ ...prev, salary: formatted }));
-                }}
-                placeholder="e.g. 500,000 - 800,000"
-              />
-            </div>
-            <div className="admin-form-group">
               <label htmlFor="category" className="admin-label">Category</label>
               <select id="category" name="category" className="admin-input" value={formData.category} onChange={handleInputChange}>
                 {['Technology', 'Finance & Banking', 'Marketing', 'HR & People', 'Sales', 'Operations', 'Healthcare', 'Oil & Gas'].map(cat => (
@@ -288,7 +267,6 @@ export default function Posts() {
                       <span className="admin-meta-tag" aria-label="Location"><MapPin size={14} aria-hidden="true" /> {post.location}</span>
                       <span className="admin-meta-tag" aria-label="Job type"><Clock size={14} aria-hidden="true" /> {post.type}</span>
                       <span className="admin-meta-tag" aria-label="Category"><Briefcase size={14} aria-hidden="true" /> {post.category}</span>
-                      <span className="admin-meta-tag salary-tag" aria-label="Salary">{post.salary}</span>
                     </div>
                     <div className="admin-list-card-actions">
                       <button 

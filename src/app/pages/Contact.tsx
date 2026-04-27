@@ -106,7 +106,7 @@ function SelectField({ label, name, value, onChange, options, required }: {
 }
 
 function JobSeekerForm() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', field: '', experience: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', field: '', message: '' });
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -189,22 +189,14 @@ function JobSeekerForm() {
       <div className="form-row">
         <InputField label="Phone Number" type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+234 801 234 5678" required />
         <SelectField
-          label="Years of Experience"
-          name="experience"
-          value={form.experience}
+          label="Preferred Job Field / Industry"
+          name="field"
+          value={form.field}
           onChange={handleChange}
-          options={['0–2 years (Entry Level)', '3–5 years (Mid-Level)', '6–10 years (Senior)', '10+ years (Expert/Executive)']}
+          options={['Technology & IT', 'Finance & Banking', 'Marketing & Communications', 'HR & People Management', 'Sales & Business Development', 'Operations & Logistics', 'Healthcare & Pharma', 'Oil & Gas & Energy', 'Real Estate & Construction', 'Other']}
           required
         />
       </div>
-      <SelectField
-        label="Preferred Job Field / Industry"
-        name="field"
-        value={form.field}
-        onChange={handleChange}
-        options={['Technology & IT', 'Finance & Banking', 'Marketing & Communications', 'HR & People Management', 'Sales & Business Development', 'Operations & Logistics', 'Healthcare & Pharma', 'Oil & Gas & Energy', 'Real Estate & Construction', 'Other']}
-        required
-      />
 
       {/* CV Upload */}
       <div className="input-group">

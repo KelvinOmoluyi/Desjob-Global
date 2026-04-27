@@ -23,7 +23,6 @@ export const publicApi = {
       company: row.company,
       location: row.location,
       type: row.type,
-      salary: row.salary,
       category: row.category,
       tags: row.tags ?? [],
       image: row.image || '',
@@ -87,7 +86,6 @@ export const publicApi = {
     email: string;
     phone: string;
     field: string;
-    experience: string;
     message: string;
   }, cvFile: File): Promise<{ success: boolean; error?: string }> => {
     try {
@@ -114,7 +112,6 @@ export const publicApi = {
         email: formData.email,
         phone: formData.phone,
         field: formData.field,
-        experience: formData.experience,
         message: formData.message,
         resume_url: urlData.publicUrl,
       });

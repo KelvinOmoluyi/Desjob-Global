@@ -6,7 +6,6 @@ export type JobSeekerMessage = {
   email: string;
   phone: string;
   field: string;
-  experience: string;
   message: string;
   resumeUrl?: string; // URL for CV stored in Supabase
   date: string;
@@ -32,7 +31,6 @@ export type JobPost = {
   company: string;
   location: string;
   type: string;
-  salary: string;
   category: string;
   tags: string[];
   image: string;
@@ -58,7 +56,6 @@ const initialJobSeekerMessages: JobSeekerMessage[] = [
     email: 'adaeze@example.com',
     phone: '+234 801 234 5678',
     field: 'Technology & IT',
-    experience: '3–5 years (Mid-Level)',
     message: 'Looking for a Senior Frontend Developer role in Lagos.',
     cvUrl: '#',
     date: new Date(Date.now() - 86400000).toISOString(),
